@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "declared consequence",
+  "observed": "route changed to '/scholarships/chevening' does not contain '/applications/'",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "",
+        "source": {
+          "file": "src/components/matches-panel.tsx",
+          "line": 239,
+          "column": 20
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1795169098929-click-b4b211e3",
+  "createdAt": 1795169098929,
+  "seen": 1,
+  "lastSeenAt": 1795169098929
+}

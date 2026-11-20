@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "declared consequence",
+  "observed": "current route (no route change in the window) '/dashboard' does not contain '/applications'",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "",
+        "source": {
+          "file": "src/components/app-shell.tsx",
+          "line": 54,
+          "column": 4
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1795169564083-click-4c0757f5",
+  "createdAt": 1795169564083,
+  "seen": 1,
+  "lastSeenAt": 1795169564083
+}

@@ -1,0 +1,18 @@
+{
+  "intents": {
+    "flow:safar-core-journey": {
+      "declaredAt": 1795169644035,
+      "id": "flow:safar-core-journey",
+      "state": "declared",
+      "statement": "A signed-in student moves from the dashboard through the tracked applications, opens a procedure guide and reaches settings, so the four main sections of the app stay reachable from the sidebar navigation.",
+      "status": "proposed",
+      "subject": "safar-core-journey",
+      "surface": {
+        "flow": "safar-core-journey"
+      },
+      "updatedAt": 1795169644054
+    }
+  },
+  "subject": "safar-core-journey",
+  "version": 1
+}

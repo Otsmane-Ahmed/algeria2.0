@@ -1,0 +1,75 @@
+{
+  "code": "copie-conforme",
+  "title": {
+    "en": "Certified true copy (copie conforme)",
+    "fr": "Copie conforme",
+    "ar": "نسخة مطابقة للأصل"
+  },
+  "summary": {
+    "en": "A stamped copy certifying that a copy matches the original document."
+  },
+  "steps": [
+    {
+      "order": 1,
+      "title": {
+        "en": "Obtain the original"
+      },
+      "body": {
+        "en": "Get the original document you need to certify (diploma, transcript, birth certificate...)."
+      },
+      "where": {
+        "en": "Issuing authority"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": {
+        "en": "Go to the competent authority"
+      },
+      "body": {
+        "en": "Present the original plus photocopies and your ID at the authority competent for this document (commune/APC or the issuing institution, depending on the document)."
+      },
+      "where": {
+        "en": "Commune / APC or institution"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": {
+        "en": "Receive the stamped copy"
+      },
+      "body": {
+        "en": "Collect the copy stamped and signed as matching the original."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    }
+  ],
+  "typical_total_days": null,
+  "official_links": [],
+  "needs_verification": true,
+  "verified_at": null
+}

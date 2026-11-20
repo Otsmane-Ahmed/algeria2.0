@@ -1,0 +1,73 @@
+{
+  "code": "traduction-assermentee",
+  "title": {
+    "en": "Sworn translation (traduction assermentée)",
+    "fr": "Traduction assermentée",
+    "ar": "ترجمة محلفة"
+  },
+  "summary": {
+    "en": "Translation by an officially accredited translator, stamped and signed."
+  },
+  "steps": [
+    {
+      "order": 1,
+      "title": {
+        "en": "Find an accredited sworn translator"
+      },
+      "body": {
+        "en": "Find a traducteur-interprète officiel accredited for the destination language; check that the destination accepts their stamp."
+      },
+      "where": {
+        "en": "Accredited translators / courts"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": {
+        "en": "Submit certified copies"
+      },
+      "body": {
+        "en": "Provide the certified copies to translate, plus any recipient-specific formatting requirements."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": {
+        "en": "Receive and check the stamped translation"
+      },
+      "body": {
+        "en": "Collect the stamped, signed translation and verify the stamp will be accepted by the destination."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    }
+  ],
+  "typical_total_days": null,
+  "official_links": [],
+  "needs_verification": true,
+  "verified_at": null
+}

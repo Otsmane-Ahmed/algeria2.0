@@ -1,0 +1,138 @@
+{
+  "slug": "erasmus-plus-credit-mobility",
+  "name": {
+    "en": "Erasmus+ International Credit Mobility",
+    "fr": "Erasmus+ mobilité internationale de crédit",
+    "ar": "إراسموس بلس للتنقل الدولي"
+  },
+  "provider": {
+    "name": "European Commission",
+    "country": "EU",
+    "type": "government"
+  },
+  "host_countries": [
+    "EU"
+  ],
+  "levels": [
+    "exchange"
+  ],
+  "fields": [],
+  "description": {
+    "en": "Short exchange mobility between partner universities, arranged with your home institution. Requirements and deadlines in this dataset are unverified: check the official page.",
+    "fr": "Mobilité d'échange courte entre universités partenaires, organisée avec votre établissement d'origine. Exigences et dates non vérifiées dans ce jeu de données : vérifier la page officiel.",
+    "ar": "تنقل تبادلي قصير بين جامعات شريكة، يُرتّب مع مؤسستك الأصلية. المتطلبات والآجال غير موثقة في هذا البيانات: راجع الموقع الرسمي."
+  },
+  "funding": {
+    "tuition": null,
+    "stipend_monthly": null,
+    "travel": null,
+    "insurance": null,
+    "notes": "Verify current coverage on the official page"
+  },
+  "duration_months": null,
+  "official_page_url": "https://erasmus-plus.ec.europa.eu/",
+  "application_url": null,
+  "application_channel": "university",
+  "language_requirements": [
+    {
+      "lang": "en",
+      "tests": [],
+      "cefr_min": null,
+      "notes": "Verify required tests and minimums on the official page."
+    }
+  ],
+  "eligibility_rules": {
+    "all": [
+      {
+        "fact": "nationality",
+        "op": "in",
+        "value": [
+          "DZ"
+        ],
+        "severity": "hard",
+        "label": {
+          "en": "Algerian nationality",
+          "fr": "Nationalité algérienne",
+          "ar": "الجنسية الجزائرية"
+        }
+      },
+      {
+        "fact": "current_level",
+        "op": "in",
+        "value": [
+          "licence",
+          "master"
+        ],
+        "severity": "hard",
+        "label": {
+          "en": "Entry level (licence or master)",
+          "fr": "Niveau d'entrée (licence or master)",
+          "ar": "مستوى الالتحاق (licence or master)"
+        }
+      }
+    ]
+  },
+  "rules_human": "Algerian nationals holding one of: licence or master. Field restrictions, deadlines and language minimums are unverified: check the official page.",
+  "competitiveness": 3,
+  "cycle": {
+    "cycle_id": "2027",
+    "opens": null,
+    "deadline": null,
+    "deadline_time": null,
+    "deadline_tz": "Europe/Brussels",
+    "results_expected": null,
+    "intake": null,
+    "rolling": false,
+    "status": "unknown",
+    "source_url": "https://erasmus-plus.ec.europa.eu/",
+    "verified_at": null
+  },
+  "required_documents": [
+    {
+      "code": "passport",
+      "label": {
+        "en": "Passport",
+        "fr": "Passeport",
+        "ar": "جواز السفر"
+      },
+      "mandatory": true
+    },
+    {
+      "code": "transcript",
+      "label": {
+        "en": "Academic transcripts",
+        "fr": "Relevés de notes académiques",
+        "ar": "كشوف النقاط الدراسية"
+      },
+      "mandatory": true,
+      "procedure_codes": [
+        "copie-conforme",
+        "traduction-assermentee"
+      ]
+    },
+    {
+      "code": "cv",
+      "label": {
+        "en": "CV",
+        "fr": "CV",
+        "ar": "السيرة الذاتية"
+      },
+      "mandatory": true
+    }
+  ],
+  "essay_requirements": {
+    "motivation_letter": {
+      "max_words": null,
+      "prompts": []
+    },
+    "cv": {
+      "format": "standard",
+      "max_pages": null
+    }
+  },
+  "selection_process": null,
+  "tips": [],
+  "status": "published",
+  "needs_verification": true,
+  "verified_at": null
+}

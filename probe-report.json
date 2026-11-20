@@ -1,0 +1,67 @@
+{
+  "checked_at": "2026-11-20T11:23:58.527Z",
+  "models": {
+    "ids": [
+      "Qwen/Qwen3.8-27B"
+    ],
+    "expected_present": [
+      {
+        "m": "google/gemma-4-31B",
+        "present": false
+      }
+    ]
+  },
+  "plain_chat": {
+    "ok": true,
+    "sample": "pong"
+  },
+  "stream": {
+    "ok": true,
+    "chunks": 12,
+    "received": 31
+  },
+  "json_object": {
+    "ok": true
+  },
+  "json_schema": {
+    "ok": true
+  },
+  "json_prompt_only": {
+    "ok": true
+  },
+  "tools": {
+    "auto": true,
+    "required": true,
+    "follow_up_tool": true
+  },
+  "vision": {
+    "ok": false,
+    "error": "400 litellm.BadRequestError: Hosted_vllmException - {\"error\":{\"message\":\"At most 0 image(s) may be provided in one prompt. (parameter=image)\",\"type\":\"BadRequestError\",\"param\":\"image\",\"code\":400}}. Received Model Group=Qwen/Qwen3.8-27B\nAvailable Model Group Fallbacks=None",
+    "latency_ms": 273
+  },
+  "multilingual": {
+    "ok": true,
+    "sample": "Safi, je peux le faire",
+    "utf8_ok": true
+  },
+  "max_tokens": {
+    "ok": true,
+    "chars": 2503,
+    "finish": "stop"
+  },
+  "concurrency": {
+    "ok": 4,
+    "concurrency_ok": 4,
+    "rate_limit_429": false,
+    "latency_ms": 577
+  },
+  "embeddings": {
+    "ok": false,
+    "error": "403 key not allowed to access model. This key can only access models=['Qwen/Qwen3.8-27B']. Tried to access text-embedding-3-small",
+    "latency_ms": 324
+  },
+  "failures": [
+    "vision",
+    "embeddings"
+  ]
+}

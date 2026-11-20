@@ -1,0 +1,73 @@
+{
+  "code": "diploma-attestation-university",
+  "title": {
+    "en": "University attestation (relevé / attestation certified)",
+    "fr": "Attestation universitaire (relevé / attestation certifiée)",
+    "ar": "شهادة جامعية (كشف / شهادة مصدقة)"
+  },
+  "summary": {
+    "en": "Obtain certified academic documents from your university."
+  },
+  "steps": [
+    {
+      "order": 1,
+      "title": {
+        "en": "Request at student affairs"
+      },
+      "body": {
+        "en": "Request the attestation or certified transcript at the student affairs office of your institution (requirements unverified: check)."
+      },
+      "where": {
+        "en": "Student affairs office"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": {
+        "en": "Pay any fees"
+      },
+      "body": {
+        "en": "Pay any fee (unverified)."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": {
+        "en": "Collect the document"
+      },
+      "body": {
+        "en": "Collect after the stated turnaround (duration unverified: check)."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    }
+  ],
+  "typical_total_days": null,
+  "official_links": [],
+  "needs_verification": true,
+  "verified_at": null
+}

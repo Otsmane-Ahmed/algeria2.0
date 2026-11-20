@@ -1,0 +1,175 @@
+[
+  {
+    "code": "DZ",
+    "names": {
+      "en": "Algeria",
+      "fr": "Algérie",
+      "ar": "الجزائر"
+    },
+    "tz": "Africa/Algiers",
+    "notes": "Home country; weekend Fri-Sat."
+  },
+  {
+    "code": "FR",
+    "names": {
+      "en": "France",
+      "fr": "France",
+      "ar": "فرنسا"
+    },
+    "tz": "Europe/Paris"
+  },
+  {
+    "code": "DE",
+    "names": {
+      "en": "Germany",
+      "fr": "Allemagne",
+      "ar": "ألمانيا"
+    },
+    "tz": "Europe/Berlin"
+  },
+  {
+    "code": "GB",
+    "names": {
+      "en": "United Kingdom",
+      "fr": "Royaume-Uni",
+      "ar": "المملكة المتحدة"
+    },
+    "tz": "Europe/London"
+  },
+  {
+    "code": "TR",
+    "names": {
+      "en": "Türkiye",
+      "fr": "Turquie",
+      "ar": "تركيا"
+    },
+    "tz": "Europe/Istanbul"
+  },
+  {
+    "code": "EU",
+    "names": {
+      "en": "European Union (programmes)",
+      "fr": "Union européenne (programmes)",
+      "ar": "الاتحاد الأوروبي (برامج)"
+    },
+    "tz": "Europe/Brussels",
+    "notes": "Not an ISO country code: used for EU-wide programmes."
+  },
+  {
+    "code": "HU",
+    "names": {
+      "en": "Hungary",
+      "fr": "Hongrie",
+      "ar": "المجر"
+    },
+    "tz": "Europe/Budapest"
+  },
+  {
+    "code": "CN",
+    "names": {
+      "en": "China",
+      "fr": "Chine",
+      "ar": "الصين"
+    },
+    "tz": "Asia/Shanghai"
+  },
+  {
+    "code": "JP",
+    "names": {
+      "en": "Japan",
+      "fr": "Japon",
+      "ar": "اليابان"
+    },
+    "tz": "Asia/Tokyo"
+  },
+  {
+    "code": "KR",
+    "names": {
+      "en": "South Korea",
+      "fr": "Corée du Sud",
+      "ar": "كوريا الجنوبية"
+    },
+    "tz": "Asia/Seoul"
+  },
+  {
+    "code": "US",
+    "names": {
+      "en": "United States",
+      "fr": "États-Unis",
+      "ar": "الولايات المتحدة"
+    },
+    "tz": "America/New_York"
+  },
+  {
+    "code": "CH",
+    "names": {
+      "en": "Switzerland",
+      "fr": "Suisse",
+      "ar": "سويسرا"
+    },
+    "tz": "Europe/Zurich"
+  },
+  {
+    "code": "IT",
+    "names": {
+      "en": "Italy",
+      "fr": "Italie",
+      "ar": "إيطاليا"
+    },
+    "tz": "Europe/Rome"
+  },
+  {
+    "code": "BE",
+    "names": {
+      "en": "Belgium",
+      "fr": "Belgique",
+      "ar": "بلجيكا"
+    },
+    "tz": "Europe/Brussels"
+  },
+  {
+    "code": "RU",
+    "names": {
+      "en": "Russia",
+      "fr": "Russie",
+      "ar": "روسيا"
+    },
+    "tz": "Europe/Moscow"
+  },
+  {
+    "code": "SA",
+    "names": {
+      "en": "Saudi Arabia",
+      "fr": "Arabie saoudite",
+      "ar": "المملكة العربية السعودية"
+    },
+    "tz": "Asia/Riyadh"
+  },
+  {
+    "code": "AE",
+    "names": {
+      "en": "United Arab Emirates",
+      "fr": "Émirats arabes unis",
+      "ar": "الإمارات العربية المتحدة"
+    },
+    "tz": "Asia/Dubai"
+  },
+  {
+    "code": "QA",
+    "names": {
+      "en": "Qatar",
+      "fr": "Qatar",
+      "ar": "قطر"
+    },
+    "tz": "Asia/Qatar"
+  },
+  {
+    "code": "CA",
+    "names": {
+      "en": "Canada",
+      "fr": "Canada",
+      "ar": "كندا"
+    },
+    "tz": "America/Toronto"
+  }
+]

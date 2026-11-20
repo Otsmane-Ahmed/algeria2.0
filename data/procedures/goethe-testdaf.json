@@ -1,0 +1,73 @@
+{
+  "code": "goethe-testdaf",
+  "title": {
+    "en": "German test registration (Goethe / TestDaF)",
+    "fr": "Inscription au test d'allemand (Goethe / TestDaF)",
+    "ar": "التسجيل في اختبار الألمانية (غوته / TestDaF)"
+  },
+  "summary": {
+    "en": "Register for a German language test in Algeria."
+  },
+  "steps": [
+    {
+      "order": 1,
+      "title": {
+        "en": "Check availability in Algeria"
+      },
+      "body": {
+        "en": "Confirm the centre in Algeria runs your test on your target date (availability unverified: check)."
+      },
+      "where": {
+        "en": "Goethe-Institut / TestDaF centre"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": {
+        "en": "Register and pay"
+      },
+      "body": {
+        "en": "Complete registration and pay the fee (amount unverified)."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": {
+        "en": "Sit the test and collect results"
+      },
+      "body": {
+        "en": "Bring your ID; check which level your destination requires."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    }
+  ],
+  "typical_total_days": null,
+  "official_links": [],
+  "needs_verification": true,
+  "verified_at": null
+}

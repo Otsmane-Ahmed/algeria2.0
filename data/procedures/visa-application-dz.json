@@ -1,0 +1,93 @@
+{
+  "code": "visa-application-dz",
+  "title": {
+    "en": "Student visa application",
+    "fr": "Demande de visa étudiant",
+    "ar": "طلب تأشيرة الطالب"
+  },
+  "summary": {
+    "en": "Apply for a student visa after admission."
+  },
+  "steps": [
+    {
+      "order": 1,
+      "title": {
+        "en": "Check the destination's requirements"
+      },
+      "body": {
+        "en": "Open the appointment system of the destination country's embassy/consulate and list the required documents (varies per country: verify)."
+      },
+      "where": {
+        "en": "Embassy / consulate"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": {
+        "en": "Prepare the file"
+      },
+      "body": {
+        "en": "Assemble admission proof, funding proof, accommodation, insurance and passport (requirements unverified: check)."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": {
+        "en": "Book and attend the appointment"
+      },
+      "body": {
+        "en": "Book an appointment, pay the fee (unverified), attend in person with originals."
+      },
+      "where": {
+        "en": "Embassy / consulate"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": {
+        "en": "Collect the decision"
+      },
+      "body": {
+        "en": "Track the application and collect the passport with visa."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    }
+  ],
+  "typical_total_days": null,
+  "official_links": [],
+  "needs_verification": true,
+  "verified_at": null
+}

@@ -1,0 +1,864 @@
+[
+  {
+    "code": "csai",
+    "parent_code": null,
+    "label": {
+      "en": "Computer science and AI",
+      "fr": "Informatique et intelligence artificielle",
+      "ar": "علوم الحاسوب والذكاء الاصطناعي"
+    },
+    "synonyms": {
+      "en": [
+        "computer science",
+        "IA"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "cs",
+    "parent_code": "csai",
+    "label": {
+      "en": "Computer science",
+      "fr": "Informatique",
+      "ar": "علوم الحاسوب"
+    },
+    "synonyms": {
+      "fr": [
+        "informatique",
+        "génie logiciel",
+        "science informatique"
+      ],
+      "ar": [
+        "إعلام آلي",
+        "إعلام آلي"
+      ],
+      "en": [
+        "computer science",
+        "software"
+      ]
+    }
+  },
+  {
+    "code": "ai",
+    "parent_code": "csai",
+    "label": {
+      "en": "Artificial intelligence and data",
+      "fr": "Intelligence artificielle et données",
+      "ar": "الذكاء الاصطناعي والبيانات"
+    },
+    "synonyms": {
+      "fr": [
+        "intelligence artificielle",
+        "science des données",
+        "big data"
+      ],
+      "ar": [
+        "ذكاء اصطناعي",
+        "علم البيانات"
+      ],
+      "en": [
+        "artificial intelligence",
+        "data science",
+        "machine learning"
+      ]
+    }
+  },
+  {
+    "code": "net",
+    "parent_code": "csai",
+    "label": {
+      "en": "Networks and systems",
+      "fr": "Réseaux et systèmes",
+      "ar": "الشبكات والأنظمة"
+    },
+    "synonyms": {
+      "fr": [
+        "réseaux",
+        "systèmes informatiques",
+        "cybersécurité"
+      ],
+      "ar": [
+        "شبكات",
+        "أمن المعلومات"
+      ],
+      "en": [
+        "networks",
+        "systems",
+        "cybersecurity"
+      ]
+    }
+  },
+  {
+    "code": "ee",
+    "parent_code": "eeep",
+    "label": {
+      "en": "Electrical and electronics",
+      "fr": "Électrique et électronique",
+      "ar": "الهندسة الكهربائية والإلكترونية"
+    },
+    "synonyms": {
+      "fr": [
+        "électrique",
+        "électronique",
+        "automatique"
+      ],
+      "ar": [
+        "كهرباء",
+        "إلكترونيك"
+      ],
+      "en": [
+        "electrical",
+        "electronics",
+        "automation"
+      ]
+    }
+  },
+  {
+    "code": "eeep",
+    "parent_code": null,
+    "label": {
+      "en": "Electrical and electronics engineering",
+      "fr": "Génie électrique et électronique",
+      "ar": "الهندسة الكهربائية والإلكترونية"
+    },
+    "synonyms": {
+      "en": [
+        "electrical engineering"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "mei",
+    "parent_code": null,
+    "label": {
+      "en": "Mechanical and industrial",
+      "fr": "Mécanique et industrielle",
+      "ar": "الهندسة الميكانيكية والصناعية"
+    },
+    "synonyms": {
+      "en": [
+        "mechanical engineering"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "mech",
+    "parent_code": "mei",
+    "label": {
+      "en": "Mechanical engineering",
+      "fr": "Génie mécanique",
+      "ar": "الهندسة الميكانيكية"
+    },
+    "synonyms": {
+      "fr": [
+        "mécanique",
+        "génie mécanique"
+      ],
+      "ar": [
+        "ميكانيك"
+      ],
+      "en": [
+        "mechanical"
+      ]
+    }
+  },
+  {
+    "code": "indus",
+    "parent_code": "mei",
+    "label": {
+      "en": "Industrial engineering",
+      "fr": "Génie industriel",
+      "ar": "الهندسة الصناعية"
+    },
+    "synonyms": {
+      "fr": [
+        "industriel",
+        "gestion de production"
+      ],
+      "ar": [
+        "هندسة صناعية"
+      ],
+      "en": [
+        "industrial",
+        "production"
+      ]
+    }
+  },
+  {
+    "code": "civil",
+    "parent_code": "arch",
+    "label": {
+      "en": "Civil engineering",
+      "fr": "Génie civil",
+      "ar": "الهندسة المدنية"
+    },
+    "synonyms": {
+      "fr": [
+        "génie civil",
+        "travaux publics"
+      ],
+      "ar": [
+        "هندسة مدنية"
+      ],
+      "en": [
+        "civil engineering",
+        "public works"
+      ]
+    }
+  },
+  {
+    "code": "arch",
+    "parent_code": null,
+    "label": {
+      "en": "Civil and architecture",
+      "fr": "Génie civil et architecture",
+      "ar": "الهندسة المدنية والعمارة"
+    },
+    "synonyms": {
+      "en": [
+        "civil",
+        "architecture"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "architecture",
+    "parent_code": "arch",
+    "label": {
+      "en": "Architecture",
+      "fr": "Architecture",
+      "ar": "العمارة"
+    },
+    "synonyms": {
+      "fr": [
+        "architecture",
+        "urbanisme"
+      ],
+      "ar": [
+        "عمارة",
+        "تخطيط عمراني"
+      ],
+      "en": [
+        "architecture",
+        "urbanism"
+      ]
+    }
+  },
+  {
+    "code": "chem",
+    "parent_code": null,
+    "label": {
+      "en": "Chemistry and process",
+      "fr": "Chimie et procédés",
+      "ar": "الكيمياء والعمليات"
+    },
+    "synonyms": {
+      "en": [
+        "chemistry",
+        "process engineering"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "chimie",
+    "parent_code": "chem",
+    "label": {
+      "en": "Chemistry",
+      "fr": "Chimie",
+      "ar": "الكيمياء"
+    },
+    "synonyms": {
+      "fr": [
+        "chimie",
+        "chimie analytique"
+      ],
+      "ar": [
+        "كيمياء"
+      ],
+      "en": [
+        "chemistry"
+      ]
+    }
+  },
+  {
+    "code": "genie_chim",
+    "parent_code": "chem",
+    "label": {
+      "en": "Chemical and process engineering",
+      "fr": "Génie des procédés",
+      "ar": "هندسة العمليات الكيميائية"
+    },
+    "synonyms": {
+      "fr": [
+        "génie chimique",
+        "procédés chimiques"
+      ],
+      "ar": [
+        "هندسة كيميائية"
+      ],
+      "en": [
+        "chemical engineering",
+        "process"
+      ]
+    }
+  },
+  {
+    "code": "bio",
+    "parent_code": null,
+    "label": {
+      "en": "Biology and health",
+      "fr": "Biologie et santé",
+      "ar": "الأحياء والصحة"
+    },
+    "synonyms": {
+      "en": [
+        "biology",
+        "health"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "bio2",
+    "parent_code": "bio",
+    "label": {
+      "en": "Biology",
+      "fr": "Biologie",
+      "ar": "علم الأحياء"
+    },
+    "synonyms": {
+      "fr": [
+        "biologie",
+        "biotechnologies"
+      ],
+      "ar": [
+        "أحياء",
+        "تقنيات حيوية"
+      ],
+      "en": [
+        "biology",
+        "biotechnology"
+      ]
+    }
+  },
+  {
+    "code": "health",
+    "parent_code": "bio",
+    "label": {
+      "en": "Public health and health sciences",
+      "fr": "Santé publique et sciences de la santé",
+      "ar": "الصحة العامة وعلوم الصحة"
+    },
+    "synonyms": {
+      "fr": [
+        "santé publique",
+        "sciences de la santé"
+      ],
+      "ar": [
+        "صحة عمومية"
+      ],
+      "en": [
+        "public health",
+        "health sciences"
+      ]
+    }
+  },
+  {
+    "code": "med",
+    "parent_code": null,
+    "label": {
+      "en": "Medicine and pharmacy",
+      "fr": "Médecine et pharmacie",
+      "ar": "الطب والصيدلة"
+    },
+    "synonyms": {
+      "en": [
+        "medicine",
+        "pharmacy"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "med_s",
+    "parent_code": "med",
+    "label": {
+      "en": "Medicine",
+      "fr": "Médecine",
+      "ar": "الطب"
+    },
+    "synonyms": {
+      "fr": [
+        "médecine",
+        "chirurgie"
+      ],
+      "ar": [
+        "طب",
+        "جراحة"
+      ],
+      "en": [
+        "medicine",
+        "surgery"
+      ]
+    }
+  },
+  {
+    "code": "pharma",
+    "parent_code": "med",
+    "label": {
+      "en": "Pharmacy",
+      "fr": "Pharmacie",
+      "ar": "الصيدلة"
+    },
+    "synonyms": {
+      "fr": [
+        "pharmacie"
+      ],
+      "ar": [
+        "صيدلة"
+      ],
+      "en": [
+        "pharmacy"
+      ]
+    }
+  },
+  {
+    "code": "econ",
+    "parent_code": null,
+    "label": {
+      "en": "Economics, management, finance",
+      "fr": "Économie, gestion, finance",
+      "ar": "الاقتصاد والتدبير والمالية"
+    },
+    "synonyms": {
+      "en": [
+        "economics",
+        "management",
+        "finance"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "econ2",
+    "parent_code": "econ",
+    "label": {
+      "en": "Economics",
+      "fr": "Économie",
+      "ar": "الاقتصاد"
+    },
+    "synonyms": {
+      "fr": [
+        "économie",
+        "économie appliquée"
+      ],
+      "ar": [
+        "اقتصاد"
+      ],
+      "en": [
+        "economics"
+      ]
+    }
+  },
+  {
+    "code": "mgmt",
+    "parent_code": "econ",
+    "label": {
+      "en": "Management and marketing",
+      "fr": "Gestion et marketing",
+      "ar": "التدبير والتسويق"
+    },
+    "synonyms": {
+      "fr": [
+        "gestion",
+        "marketing",
+        "commerce"
+      ],
+      "ar": [
+        "تدبير",
+        "تسويق"
+      ],
+      "en": [
+        "management",
+        "marketing",
+        "business"
+      ]
+    }
+  },
+  {
+    "code": "finance",
+    "parent_code": "econ",
+    "label": {
+      "en": "Finance and accounting",
+      "fr": "Finance et comptabilité",
+      "ar": "المالية والمحاسبة"
+    },
+    "synonyms": {
+      "fr": [
+        "finance",
+        "comptabilité",
+        "banque"
+      ],
+      "ar": [
+        "مالية",
+        "محاسبة"
+      ],
+      "en": [
+        "finance",
+        "accounting",
+        "banking"
+      ]
+    }
+  },
+  {
+    "code": "law",
+    "parent_code": null,
+    "label": {
+      "en": "Law and political science",
+      "fr": "Droit et science politique",
+      "ar": "القانون والعلوم السياسية"
+    },
+    "synonyms": {
+      "en": [
+        "law",
+        "political science"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "droit",
+    "parent_code": "law",
+    "label": {
+      "en": "Law",
+      "fr": "Droit",
+      "ar": "القانون"
+    },
+    "synonyms": {
+      "fr": [
+        "droit",
+        "droit des affaires"
+      ],
+      "ar": [
+        "قانون"
+      ],
+      "en": [
+        "law",
+        "legal studies"
+      ]
+    }
+  },
+  {
+    "code": "pol",
+    "parent_code": "law",
+    "label": {
+      "en": "Political science and international relations",
+      "fr": "Science politique et relations internationales",
+      "ar": "العلوم السياسية والعلاقات الدولية"
+    },
+    "synonyms": {
+      "fr": [
+        "science politique",
+        "relations internationales"
+      ],
+      "ar": [
+        "علوم سياسية"
+      ],
+      "en": [
+        "political science",
+        "international relations"
+      ]
+    }
+  },
+  {
+    "code": "hum",
+    "parent_code": null,
+    "label": {
+      "en": "Humanities and languages",
+      "fr": "Humanités et langues",
+      "ar": "العلوم الإنسانية واللغات"
+    },
+    "synonyms": {
+      "en": [
+        "humanities",
+        "languages"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "langues",
+    "parent_code": "hum",
+    "label": {
+      "en": "Languages and translation",
+      "fr": "Langues et traduction",
+      "ar": "اللغات والترجمة"
+    },
+    "synonyms": {
+      "fr": [
+        "langues",
+        "traduction",
+        "lettres"
+      ],
+      "ar": [
+        "لغات",
+        "ترجمة"
+      ],
+      "en": [
+        "languages",
+        "translation"
+      ]
+    }
+  },
+  {
+    "code": "lettres",
+    "parent_code": "hum",
+    "label": {
+      "en": "Literature, history and philosophy",
+      "fr": "Lettres, histoire et philosophie",
+      "ar": "الآداب والتاريخ والفلسفة"
+    },
+    "synonyms": {
+      "fr": [
+        "lettres",
+        "histoire",
+        "philosophie"
+      ],
+      "ar": [
+        "آداب",
+        "تاريخ",
+        "فلسفة"
+      ],
+      "en": [
+        "literature",
+        "history",
+        "philosophy"
+      ]
+    }
+  },
+  {
+    "code": "soc",
+    "parent_code": null,
+    "label": {
+      "en": "Social sciences",
+      "fr": "Sciences sociales",
+      "ar": "العلوم الاجتماعية"
+    },
+    "synonyms": {
+      "en": [
+        "social sciences"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "socio",
+    "parent_code": "soc",
+    "label": {
+      "en": "Sociology and anthropology",
+      "fr": "Sociologie et anthropologie",
+      "ar": "علم الاجتماع وعلم الإنسان"
+    },
+    "synonyms": {
+      "fr": [
+        "sociologie",
+        "anthropologie"
+      ],
+      "ar": [
+        "سوسيولوجيا"
+      ],
+      "en": [
+        "sociology",
+        "anthropology"
+      ]
+    }
+  },
+  {
+    "code": "psy",
+    "parent_code": "soc",
+    "label": {
+      "en": "Psychology and education",
+      "fr": "Psychologie et éducation",
+      "ar": "علم النفس والتربية"
+    },
+    "synonyms": {
+      "fr": [
+        "psychologie",
+        "éducation",
+        "sciences de l'éducation"
+      ],
+      "ar": [
+        "علم نفس",
+        "تربية"
+      ],
+      "en": [
+        "psychology",
+        "education"
+      ]
+    }
+  },
+  {
+    "code": "sci",
+    "parent_code": null,
+    "label": {
+      "en": "Natural sciences and mathematics",
+      "fr": "Sciences de la nature et mathématiques",
+      "ar": "علوم الطبيعة والرياضيات"
+    },
+    "synonyms": {
+      "en": [
+        "sciences",
+        "mathematics"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "math",
+    "parent_code": "sci",
+    "label": {
+      "en": "Mathematics",
+      "fr": "Mathématiques",
+      "ar": "الرياضيات"
+    },
+    "synonyms": {
+      "fr": [
+        "mathématiques",
+        "statistique"
+      ],
+      "ar": [
+        "رياضيات",
+        "إحصاء"
+      ],
+      "en": [
+        "mathematics",
+        "statistics"
+      ]
+    }
+  },
+  {
+    "code": "phys",
+    "parent_code": "sci",
+    "label": {
+      "en": "Physics",
+      "fr": "Physique",
+      "ar": "الفيزياء"
+    },
+    "synonyms": {
+      "fr": [
+        "physique",
+        "physique appliquée"
+      ],
+      "ar": [
+        "فيزياء"
+      ],
+      "en": [
+        "physics"
+      ]
+    }
+  },
+  {
+    "code": "geosci",
+    "parent_code": "sci",
+    "label": {
+      "en": "Earth and environmental sciences",
+      "fr": "Sciences de la Terre et de l'environnement",
+      "ar": "علوم الأرض والبيئة"
+    },
+    "synonyms": {
+      "fr": [
+        "sciences de la Terre",
+        "environnement",
+        "géologie"
+      ],
+      "ar": [
+        "علوم الأرض",
+        "بيئة"
+      ],
+      "en": [
+        "earth sciences",
+        "environment",
+        "geology"
+      ]
+    }
+  },
+  {
+    "code": "agri",
+    "parent_code": null,
+    "label": {
+      "en": "Agriculture and environment",
+      "fr": "Agriculture et environnement",
+      "ar": "الفلاحة والبيئة"
+    },
+    "synonyms": {
+      "en": [
+        "agriculture",
+        "environment"
+      ],
+      "fr": [],
+      "ar": []
+    }
+  },
+  {
+    "code": "agron",
+    "parent_code": "agri",
+    "label": {
+      "en": "Agronomy",
+      "fr": "Agronomie",
+      "ar": "العلوم الفلاحية"
+    },
+    "synonyms": {
+      "fr": [
+        "agronomie",
+        "agriculture"
+      ],
+      "ar": [
+        "فلاحة",
+        "زراعة"
+      ],
+      "en": [
+        "agronomy",
+        "agriculture"
+      ]
+    }
+  },
+  {
+    "code": "env",
+    "parent_code": "agri",
+    "label": {
+      "en": "Environmental engineering",
+      "fr": "Génie de l'environnement",
+      "ar": "هندسة البيئة"
+    },
+    "synonyms": {
+      "fr": [
+        "environnement",
+        "développement durable"
+      ],
+      "ar": [
+        "بيئة"
+      ],
+      "en": [
+        "environment",
+        "sustainability"
+      ]
+    }
+  }
+]

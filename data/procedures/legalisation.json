@@ -1,0 +1,75 @@
+{
+  "code": "legalisation",
+  "title": {
+    "en": "Legalisation of signature",
+    "fr": "Légalisation de signature",
+    "ar": "توثيق التوقيع"
+  },
+  "summary": {
+    "en": "Authentication of a signature or document for use abroad."
+  },
+  "steps": [
+    {
+      "order": 1,
+      "title": {
+        "en": "Determine the required chain"
+      },
+      "body": {
+        "en": "Check whether the destination country requires an apostille or consular legalisation, and which authorities must sign in order. This varies by destination: verify."
+      },
+      "where": {
+        "en": "Destination country's requirements"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": {
+        "en": "Collect the signatures in order"
+      },
+      "body": {
+        "en": "Present the document to each authority in the required sequence (e.g. notary/commune, then ministry, then embassy, depending on the country)."
+      },
+      "where": {
+        "en": "Authorities per the destination chain"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": {
+        "en": "Collect the legalised document"
+      },
+      "body": {
+        "en": "Confirm every required stamp is present and accepted by the destination."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    }
+  ],
+  "typical_total_days": null,
+  "official_links": [],
+  "needs_verification": true,
+  "verified_at": null
+}

@@ -1,0 +1,83 @@
+{
+  "version": 2,
+  "name": "safar-core-journey",
+  "intent": "A signed-in student moves from the dashboard through the tracked applications, opens a procedure guide and reaches settings, so the four main sections of the app stay reachable from the sidebar navigation.",
+  "intentId": "flow:safar-core-journey",
+  "projectId": "safar-1f8da843",
+  "startPath": "/dashboard",
+  "createdAt": 1795169644035,
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "link",
+        "name": "Candidatures"
+      },
+      "source": {
+        "file": "src/components/app-shell.tsx",
+        "line": 54
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "route",
+        "contains": "/applications"
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "link",
+        "name": "Procédures"
+      },
+      "source": {
+        "file": "src/components/app-shell.tsx",
+        "line": 54
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "route",
+        "contains": "/procedures"
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "component",
+        "component": "LoadingBoundary",
+        "source": {
+          "file": "src/app/(app)/procedures/page.tsx",
+          "line": 56,
+          "column": 22
+        }
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "route",
+        "contains": "/procedures/"
+      }
+    },
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "role",
+        "role": "link",
+        "name": "Paramètres"
+      },
+      "source": {
+        "file": "src/components/app-shell.tsx",
+        "line": 54
+      },
+      "action": "click",
+      "args": {},
+      "expect": {
+        "kind": "route",
+        "contains": "/settings"
+      }
+    }
+  ]
+}

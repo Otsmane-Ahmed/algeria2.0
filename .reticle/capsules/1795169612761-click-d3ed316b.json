@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "declared consequence",
+  "observed": "current route (no route change in the window) '/procedures' does not contain '/procedures/'",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "",
+        "source": {
+          "file": "src/app/(app)/procedures/page.tsx",
+          "line": 56,
+          "column": 22
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1795169612761-click-d3ed316b",
+  "createdAt": 1795169612761,
+  "seen": 1,
+  "lastSeenAt": 1795169612761
+}

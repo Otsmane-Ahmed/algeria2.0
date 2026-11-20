@@ -1,0 +1,73 @@
+{
+  "code": "bank-statement-proof",
+  "title": {
+    "en": "Proof of funds (bank statement / certificate)",
+    "fr": "Justificatif de fonds (relevé bancaire / certificat)",
+    "ar": "إثبار التمويل (كشف بنكي / شهادة)"
+  },
+  "summary": {
+    "en": "Prepare proof of funds for a visa or application."
+  },
+  "steps": [
+    {
+      "order": 1,
+      "title": {
+        "en": "Ask your bank for the certificate"
+      },
+      "body": {
+        "en": "Request the statement or certificate format your destination accepts, in the accepted currency (requirements unverified: check)."
+      },
+      "where": {
+        "en": "Your bank"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": {
+        "en": "Translate if required"
+      },
+      "body": {
+        "en": "If the destination requires it, get a sworn translation of the certificate (see traduction-assermentee)."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": {
+        "en": "Verify currency and period"
+      },
+      "body": {
+        "en": "Confirm the required currency, amount and covered period with the destination (unverified)."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    }
+  ],
+  "typical_total_days": null,
+  "official_links": [],
+  "needs_verification": true,
+  "verified_at": null
+}

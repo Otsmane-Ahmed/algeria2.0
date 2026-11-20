@@ -1,0 +1,76 @@
+{
+  "code": "ielts-toefl-registration",
+  "title": {
+    "en": "English test registration (IELTS / TOEFL)",
+    "fr": "Inscription au test d'anglais (IELTS / TOEFL)",
+    "ar": "التسجيل في اختبار الإنجليزية (IELTS / TOEFL)"
+  },
+  "summary": {
+    "en": "Register for an English language test."
+  },
+  "steps": [
+    {
+      "order": 1,
+      "title": {
+        "en": "Choose test, centre and date"
+      },
+      "body": {
+        "en": "Pick the test your target institutions accept and a session in Algeria."
+      },
+      "where": {
+        "en": "Test centres"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": {
+        "en": "Register and pay"
+      },
+      "body": {
+        "en": "Complete registration and pay the fee (amount unverified)."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": {
+        "en": "Sit the test and collect results"
+      },
+      "body": {
+        "en": "Bring your ID on test day. Certificate validity is commonly 2 years: verify with the destination."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    }
+  ],
+  "typical_total_days": null,
+  "official_links": [
+    "https://www.ielts.org/",
+    "https://www.ets.org/toefl"
+  ],
+  "needs_verification": true,
+  "verified_at": null
+}

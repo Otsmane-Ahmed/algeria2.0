@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "declared consequence",
+  "observed": "current route (no route change in the window) '/', expected '/dashboard'",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "",
+        "source": {
+          "file": "src/components/ui.tsx",
+          "line": 55,
+          "column": 4
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1795167661508-click-a5e366d5",
+  "createdAt": 1795167661508,
+  "seen": 1,
+  "lastSeenAt": 1795167661508
+}

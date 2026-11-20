@@ -1,0 +1,73 @@
+{
+  "code": "criminal-record-extract",
+  "title": {
+    "en": "Criminal record extract (casier judiciaire n°3)",
+    "fr": "Extrait de casier judiciaire (n°3)",
+    "ar": "استخراج السجل العدلي (رقم 3)"
+  },
+  "summary": {
+    "en": "Obtain a criminal record extract for applications."
+  },
+  "steps": [
+    {
+      "order": 1,
+      "title": {
+        "en": "Prepare your ID"
+      },
+      "body": {
+        "en": "Bring the ID documents needed for the request (list unverified: check)."
+      },
+      "where": {
+        "en": "Competent court / authority"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": {
+        "en": "Request the extract"
+      },
+      "body": {
+        "en": "Submit the request in person or through the available channel; pay any fee (unverified)."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": {
+        "en": "Collect the extract"
+      },
+      "body": {
+        "en": "Collect the extract; check its validity period with the destination (unverified)."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    }
+  ],
+  "typical_total_days": null,
+  "official_links": [],
+  "needs_verification": true,
+  "verified_at": null
+}

@@ -1,0 +1,113 @@
+{
+  "code": "campus-france-dz",
+  "title": {
+    "en": "Études en France procedure (Campus France DZ)",
+    "fr": "Procédure Études en France (Campus France DZ)",
+    "ar": "مسار الدراسة في فرنسا (كامبوس فرانس الجزائر)"
+  },
+  "summary": {
+    "en": "French higher-education applications from Algeria through the Campus France space."
+  },
+  "steps": [
+    {
+      "order": 1,
+      "title": {
+        "en": "Create your account"
+      },
+      "body": {
+        "en": "Register on the official platform for Études en France and start your file."
+      },
+      "where": {
+        "en": "Official platform"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": {
+        "en": "Complete your file"
+      },
+      "body": {
+        "en": "Fill in your identity, academic history and program choices; attach the requested documents."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": {
+        "en": "Pay the fees"
+      },
+      "body": {
+        "en": "Pay the procedure fee at the amount shown on the official page (amount unverified: check the current fee)."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "title": {
+        "en": "Attend the appointment"
+      },
+      "body": {
+        "en": "Attend your appointment/interview at the Campus France space."
+      },
+      "where": {
+        "en": "Campus France space, Algeria"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "title": {
+        "en": "Follow decisions, then visa"
+      },
+      "body": {
+        "en": "Track admissions through the platform; once admitted, prepare the visa file through the same channel."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    }
+  ],
+  "typical_total_days": null,
+  "official_links": [
+    "https://www.campusfrance.org/"
+  ],
+  "needs_verification": true,
+  "verified_at": null
+}

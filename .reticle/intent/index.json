@@ -1,0 +1,47 @@
+{
+  "entries": [
+    {
+      "id": "flow:safar-core-journey",
+      "statement": "A signed-in student moves from the dashboard through the tracked applic…",
+      "status": "proposed",
+      "subject": "safar-core-journey"
+    },
+    {
+      "id": "inline:application-workspace-277d40bf",
+      "statement": "application-workspace",
+      "status": "agreed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:arabic-rtl-d4b0b470",
+      "statement": "arabic-rtl",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:demo-signin-2ebeafe0",
+      "statement": "demo-signin",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:landing-disclaimer-5f2fc542",
+      "statement": "landing-disclaimer",
+      "status": "agreed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:procedures-browse-598a3328",
+      "statement": "procedures-browse",
+      "status": "agreed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:settings-controls-f76869fa",
+      "statement": "settings-controls",
+      "status": "proved",
+      "subject": "unsorted"
+    }
+  ],
+  "version": 1
+}

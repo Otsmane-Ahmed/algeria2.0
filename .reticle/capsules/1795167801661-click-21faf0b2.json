@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "declared consequence",
+  "observed": "current route (no route change in the window) '/' does not contain '/login'",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "",
+        "source": {
+          "file": "src/components/ui.tsx",
+          "line": 55,
+          "column": 4
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1795167801661-click-21faf0b2",
+  "createdAt": 1795167801661,
+  "seen": 1,
+  "lastSeenAt": 1795167801661
+}

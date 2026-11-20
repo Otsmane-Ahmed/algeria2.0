@@ -1,0 +1,17 @@
+{
+  "default_estimate_days": {
+    "copie-conforme": 3,
+    "legalisation": 10,
+    "traduction-assermentee": 7,
+    "passport-biometric": 21,
+    "language-test": 30,
+    "visa": 30,
+    "campus-france-dz": 45,
+    "criminal-record-extract": 5,
+    "diploma-attestation-university": 7,
+    "bank-statement-proof": 5
+  },
+  "buffer_days": 3,
+  "duration_multiplier": 1.2,
+  "notes": "Used when a procedure step's typical_days is null (spec 6.4); such tasks are labelled 'estimate' in the UI. Values are conservative planning defaults, not verified facts."
+}

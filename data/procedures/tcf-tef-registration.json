@@ -1,0 +1,75 @@
+{
+  "code": "tcf-tef-registration",
+  "title": {
+    "en": "French test registration (TCF / TEF)",
+    "fr": "Inscription au test de français (TCF / TEF)",
+    "ar": "التسجيل في اختبار الفرنسية (TCF / TEF)"
+  },
+  "summary": {
+    "en": "Register for a French language test."
+  },
+  "steps": [
+    {
+      "order": 1,
+      "title": {
+        "en": "Choose test, centre and date"
+      },
+      "body": {
+        "en": "Pick the test accepted by your destination and a session in Algeria."
+      },
+      "where": {
+        "en": "Test centres"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": {
+        "en": "Register and pay"
+      },
+      "body": {
+        "en": "Complete registration and pay the fee (amount unverified)."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": {
+        "en": "Sit the test and collect results"
+      },
+      "body": {
+        "en": "Bring your ID on test day; results validity period: verify with the destination."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    }
+  ],
+  "typical_total_days": null,
+  "official_links": [
+    "https://www.france-education-international.fr/"
+  ],
+  "needs_verification": true,
+  "verified_at": null
+}

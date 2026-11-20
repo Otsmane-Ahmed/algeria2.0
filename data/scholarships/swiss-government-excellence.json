@@ -1,0 +1,167 @@
+{
+  "slug": "swiss-government-excellence",
+  "name": {
+    "en": "Swiss Government Excellence Scholarships",
+    "fr": "Bourses d'excellence du gouvernement suisse",
+    "ar": "منح الحكومة السويسرية للتميز"
+  },
+  "provider": {
+    "name": "Swiss Confederation (SERI)",
+    "country": "CH",
+    "type": "government"
+  },
+  "host_countries": [
+    "CH"
+  ],
+  "levels": [
+    "doctorate",
+    "postdoc"
+  ],
+  "fields": [],
+  "description": {
+    "en": "Swiss government scholarships for doctoral and postdoctoral research. Requirements and deadlines in this dataset are unverified: check the official page.",
+    "fr": "Bourses du gouvernement suisse pour la recherche doctorale et postdoctorale. Exigences et dates non vérifiées dans ce jeu de données : vérifier la page officiel.",
+    "ar": "منح الحكومة السويسرية للأبحاث الدكتورالية وما بعد الدكتوراه. المتطلبات والآجال غير موثقة في هذا البيانات: راجع الموقع الرسمي."
+  },
+  "funding": {
+    "tuition": null,
+    "stipend_monthly": null,
+    "travel": null,
+    "insurance": null,
+    "notes": "Verify current coverage on the official page"
+  },
+  "duration_months": null,
+  "official_page_url": "https://www.seri.admin.ch/",
+  "application_url": null,
+  "application_channel": "portal",
+  "language_requirements": [
+    {
+      "lang": "de",
+      "tests": [],
+      "cefr_min": null,
+      "notes": "Research language varies; verify with the host."
+    },
+    {
+      "lang": "fr",
+      "tests": [],
+      "cefr_min": null,
+      "notes": "Research language varies; verify with the host."
+    }
+  ],
+  "eligibility_rules": {
+    "all": [
+      {
+        "fact": "nationality",
+        "op": "in",
+        "value": [
+          "DZ"
+        ],
+        "severity": "hard",
+        "label": {
+          "en": "Algerian nationality",
+          "fr": "Nationalité algérienne",
+          "ar": "الجنسية الجزائرية"
+        }
+      },
+      {
+        "fact": "current_level",
+        "op": "in",
+        "value": [
+          "master",
+          "doctorate"
+        ],
+        "severity": "hard",
+        "label": {
+          "en": "Entry level (master or doctorate)",
+          "fr": "Niveau d'entrée (master or doctorate)",
+          "ar": "مستوى الالتحاق (master or doctorate)"
+        }
+      }
+    ]
+  },
+  "rules_human": "Algerian nationals holding one of: master or doctorate. Field restrictions, deadlines and language minimums are unverified: check the official page.",
+  "competitiveness": 3,
+  "cycle": {
+    "cycle_id": "2027",
+    "opens": null,
+    "deadline": null,
+    "deadline_time": null,
+    "deadline_tz": "Europe/Zurich",
+    "results_expected": null,
+    "intake": null,
+    "rolling": false,
+    "status": "unknown",
+    "source_url": "https://www.seri.admin.ch/",
+    "verified_at": null
+  },
+  "required_documents": [
+    {
+      "code": "passport",
+      "label": {
+        "en": "Passport",
+        "fr": "Passeport",
+        "ar": "جواز السفر"
+      },
+      "mandatory": true
+    },
+    {
+      "code": "diploma",
+      "label": {
+        "en": "Degree certificates / relevé de notes",
+        "fr": "Diplômes et relevés de notes",
+        "ar": "الشهادات وكشوف النقاط"
+      },
+      "mandatory": true,
+      "procedure_codes": [
+        "copie-conforme",
+        "traduction-assermentee"
+      ]
+    },
+    {
+      "code": "transcript",
+      "label": {
+        "en": "Academic transcripts",
+        "fr": "Relevés de notes académiques",
+        "ar": "كشوف النقاط الدراسية"
+      },
+      "mandatory": true,
+      "procedure_codes": [
+        "copie-conforme",
+        "traduction-assermentee"
+      ]
+    },
+    {
+      "code": "cv",
+      "label": {
+        "en": "CV",
+        "fr": "CV",
+        "ar": "السيرة الذاتية"
+      },
+      "mandatory": true
+    },
+    {
+      "code": "motivation_letter",
+      "label": {
+        "en": "Motivation letter",
+        "fr": "Lettre de motivation",
+        "ar": "رسالة الدافع"
+      },
+      "mandatory": true
+    }
+  ],
+  "essay_requirements": {
+    "motivation_letter": {
+      "max_words": null,
+      "prompts": []
+    },
+    "cv": {
+      "format": "standard",
+      "max_pages": null
+    }
+  },
+  "selection_process": null,
+  "tips": [],
+  "status": "published",
+  "needs_verification": true,
+  "verified_at": null
+}

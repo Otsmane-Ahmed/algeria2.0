@@ -1,0 +1,174 @@
+{
+  "slug": "mastercard-foundation",
+  "name": {
+    "en": "Mastercard Foundation Scholars Program",
+    "fr": "Programme des boursiers Mastercard Foundation",
+    "ar": "برنامج سكولارز لماستركارد"
+  },
+  "provider": {
+    "name": "Mastercard Foundation",
+    "country": null,
+    "type": "foundation"
+  },
+  "host_countries": [],
+  "levels": [
+    "licence",
+    "master"
+  ],
+  "fields": [],
+  "description": {
+    "en": "A foundation scholarship programme at partner universities. Algerian eligibility must be verified per university. Requirements and deadlines in this dataset are unverified: check the official page.",
+    "fr": "Programme de bourses d'une fondation dans des universités partenaires. Vérifier l'éligibilité des Algériens par université. Exigences et dates non vérifiées dans ce jeu de données : vérifier la page officiel.",
+    "ar": "برنامج منح لمؤسسة في جامعات شريكة. يجب التحقق من أهلية الجزائريين لكل جامعة. المتطلبات والآجال غير موثقة في هذا البيانات: راجع الموقع الرسمي."
+  },
+  "funding": {
+    "tuition": null,
+    "stipend_monthly": null,
+    "travel": null,
+    "insurance": null,
+    "notes": "Verify current coverage on the official page"
+  },
+  "duration_months": null,
+  "official_page_url": "https://mastercardfdn.org/",
+  "application_url": null,
+  "application_channel": "university",
+  "language_requirements": [
+    {
+      "lang": "en",
+      "tests": [],
+      "cefr_min": null,
+      "notes": "Verify required tests and minimums on the official page."
+    }
+  ],
+  "eligibility_rules": {
+    "all": [
+      {
+        "fact": "nationality",
+        "op": "in",
+        "value": [
+          "DZ"
+        ],
+        "severity": "hard",
+        "label": {
+          "en": "Algerian nationality",
+          "fr": "Nationalité algérienne",
+          "ar": "الجنسية الجزائرية"
+        }
+      },
+      {
+        "fact": "current_level",
+        "op": "in",
+        "value": [
+          "bac",
+          "licence",
+          "master"
+        ],
+        "severity": "hard",
+        "label": {
+          "en": "Entry level (bac or licence or master)",
+          "fr": "Niveau d'entrée (bac or licence or master)",
+          "ar": "مستوى الالتحاق (bac or licence or master)"
+        }
+      }
+    ]
+  },
+  "rules_human": "Algerian nationals holding one of: bac or licence or master. Field restrictions, deadlines and language minimums are unverified: check the official page.",
+  "competitiveness": 3,
+  "cycle": {
+    "cycle_id": "2027",
+    "opens": null,
+    "deadline": null,
+    "deadline_time": null,
+    "deadline_tz": null,
+    "results_expected": null,
+    "intake": null,
+    "rolling": false,
+    "status": "unknown",
+    "source_url": "https://mastercardfdn.org/",
+    "verified_at": null
+  },
+  "required_documents": [
+    {
+      "code": "passport",
+      "label": {
+        "en": "Passport",
+        "fr": "Passeport",
+        "ar": "جواز السفر"
+      },
+      "mandatory": true
+    },
+    {
+      "code": "bac",
+      "label": {
+        "en": "Baccalaureate certificate",
+        "fr": "Diplôme du baccalauréat",
+        "ar": "شهادة البكالوريا"
+      },
+      "mandatory": true,
+      "procedure_codes": [
+        "copie-conforme",
+        "traduction-assermentee"
+      ]
+    },
+    {
+      "code": "diploma",
+      "label": {
+        "en": "Degree certificates / relevé de notes",
+        "fr": "Diplômes et relevés de notes",
+        "ar": "الشهادات وكشوف النقاط"
+      },
+      "mandatory": false,
+      "notes": "If already held (e.g. applying with a completed degree).",
+      "procedure_codes": [
+        "copie-conforme",
+        "traduction-assermentee"
+      ]
+    },
+    {
+      "code": "transcript",
+      "label": {
+        "en": "Academic transcripts",
+        "fr": "Relevés de notes académiques",
+        "ar": "كشوف النقاط الدراسية"
+      },
+      "mandatory": true,
+      "procedure_codes": [
+        "copie-conforme",
+        "traduction-assermentee"
+      ]
+    },
+    {
+      "code": "cv",
+      "label": {
+        "en": "CV",
+        "fr": "CV",
+        "ar": "السيرة الذاتية"
+      },
+      "mandatory": true
+    },
+    {
+      "code": "motivation_letter",
+      "label": {
+        "en": "Motivation letter",
+        "fr": "Lettre de motivation",
+        "ar": "رسالة الدافع"
+      },
+      "mandatory": true
+    }
+  ],
+  "essay_requirements": {
+    "motivation_letter": {
+      "max_words": null,
+      "prompts": []
+    },
+    "cv": {
+      "format": "standard",
+      "max_pages": null
+    }
+  },
+  "selection_process": null,
+  "tips": [],
+  "status": "draft",
+  "needs_verification": true,
+  "verified_at": null
+}

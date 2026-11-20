@@ -1,0 +1,91 @@
+{
+  "notes": "Indicative public CEFR concordances used to compare 'B2 required' with what the student has. Not official evaluations; institutions decide their own tables.",
+  "tests": {
+    "IELTS": {
+      "kind": "score_range",
+      "unit": "band",
+      "ranges": [
+        {
+          "min": 8.5,
+          "max": 9,
+          "cefr": "C2"
+        },
+        {
+          "min": 7,
+          "max": 8,
+          "cefr": "C1"
+        },
+        {
+          "min": 6,
+          "max": 6.5,
+          "cefr": "B2"
+        },
+        {
+          "min": 5,
+          "max": 5.5,
+          "cefr": "B1"
+        },
+        {
+          "min": 4,
+          "max": 4.5,
+          "cefr": "A2"
+        }
+      ]
+    },
+    "TOEFL iBT": {
+      "kind": "score_range",
+      "unit": "score",
+      "ranges": [
+        {
+          "min": 118,
+          "max": 120,
+          "cefr": "C2"
+        },
+        {
+          "min": 94,
+          "max": 117,
+          "cefr": "C1"
+        },
+        {
+          "min": 72,
+          "max": 93,
+          "cefr": "B2"
+        },
+        {
+          "min": 42,
+          "max": 71,
+          "cefr": "B1"
+        },
+        {
+          "min": 0,
+          "max": 41,
+          "cefr": "A2"
+        }
+      ]
+    },
+    "DELF": {
+      "kind": "exam_name",
+      "note": "CEFR level is part of the exam name (DELF B2 -> B2)."
+    },
+    "DALF": {
+      "kind": "exam_name",
+      "note": "CEFR level is part of the exam name (DALF C1 -> C1)."
+    },
+    "Goethe-Zertifikat": {
+      "kind": "exam_name",
+      "note": "CEFR level is part of the exam name (Goethe-Zertifikat B2 -> B2)."
+    },
+    "TCF": {
+      "kind": "score_range",
+      "unit": "score",
+      "ranges": [],
+      "note": "Score-to-level bands differ across TCF versions; verify against the official concordance before using."
+    },
+    "TEF": {
+      "kind": "score_range",
+      "unit": "score",
+      "ranges": [],
+      "note": "Score-to-level bands differ across TEF versions; verify against the official concordance before using."
+    }
+  }
+}

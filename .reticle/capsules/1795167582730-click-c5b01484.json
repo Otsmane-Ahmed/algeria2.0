@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "origin": "failed-assert",
+  "expected": "declared consequence",
+  "observed": "no element matched {\"text\":\"حذف حسابي\"}",
+  "steps": [
+    {
+      "tool": "reticle_act",
+      "anchor": {
+        "kind": "testid",
+        "value": "",
+        "source": {
+          "file": "src/components/locale-switcher.tsx",
+          "line": 41,
+          "column": 8
+        }
+      },
+      "action": "click"
+    }
+  ],
+  "id": "1795167582730-click-c5b01484",
+  "createdAt": 1795167582730,
+  "seen": 1,
+  "lastSeenAt": 1795167582730
+}

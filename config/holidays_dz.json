@@ -1,0 +1,6 @@
+{
+  "timezone": "Africa/Algiers",
+  "weekend_days": [5, 6],
+  "holidays": [],
+  "notes": "Algerian public holidays maintained by curators (spec F5: 'configurable public holidays list; unknown holidays are not assumed'). Deliberately shipped EMPTY: movable (lunar-calendar) holidays must be verified against an official source before being listed, and a wrong holiday silently shifts every plan by a day. Curators add verified ISO dates here; working-day math skips them."
+}

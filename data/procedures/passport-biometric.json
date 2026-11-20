@@ -1,0 +1,75 @@
+{
+  "code": "passport-biometric",
+  "title": {
+    "en": "Biometric passport (obtain / renew)",
+    "fr": "Passeport biométrique (obtenir / renouveler)",
+    "ar": "جواز السفر البيومتري (إصدار / تجديد)"
+  },
+  "summary": {
+    "en": "Apply for or renew an Algerian biometric passport."
+  },
+  "steps": [
+    {
+      "order": 1,
+      "title": {
+        "en": "Prepare the required documents"
+      },
+      "body": {
+        "en": "Gather identity documents and photos required for the application (list unverified: check the current official list)."
+      },
+      "where": {
+        "en": "Daïra / commune"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "title": {
+        "en": "Submit the application"
+      },
+      "body": {
+        "en": "File the application at the daïra or commune and pay the fee (amount unverified)."
+      },
+      "where": {
+        "en": "Daïra / commune"
+      },
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "title": {
+        "en": "Collect the passport"
+      },
+      "body": {
+        "en": "Collect the passport after the stated processing time (duration unverified: check)."
+      },
+      "where": null,
+      "cost_dzd": null,
+      "typical_days": null,
+      "documents_needed": [],
+      "warnings": [
+        {
+          "en": "Costs, durations and authorities vary: verify before you start (unverified)."
+        }
+      ]
+    }
+  ],
+  "typical_total_days": null,
+  "official_links": [],
+  "needs_verification": true,
+  "verified_at": null
+}

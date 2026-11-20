@@ -1,0 +1,27 @@
+{
+  "weights": {
+    "level": 3,
+    "field": 3,
+    "academic": 3,
+    "language": 2,
+    "experience": 1.5,
+    "country": 1.5,
+    "funding": 2,
+    "deadline": 2
+  },
+  "gpa_bands": [
+    { "min": 16, "score": 1.0 },
+    { "min": 14, "score": 0.8 },
+    { "min": 12, "score": 0.55 },
+    { "min": 10, "score": 0.3 },
+    { "min": 0, "score": 0 }
+  ],
+  "competitiveness_penalty_per_level": 0.08,
+  "parent_field_partial_credit": 0.5,
+  "verdict": {
+    "eligible_min_score": 75,
+    "eligible_max_competitiveness": 3,
+    "likely_min_score": 60
+  },
+  "notes": "Spec arch.md F4.4. Weights are editorial, not real-world facts. Unit-tested; changing a value changes match scores."
+}

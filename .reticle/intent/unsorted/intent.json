@@ -1,0 +1,152 @@
+{
+  "intents": {
+    "inline:application-workspace-277d40bf": {
+      "binding": {
+        "contains": "tab=timeline",
+        "kind": "route"
+      },
+      "declaredAt": 1795167582763,
+      "id": "inline:application-workspace-277d40bf",
+      "provenBy": {
+        "at": 1795169454352,
+        "grade": "presence",
+        "verdictId": "reticle_assert:1795169454352"
+      },
+      "state": "bound",
+      "statement": "application-workspace",
+      "status": "agreed",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/components/app-shell.tsx"
+        ],
+        "route": "/applications"
+      },
+      "updatedAt": 1795169564179
+    },
+    "inline:arabic-rtl-d4b0b470": {
+      "binding": {
+        "kind": "element",
+        "query": {
+          "by": "text",
+          "value": "rtl"
+        }
+      },
+      "declaredAt": 1795167567149,
+      "id": "inline:arabic-rtl-d4b0b470",
+      "provenBy": {
+        "at": 1795168989503,
+        "grade": "presence",
+        "verdictId": "reticle_assert:1795168989503"
+      },
+      "state": "proved",
+      "statement": "arabic-rtl",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/components/locale-switcher.tsx"
+        ],
+        "route": "/ar/procedures/campus-france-dz"
+      },
+      "updatedAt": 1795168989506
+    },
+    "inline:demo-signin-2ebeafe0": {
+      "binding": {
+        "kind": "route",
+        "pathname": "/dashboard"
+      },
+      "declaredAt": 1795167516630,
+      "id": "inline:demo-signin-2ebeafe0",
+      "provenBy": {
+        "at": 1795168370876,
+        "grade": "presence",
+        "verdictId": "reticle_act_and_wait:1795168370876"
+      },
+      "state": "proved",
+      "statement": "demo-signin",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/components/ui.tsx"
+        ],
+        "route": "/dashboard"
+      },
+      "updatedAt": 1795168370887
+    },
+    "inline:landing-disclaimer-5f2fc542": {
+      "binding": {
+        "contains": "Les données de bourses et de procédures de Safar",
+        "kind": "text"
+      },
+      "declaredAt": 1795167516510,
+      "id": "inline:landing-disclaimer-5f2fc542",
+      "provenBy": {
+        "at": 1795168371023,
+        "grade": "presence",
+        "verdictId": "reticle_assert:1795168371023"
+      },
+      "state": "bound",
+      "statement": "landing-disclaimer",
+      "status": "agreed",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/components/locale-switcher.tsx"
+        ]
+      },
+      "updatedAt": 1795168983270
+    },
+    "inline:procedures-browse-598a3328": {
+      "binding": {
+        "contains": "/procedures/",
+        "kind": "route"
+      },
+      "declaredAt": 1795167536755,
+      "id": "inline:procedures-browse-598a3328",
+      "provenBy": {
+        "at": 1795169592609,
+        "grade": "presence",
+        "verdictId": "reticle_act_and_wait:1795169592609"
+      },
+      "state": "bound",
+      "statement": "procedures-browse",
+      "status": "agreed",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/components/app-shell.tsx"
+        ],
+        "route": "/procedures"
+      },
+      "updatedAt": 1795169592673
+    },
+    "inline:settings-controls-f76869fa": {
+      "binding": {
+        "contains": "/settings",
+        "kind": "route"
+      },
+      "declaredAt": 1795167551967,
+      "id": "inline:settings-controls-f76869fa",
+      "provenBy": {
+        "at": 1795169615411,
+        "grade": "presence",
+        "verdictId": "reticle_act_and_wait:1795169615411"
+      },
+      "state": "proved",
+      "statement": "settings-controls",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/components/app-shell.tsx"
+        ],
+        "route": "/settings"
+      },
+      "updatedAt": 1795169615416
+    }
+  },
+  "subject": "unsorted",
+  "version": 1
+}
