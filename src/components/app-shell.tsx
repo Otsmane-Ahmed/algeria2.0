@@ -5,11 +5,15 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   BookOpen,
+  CalendarCheck,
   FileText,
+  GitCompare,
   GraduationCap,
   LayoutDashboard,
+  ListOrdered,
   LogOut,
   Menu,
+  MessageCircle,
   Settings,
   Target,
   User,
@@ -19,7 +23,7 @@ import { useI18n } from "./i18n-provider";
 import { LocaleSwitcher } from "./locale-switcher";
 import { cx } from "./ui";
 
-const NAV = [
+const NAV_ABROAD = [
   { href: "/dashboard", key: "nav.dashboard", icon: LayoutDashboard },
   { href: "/matches", key: "nav.matches", icon: Target },
   { href: "/applications", key: "nav.applications", icon: GraduationCap },
@@ -29,17 +33,50 @@ const NAV = [
   { href: "/settings", key: "nav.settings", icon: Settings },
 ] as const;
 
+const NAV_BAC = [
+  { href: "/dashboard", key: "nav.dashboard", icon: LayoutDashboard },
+  { href: "/my-bac", key: "nav.myBac", icon: GraduationCap },
+  { href: "/chat", key: "nav.chat", icon: MessageCircle },
+  { href: "/wishes", key: "nav.wishes", icon: ListOrdered },
+  { href: "/matches", key: "nav.matches", icon: Target },
+  { href: "/compare", key: "nav.compare", icon: GitCompare },
+  { href: "/plan", key: "nav.plan", icon: CalendarCheck },
+  { href: "/settings", key: "nav.settings", icon: Settings },
+] as const;
+
 export function AppShell({
   children,
   userName,
+  mode = "abroad",
 }: {
   children: React.ReactNode;
   userName: string | null;
+  mode?: "bac" | "abroad";
 }) {
   const { t } = useI18n();
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [currentMode, setCurrentMode] = useState(mode);
+  const [switching, setSwitching] = useState(false);
+
+  async function switchMode(next: "bac" | "abroad") {
+    if (next === currentMode || switching) return;
+    setSwitching(true);
+    setCurrentMode(next);
+    try {
+      await fetch("/api/me", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode: next }),
+      });
+      const dest = next === "bac" ? "/my-bac" : "/dashboard";
+      router.push(pathname === dest ? pathname : dest);
+      router.refresh();
+    } finally {
+      setSwitching(false);
+    }
+  }
 
   async function signOut() {
     await fetch("/api/auth/logout", { method: "POST" }).catch(() => undefined);
@@ -50,9 +87,10 @@ export function AppShell({
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
 
+  const navItems = currentMode === "bac" ? NAV_BAC : NAV_ABROAD;
   const navList = (
     <nav aria-label={t("nav.menu")} className="flex flex-col gap-1">
-      {NAV.map(({ href, key, icon: Icon }) => {
+      {navItems.map(({ href, key, icon: Icon }) => {
         const active = isActive(href);
         return (
           <Link
@@ -90,7 +128,33 @@ export function AppShell({
         <GraduationCap className="h-8 w-8 shrink-0 text-[var(--brand)]" aria-hidden="true" />
         <span className="font-serif text-2xl font-medium tracking-normal text-[var(--brand-strong)]">Nava</span>
       </Link>
-      <p className="eyebrow mt-8 flex items-center gap-2 px-2 text-[var(--text-faint)]">
+      {/* Mode switcher (§3.2): two segments, never deletes data. */}
+      <div
+        role="group"
+        aria-label={t("mode.switcherLabel")}
+        className="mt-5 flex rounded-full border border-[var(--border-strong)] bg-[var(--surface-sunken)] p-1 text-[12px] font-medium"
+      >
+        {([
+          ["bac", "mode.bacSegment"],
+          ["abroad", "mode.abroadSegment"],
+        ] as const).map(([value, key]) => (
+          <button
+            key={value}
+            type="button"
+            onClick={() => switchMode(value)}
+            aria-pressed={currentMode === value}
+            className={cx(
+              "flex-1 rounded-full px-2 py-1.5 transition-colors",
+              currentMode === value
+                ? "bg-[var(--brand-soft)] text-[var(--brand-strong)]"
+                : "text-[var(--text-muted)] hover:text-[var(--text)]",
+            )}
+          >
+            {t(key)}
+          </button>
+        ))}
+      </div>
+      <p className="eyebrow mt-7 flex items-center gap-2 px-2 text-[var(--text-faint)]">
         <span className="eyebrow-dot" aria-hidden="true" />
         {t("nav.section")}
       </p>

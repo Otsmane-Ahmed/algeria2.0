@@ -49,6 +49,7 @@ export function OnboardingWizard() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [step, setStep] = useState(1);
+  const [who, setWho] = useState<"undecided" | "chosen">("undecided");
   const [consent, setConsent] = useState(false);
   const [level, setLevel] = useState<string>("");
   const [countries, setCountries] = useState<string[]>([]);
@@ -78,6 +79,31 @@ export function OnboardingWizard() {
       throw new Error(err.detail || err.message || err.code || "error");
     }
     return { ok: true, body };
+  }
+
+  /** "Who are you?" (§6.1 #4): sets the mode before the wizard continues.
+   *  Mode A goes straight to the intake chatbot — no file upload there. */
+  async function chooseMode(mode: "bac" | "abroad") {
+    setBusy(true);
+    setError(null);
+    try {
+      await fetch("/api/me", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode }),
+      });
+      setWho("chosen");
+      if (mode === "bac") {
+        router.push("/chat");
+        router.refresh();
+        return;
+      }
+      setStep(1);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function saveGoals() {
@@ -171,6 +197,36 @@ export function OnboardingWizard() {
   }
 
   const steps = [t("onboarding.step1"), t("onboarding.step2"), t("onboarding.step3")];
+
+  if (who === "undecided") {
+    return (
+      <div className="mx-auto flex max-w-2xl flex-col gap-6">
+        <header>
+          <h1 className="font-serif text-2xl font-medium tracking-normal">{t("mode.whoTitle")}</h1>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">{t("mode.whoBody")}</p>
+        </header>
+        <div className="grid gap-4 sm:grid-cols-2">
+          {([
+            ["bac", "mode.cardBacTitle", "mode.cardBacBody"],
+            ["abroad", "mode.cardAbroadTitle", "mode.cardAbroadBody"],
+          ] as const).map(([value, title, body]) => (
+            <button
+              key={value}
+              type="button"
+              disabled={busy}
+              onClick={() => void chooseMode(value)}
+              className="rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface-raised)] p-6 text-start transition-colors hover:border-[var(--brand)] focus-visible:outline-2 focus-visible:outline-[var(--brand)]"
+            >
+              <p className="font-serif text-xl font-medium text-[var(--brand-strong)]">{t(title)}</p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--text-muted)]">{t(body)}</p>
+            </button>
+          ))}
+        </div>
+        <p className="text-xs text-[var(--text-faint)]">{t("mode.tryBoth")}</p>
+        {error && <p className="text-xs text-[var(--danger)]">{error}</p>}
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6">

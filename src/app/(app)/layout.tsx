@@ -11,5 +11,9 @@ import { AppShell } from "@/components/app-shell";
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const user = await getSessionUser();
   if (!user) redirect("/login");
-  return <AppShell userName={user.name ?? user.email}>{children}</AppShell>;
+  return (
+    <AppShell userName={user.name ?? user.email} mode={(user.mode as "bac" | "abroad") ?? "abroad"}>
+      {children}
+    </AppShell>
+  );
 }

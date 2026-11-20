@@ -14,6 +14,7 @@ import {
   procedureSchema,
   taxonomyNodeSchema,
   countrySchema,
+  formationSchema,
   assertNoUnverifiedNumbers,
 } from "../src/lib/core/schemas/data";
 
@@ -57,6 +58,24 @@ for (const file of readdirSync(join(ROOT, "data/procedures")).sort()) {
   if (!file.endsWith(".json")) continue;
   check(`data/procedures/${file}`, () => {
     procedureSchema.parse(readJson(join(ROOT, "data/procedures", file)));
+  });
+}
+
+// --- formations (Mode A, §7.3): cut-off must be null while unverified ---
+for (const file of readdirSync(join(ROOT, "data/formations")).sort()) {
+  if (!file.endsWith(".json")) continue;
+  const items = readJson(join(ROOT, "data/formations", file)) as unknown[];
+  check(`data/formations/${file}`, () => {
+    if (!Array.isArray(items)) throw new Error("expected a JSON array");
+    const ids = new Set<string>();
+    for (const item of items) {
+      const f = formationSchema.parse(item);
+      if (ids.has(f.id)) throw new Error(`duplicate formation id ${f.id}`);
+      ids.add(f.id);
+      if (f.cutoff_last_year !== null && (!f.cutoff_source || f.needs_verification))
+        throw new Error(`${f.id}: a cut-off number requires cutoff_source and needs_verification=false`);
+    }
+    if (ids.size < 10) throw new Error("catalog too small to be useful (min 10)");
   });
 }
 

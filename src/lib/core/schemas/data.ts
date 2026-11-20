@@ -129,6 +129,39 @@ export const countrySchema = z.object({
   notes: z.string().optional(),
 });
 
+/** Mode A formation (Algerian post-bac, §7.3). Cut-offs stay null while
+ *  unverified — the evaluator treats a missing cut-off as "Unknown", never as
+ *  a pass. Stream acceptance and city are general-knowledge facts of real
+ *  public institutions; every numeric claim waits for a verified source. */
+export const formationSchema = z.object({
+  id: z.string().regex(/^[a-z0-9]+(-[a-z0-9]+)*$/),
+  name_fr: z.string().min(1),
+  name_en: z.string().min(1).nullish(),
+  name_ar: z.string().min(1).nullish(),
+  institution: z.string().min(1),
+  institution_kind: z.enum(["university", "grande_ecole", "institute"]),
+  city: z.string().min(1),
+  wilaya_code: z.number().int().min(1).max(58),
+  wilaya_name: z.string().min(1),
+  streams: z.array(
+    z.enum([
+      "sciences_experimentales",
+      "mathematiques",
+      "technique_mathematique",
+      "gestion_economie",
+      "lettres_philosophie",
+      "langues_etrangeres",
+    ]),
+  ).min(1),
+  language: z.enum(["fr", "ar", "en"]),
+  domain_tags: z.array(z.string().min(1)).min(1),
+  duration_years: z.number().int().min(2).max(12),
+  tuition: z.enum(["public", "private"]).default("public"),
+  cutoff_last_year: z.number().min(0).max(20).nullable(),
+  cutoff_source: z.string().url().nullable(),
+  needs_verification: z.boolean(),
+});
+
 /** Hard rule (6.2.1): a published scholarship must never carry a concrete
  *  deadline/test minimum the dataset has not verified. needs_verification=true
  *  is the honest state; this guards against accidental memory-fills. */

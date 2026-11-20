@@ -2,16 +2,20 @@ import { and, desc, eq, inArray, isNull } from "drizzle-orm";
 import { db } from "./db";
 import {
   applications,
+  bacProfiles,
   checklistItems,
   documents,
+  formations,
   matchRuns,
   matches,
   profiles,
   scholarships,
   tasks,
   users,
+  wishes,
 } from "./db/schema";
 import type { Locale, ProfileData, ScholarshipData } from "./core/types";
+import type { BacProfileData } from "./core/orientation/types";
 import { localize } from "./core/types";
 import type { SessionUser } from "./auth";
 
@@ -197,3 +201,107 @@ export async function getDemoOrUser(userId: string): Promise<SessionUser | null>
 }
 
 export { inArray };
+
+// --- Mode A (bac orientation) ---
+
+export async function getBacProfile(userId: string) {
+  const rows = await db.select().from(bacProfiles).where(eq(bacProfiles.userId, userId)).limit(1);
+  return rows[0] ?? null;
+}
+
+export function bacProfileData(
+  p: NonNullable<Awaited<ReturnType<typeof getBacProfile>>>,
+): BacProfileData {
+  return {
+    stream: (p.stream as BacProfileData["stream"]) ?? null,
+    streamOption: p.streamOption,
+    bacAverage: p.bacAverage ?? null,
+    averageIsEstimate: p.averageIsEstimate,
+    bacYear: p.bacYear ?? null,
+    homeWilaya: p.homeWilaya,
+    interests: p.interests ?? [],
+    workStyle: (p.workStyle as BacProfileData["workStyle"]) ?? null,
+    practicality: p.practicality,
+    studyLengthPref: p.studyLengthPref,
+    constraints: (p.constraints ?? {}) as BacProfileData["constraints"],
+    draftWishes: p.draftWishes ?? [],
+    abroadOpenness: (p.abroadOpenness as BacProfileData["abroadOpenness"]) ?? null,
+  };
+}
+
+export async function listFormations() {
+  return db.select().from(formations);
+}
+
+export async function listWishes(userId: string) {
+  return db
+    .select()
+    .from(wishes)
+    .where(eq(wishes.userId, userId))
+    .orderBy(wishes.position);
+}
+
+/** Merge-patch the Mode A intake profile (used by /api/bac/chat and profile). */
+export async function patchBacProfile(
+  userId: string,
+  opts: {
+    patch?: Record<string, unknown>;
+    constraints?: Record<string, unknown>;
+    confirmed?: boolean;
+  },
+) {
+  let existing = await getBacProfile(userId);
+  if (!existing) {
+    const { uuidv7 } = await import("./core/ids");
+    const { bacProfiles } = await import("./db/schema");
+    const inserted = await db
+      .insert(bacProfiles)
+      .values({ id: uuidv7(), userId })
+      .returning();
+    existing = inserted[0]!;
+  }
+  const current = bacProfileData(existing);
+  const p = (opts.patch ?? {}) as Partial<BacProfileData>;
+  const next: BacProfileData = {
+    stream: (p.stream as BacProfileData["stream"]) ?? current.stream,
+    streamOption: p.streamOption ?? current.streamOption,
+    bacAverage: p.bacAverage !== undefined ? p.bacAverage : current.bacAverage,
+    averageIsEstimate: p.averageIsEstimate ?? current.averageIsEstimate,
+    bacYear: p.bacYear !== undefined ? p.bacYear : current.bacYear,
+    homeWilaya: p.homeWilaya ?? current.homeWilaya,
+    interests: p.interests ?? current.interests,
+    workStyle: (p.workStyle as BacProfileData["workStyle"]) ?? current.workStyle,
+    practicality: p.practicality ?? current.practicality,
+    studyLengthPref: p.studyLengthPref ?? current.studyLengthPref,
+    constraints:
+      p.constraints !== undefined
+        ? { ...current.constraints, ...p.constraints }
+        : current.constraints,
+    draftWishes: p.draftWishes ?? current.draftWishes,
+    abroadOpenness: (p.abroadOpenness as BacProfileData["abroadOpenness"]) ?? current.abroadOpenness,
+  };
+  const { bacProfiles } = await import("./db/schema");
+  const updated = await db
+    .update(bacProfiles)
+    .set({
+      stream: next.stream,
+      streamOption: next.streamOption,
+      bacAverage: next.bacAverage,
+      averageIsEstimate: next.averageIsEstimate,
+      bacYear: next.bacYear,
+      homeWilaya: next.homeWilaya,
+      interests: next.interests,
+      workStyle: next.workStyle,
+      practicality: next.practicality,
+      studyLengthPref: next.studyLengthPref,
+      constraints: next.constraints,
+      draftWishes: next.draftWishes,
+      abroadOpenness: next.abroadOpenness,
+      ...(opts.confirmed === true ? { confirmedAt: new Date() } : {}),
+      ...(opts.confirmed === false ? { confirmedAt: null } : {}),
+      updatedAt: new Date(),
+    })
+    .where(eq(bacProfiles.userId, userId))
+    .returning();
+  return updated[0]!;
+}

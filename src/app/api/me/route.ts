@@ -26,6 +26,7 @@ export async function GET() {
         locale: user.locale,
         role: user.role,
         plan: user.plan,
+        mode: user.mode as "bac" | "abroad",
       },
       profile_completeness: profile?.completeness ?? 0,
       plan: user.plan,
@@ -43,6 +44,7 @@ const PatchSchema = z
     name: z.string().min(1).max(120).optional(),
     locale: z.enum(["ar", "fr", "en"]).optional(),
     marketing_opt_in: z.boolean().optional(),
+    mode: z.enum(["bac", "abroad"]).optional(),
   })
   .strict();
 
@@ -60,6 +62,7 @@ export async function PATCH(req: Request) {
         ...(patch.name !== undefined ? { name: patch.name } : {}),
         ...(patch.locale !== undefined ? { locale: patch.locale } : {}),
         ...(patch.marketing_opt_in !== undefined ? { marketingOptIn: patch.marketing_opt_in } : {}),
+        ...(patch.mode !== undefined ? { mode: patch.mode } : {}),
         updatedAt: new Date(),
       })
       .where(eq(users.id, user.id))
@@ -67,7 +70,7 @@ export async function PATCH(req: Request) {
     const u = updated[0]!;
     const profile = await getProfile(user.id);
     return ok({
-      user: { id: u.id, email: u.email, name: u.name, locale: u.locale, role: u.role, plan: u.plan },
+      user: { id: u.id, email: u.email, name: u.name, locale: u.locale, mode: u.mode as "bac" | "abroad", role: u.role, plan: u.plan },
       profile_completeness: profile ? computeCompleteness(profileData(profile)) : 0,
     });
   } catch (e) {

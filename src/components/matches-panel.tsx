@@ -32,9 +32,11 @@ const VERDICTS = ["eligible", "likely", "stretch", "unknown", "ineligible"] as c
 export function MatchesPanel({
   initial,
   profileConfirmed,
+  hideHeader = false,
 }: {
   initial: MatchItem[];
   profileConfirmed: boolean;
+  hideHeader?: boolean;
 }) {
   const { t, locale } = useI18n();
   const router = useRouter();

@@ -32,6 +32,7 @@ export const users = pgTable(
     email: text("email").notNull().unique(),
     name: text("name"),
     locale: text("locale").notNull().default("fr"),
+    mode: text("mode").notNull().default("abroad"), // "bac" (Mode A) | "abroad" (Mode B)
     role: text("role").notNull().default("student"),
     plan: text("plan").notNull().default("free"),
     marketingOptIn: boolean("marketing_opt_in").default(false),
@@ -568,3 +569,94 @@ export const magicLinks = pgTable(
   },
   (t) => [index("magic_links_email_idx").on(t.email), index("magic_links_expiry_idx").on(t.expiresAt)],
 );
+
+// ---------------------------------------------------------------------------
+// Mode A: bac orientation (nava-full-documentation.md §7)
+// ---------------------------------------------------------------------------
+
+/**
+ * Bac-graduate profile, built by the Mode A intake chatbot (§7.1). No file
+ * upload anywhere in Mode A intake — every field is typed, tapped or spoken.
+ * Unverified / estimated values are flagged (`averageIsEstimate`) and shown
+ * as such in the UI; nothing here is a promise of admission.
+ */
+export const bacProfiles = pgTable(
+  "bac_profiles",
+  {
+    id: uuid("id").primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .unique()
+      .references(() => users.id, { onDelete: "cascade" }),
+    stream: text("stream"), // bac stream (filière), e.g. "sciences_experimentales"
+    streamOption: text("stream_option"),
+    bacAverage: numeric("bac_average", { precision: 4, scale: 2, mode: "number" }),
+    averageIsEstimate: boolean("average_is_estimate").notNull().default(false),
+    bacYear: smallint("bac_year"),
+    homeWilaya: text("home_wilaya"),
+    interests: jsonb("interests")
+      .notNull()
+      .default(sql`'[]'::jsonb`)
+      .$type<string[]>(),
+    workStyle: text("work_style"), // people | machines | data | ideas
+    practicality: text("practicality"), // practical | theoretical | unsure
+    studyLengthPref: text("study_length_pref"), // 3 | 5 | 5+ | unsure
+    constraints: jsonb("constraints")
+      .notNull()
+      .default(sql`'{}'::jsonb`)
+      .$type<Record<string, unknown>>(),
+    draftWishes: jsonb("draft_wishes")
+      .notNull()
+      .default(sql`'[]'::jsonb`)
+      .$type<string[]>(),
+    abroadOpenness: text("abroad_openness"), // yes | maybe_later | no
+    checklist: jsonb("checklist")
+      .notNull()
+      .default(sql`'{}'::jsonb`)
+      .$type<Record<string, string>>(), // doc code -> "to_get" | "in_progress" | "done"
+    confirmedAt: timestamp("confirmed_at", { withTimezone: true }),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
+  },
+  (t) => [index("bac_profiles_user_idx").on(t.userId)],
+);
+
+/** Ordered wish list (fiche de vœux, §7.2). Position is a real ranking. */
+export const wishes = pgTable(
+  "wishes",
+  {
+    id: uuid("id").primaryKey(),
+    userId: uuid("user_id")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    formationId: text("formation_id").notNull(),
+    position: smallint("position").notNull(),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+  },
+  (t) => [
+    index("wishes_user_idx").on(t.userId),
+    uniqueIndex("wishes_user_formation_idx").on(t.userId, t.formationId),
+  ],
+);
+
+/** Curated Algerian post-bac formations (Mode A catalog, §9.5). */
+export const formations = pgTable("formations", {
+  id: text("id").primaryKey(), // slug
+  nameFr: text("name_fr").notNull(),
+  nameEn: text("name_en"),
+  nameAr: text("name_ar"),
+  institution: text("institution").notNull(),
+  institutionKind: text("institution_kind").notNull(), // university | grande_ecole | institute
+  city: text("city").notNull(),
+  wilayaCode: smallint("wilaya_code").notNull(),
+  wilayaName: text("wilaya_name").notNull(),
+  streams: text("streams").array().notNull(),
+  language: text("language").notNull(), // fr | ar | en
+  domainTags: text("domain_tags").array().notNull(),
+  durationYears: smallint("duration_years").notNull(),
+  tuition: text("tuition").notNull().default("public"), // public (free) | private
+  cutoffLastYear: numeric("cutoff_last_year", { precision: 4, scale: 2, mode: "number" }),
+  cutoffSource: text("cutoff_source"),
+  needsVerification: boolean("needs_verification").notNull().default(true),
+  updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow(),
+});

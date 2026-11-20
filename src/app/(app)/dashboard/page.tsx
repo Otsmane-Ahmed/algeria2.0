@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { ArrowRight, CalendarClock, FileText, Target, TrendingUp } from "lucide-react";
 import { getSessionUser } from "@/lib/auth";
-import { getProfile, getLatestRun, listApplications, getAppTasks, text } from "@/lib/app-data";
+import { getProfile, getLatestRun, listApplications, getAppTasks, text, getBacProfile, bacProfileData, listWishes, listFormations } from "@/lib/app-data";
+import { bacCompleteness } from "@/lib/core/orientation/chat";
+import { evaluateFormation } from "@/lib/core/orientation/match";
 import { getMessages, formatDate, type Locale } from "@/lib/i18n";
 import { LOCALE_COOKIE, LOCALE_HEADER } from "@/lib/cookies";
 import { cookies, headers } from "next/headers";
@@ -28,6 +30,11 @@ export default async function DashboardPage() {
     const raw = messages[key] ?? key;
     return vars ? raw.replace(/\{(\w+)\}/g, (m, k) => (k in vars ? String(vars[k]) : m)) : raw;
   };
+
+  // Mode A dashboard (§9.1): continue chat, wishes status, formation matches.
+  if ((user.mode as string) === "bac") {
+    return <BacDashboard user={user} locale={locale} t={t} />;
+  }
 
   const [profile, run, apps] = await Promise.all([
     getProfile(user.id),
@@ -192,4 +199,126 @@ function daysFromToday(iso: string | null): number | null {
   if (!iso) return null;
   const today = new Date().toISOString().slice(0, 10);
   return Math.round((new Date(`${iso}T12:00:00Z`).getTime() - new Date(`${today}T12:00:00Z`).getTime()) / 86400000);
+}
+
+async function BacDashboard({
+  user,
+  locale,
+  t,
+}: {
+  user: NonNullable<Awaited<ReturnType<typeof getSessionUser>>>;
+  locale: Locale;
+  t: (key: string, vars?: Record<string, string | number>) => string;
+}) {
+  const [profileRow, wishRows, formations] = await Promise.all([
+    getBacProfile(user.id),
+    listWishes(user.id),
+    listFormations(),
+  ]);
+  const profile = profileRow ? bacProfileData(profileRow) : null;
+  const completeness = profile ? bacCompleteness(profile) : 0;
+  const risky = wishRows.filter((w) => {
+    const f = formations.find((x) => x.id === w.formationId);
+    if (!f) return false;
+    const v = evaluateFormation(
+      {
+        id: f.id, nameFr: f.nameFr, nameEn: f.nameEn, nameAr: f.nameAr,
+        institution: f.institution, institutionKind: f.institutionKind, city: f.city,
+        wilayaCode: f.wilayaCode, wilayaName: f.wilayaName, streams: f.streams,
+        language: f.language, domainTags: f.domainTags, durationYears: f.durationYears,
+        tuition: f.tuition, cutoffLastYear: f.cutoffLastYear, needsVerification: f.needsVerification,
+      },
+      profile,
+    ).verdict;
+    return v === "stretch" || v === "ineligible";
+  }).length;
+
+  const nextAction = !profileRow
+    ? { label: t("dashA.startChat"), href: "/chat" }
+    : !profileRow.confirmedAt
+      ? { label: t("dashA.continueChat"), href: "/chat" }
+      : wishRows.length === 0
+        ? { label: t("dashA.rankWishes"), href: "/wishes" }
+        : { label: t("dashA.seeMatches"), href: "/matches" };
+
+  return (
+    <div className="flex flex-col gap-6">
+      <header className="flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <h1 className="font-serif text-3xl font-medium tracking-normal sm:text-4xl">
+            {t("dash.welcome", { name: user.name ?? user.email })}
+          </h1>
+          <p className="text-sm text-[var(--text-muted)]">{t("dashA.subtitle")}</p>
+        </div>
+        <div className="flex gap-2">
+          <LinkButton href="/matches" variant="secondary" size="sm">
+            <Target className="h-4 w-4" aria-hidden="true" />
+            {t("dashA.matchesBtn")}
+          </LinkButton>
+          <LinkButton href="/chat" size="sm">
+            <FileText className="h-4 w-4" aria-hidden="true" />
+            {t("dashA.chatBtn")}
+          </LinkButton>
+        </div>
+      </header>
+
+      <div className="grid gap-4 md:grid-cols-3">
+        <Card className="p-5">
+          <p className="text-sm font-medium text-[var(--text-muted)]">{t("dashA.completeness")}</p>
+          <div className="mt-2 flex items-center gap-3">
+            <div className="h-2 flex-1 overflow-hidden rounded-full bg-[var(--surface-sunken)]">
+              <div className="h-full rounded-full bg-[var(--brand)] transition-all" style={{ width: `${completeness}%` }} />
+            </div>
+            <span className="text-sm font-semibold tabular-nums">{completeness}%</span>
+          </div>
+          {profile?.averageIsEstimate && (
+            <p className="mt-3 text-xs text-[var(--text-muted)]">{t("dashA.estimateNote")}</p>
+          )}
+        </Card>
+
+        <Card className="p-5 md:col-span-2">
+          <div className="mb-3 flex items-center gap-2 text-sm font-medium text-[var(--text-muted)]">
+            <TrendingUp className="h-4 w-4" aria-hidden="true" />
+            {t("dashA.wishesStatus")}
+          </div>
+          <div className="flex items-center gap-6">
+            <p className="text-3xl font-semibold tabular-nums">{wishRows.length}</p>
+            <p className="text-sm text-[var(--text-muted)]">{t("dashA.wishesCount")}</p>
+            {risky > 0 && (
+              <p className="text-sm font-medium text-[#b45309]">{t("dashA.riskyCount", { count: risky })}</p>
+            )}
+            <Link href="/wishes" className="ms-auto inline-flex items-center gap-1 text-sm font-medium text-[var(--brand-strong)] hover:underline">
+              {t("common.viewAll")}
+              <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+            </Link>
+          </div>
+        </Card>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <Card className="p-5">
+          <div className="mb-3 flex items-center gap-2 text-sm font-medium text-[var(--text-muted)]">
+            <CalendarClock className="h-4 w-4" aria-hidden="true" />
+            {t("dash.nextAction")}
+          </div>
+          <Link href={nextAction.href} className="font-medium text-[var(--brand-strong)] hover:underline">
+            {nextAction.label}
+          </Link>
+        </Card>
+
+        <Card className="p-5">
+          <div className="mb-3 flex items-center gap-2 text-sm font-medium text-[var(--text-muted)]">
+            <FileText className="h-4 w-4" aria-hidden="true" />
+            {t("dashA.catalog")}
+          </div>
+          <p className="text-3xl font-semibold tabular-nums">{formations.length}</p>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">{t("dashA.catalogNote")}</p>
+          <Link href="/matches" className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-[var(--brand-strong)] hover:underline">
+            {t("dash.viewMatches")}
+            <ArrowRight className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
+          </Link>
+        </Card>
+      </div>
+    </div>
+  );
 }

@@ -16,6 +16,7 @@ import {
   procedures,
   taxonomyFields,
   gradeScales,
+  formations,
 } from "../src/lib/db/schema";
 import { uuidv7 } from "../src/lib/core/ids";
 import { computeCompleteness } from "../src/lib/core/completeness";
@@ -51,6 +52,60 @@ async function main() {
       .onConflictDoUpdate({ target: [gradeScales.country, gradeScales.system], set: { config: s.config, notes: s.notes } });
   }
   console.log(`grade_scales: ${scales.length}`);
+
+  // --- formations (Mode A, §7.3) ---
+  const fItems: Record<string, unknown>[] = [];
+  for (const file of readdirSync(join(ROOT, "data/formations")).sort()) {
+    if (!file.endsWith(".json")) continue;
+    fItems.push(...(read(`data/formations/${file}`) as Record<string, unknown>[]));
+  }
+  for (const f of fItems) {
+    await db
+      .insert(formations)
+      .values({
+        id: f.id as string,
+        nameFr: f.name_fr as string,
+        nameEn: (f.name_en as string | undefined) ?? null,
+        nameAr: (f.name_ar as string | undefined) ?? null,
+        institution: f.institution as string,
+        institutionKind: f.institution_kind as string,
+        city: f.city as string,
+        wilayaCode: f.wilaya_code as number,
+        wilayaName: f.wilaya_name as string,
+        streams: f.streams as string[],
+        language: f.language as string,
+        domainTags: f.domain_tags as string[],
+        durationYears: f.duration_years as number,
+        tuition: (f.tuition as string) ?? "public",
+        cutoffLastYear: (f.cutoff_last_year as number | null) ?? null,
+        cutoffSource: (f.cutoff_source as string | null) ?? null,
+        needsVerification: (f.needs_verification as boolean) ?? true,
+        updatedAt: new Date(),
+      })
+      .onConflictDoUpdate({
+        target: formations.id,
+        set: {
+          nameFr: f.name_fr as string,
+          nameEn: (f.name_en as string | undefined) ?? null,
+          nameAr: (f.name_ar as string | undefined) ?? null,
+          institution: f.institution as string,
+          institutionKind: f.institution_kind as string,
+          city: f.city as string,
+          wilayaCode: f.wilaya_code as number,
+          wilayaName: f.wilaya_name as string,
+          streams: f.streams as string[],
+          language: f.language as string,
+          domainTags: f.domain_tags as string[],
+          durationYears: f.duration_years as number,
+          tuition: (f.tuition as string) ?? "public",
+          cutoffLastYear: (f.cutoff_last_year as number | null) ?? null,
+          cutoffSource: (f.cutoff_source as string | null) ?? null,
+          needsVerification: (f.needs_verification as boolean) ?? true,
+          updatedAt: new Date(),
+        },
+      });
+  }
+  console.log(`formations: ${fItems.length}`);
 
   // --- scholarships ---
   let published = 0;
