@@ -84,7 +84,7 @@ export async function GET(req: Request) {
     return new Response(JSON.stringify(payload, null, 2), {
       headers: {
         "content-type": "application/json; charset=utf-8",
-        "content-disposition": `attachment; filename="safar-export-${user.id}.json"`,
+        "content-disposition": `attachment; filename="nava-export-${user.id}.json"`,
         "cache-control": "private, no-store",
       },
     });

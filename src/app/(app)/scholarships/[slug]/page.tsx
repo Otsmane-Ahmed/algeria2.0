@@ -56,7 +56,7 @@ export default async function ScholarshipPage({ params }: { params: Promise<{ sl
             <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
             {t("matches.title")}
           </Link>
-          <h1 className="text-2xl font-semibold">{text(data.name, locale)}</h1>
+          <h1 className="font-serif text-3xl font-medium tracking-normal sm:text-4xl">{text(data.name, locale)}</h1>
           {provider?.name && <p className="mt-1 text-sm text-[var(--text-muted)]">{provider.name}</p>}
           <div className="mt-3 flex flex-wrap items-center gap-2">
             {data.needs_verification && <UnverifiedBadge />}

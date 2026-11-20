@@ -91,7 +91,7 @@ export function DocUpload() {
           htmlFor="doc-file"
           className={cx(
             "flex h-11 cursor-pointer items-center gap-2 rounded-[var(--radius)] border border-dashed border-[var(--border-strong)] px-4 text-sm",
-            "hover:border-[var(--brand)] hover:bg-[var(--surface-raised)]",
+            "hover:border-[var(--brand)] hover:bg-[var(--surface)]",
           )}
         >
           <Upload className="h-4 w-4" aria-hidden="true" />
@@ -157,7 +157,7 @@ export function DocRowActions({ id, status }: { id: string; status: string }) {
       {status !== "uploaded" && status !== "processing" && (
         <Link
           href={`/documents/${id}/review`}
-          className="inline-flex h-9 items-center gap-1.5 rounded-[var(--radius)] px-3 text-sm text-[var(--text-muted)] hover:bg-[var(--surface-raised)]"
+          className="inline-flex h-9 items-center gap-1.5 rounded-[var(--radius)] px-3 text-sm text-[var(--text-muted)] hover:bg-[var(--surface)]"
         >
           <Eye className="h-4 w-4" aria-hidden="true" />
           {t("docs.reviewTitle")}

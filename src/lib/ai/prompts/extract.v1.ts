@@ -81,6 +81,15 @@ export const ExtractionResult = z.object({
 
 export type ExtractionResult = z.infer<typeof ExtractionResult>;
 
+/**
+ * JSON Schema form of the same Zod shape: passed to callJSON so the model is
+ * told the exact structure (response_format json_schema when the provider
+ * supports it, embedded in the prompt otherwise). Without it the model
+ * improvises field paths and validation fails twice in a row.
+ */
+import { zodToJsonSchema } from "zod-to-json-schema";
+export const JSON_SCHEMA = zodToJsonSchema(ExtractionResult, "ExtractionResult");
+
 const SYSTEM = `You are a meticulous document-reading engine for Algerian academic documents (French, Arabic, English; often mixed). You receive page images of ONE document (or several concatenated documents).
 Your job: transcribe structured facts. You are NOT allowed to guess.
 

@@ -42,7 +42,7 @@ export default async function MatchesPage() {
   return (
     <div className="flex flex-col gap-6">
       <header>
-        <h1 className="text-2xl font-semibold">{t("matches.title")}</h1>
+        <h1 className="font-serif text-3xl font-medium tracking-normal sm:text-4xl">{t("matches.title")}</h1>
         <p className="mt-1 text-sm text-[var(--text-muted)]">{t("matches.factors")}</p>
       </header>
       <MatchesPanel initial={initial} profileConfirmed={Boolean(profile?.confirmedAt)} />

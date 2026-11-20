@@ -190,7 +190,7 @@ async function main() {
       out[n === 1 ? "single" : "multi"] = Boolean(res.choices?.[0]?.message?.content);
     }
     return out;
-  });
+  }, { allowUnsupported: true });
 
   await step("multilingual", async () => {
     const res = await chat({
@@ -227,7 +227,7 @@ async function main() {
       input: "safar",
     });
     return { ok: true, n: res.data.length };
-  });
+  }, { allowUnsupported: true });
 
   report.failures = failures;
   report.unsupported = unsupported;

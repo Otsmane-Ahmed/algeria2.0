@@ -32,7 +32,11 @@ export function missingForConfirm(p: Partial<ProfileData>): string[] {
   const missing: string[] = [];
   for (const f of REQUIRED_FOR_CONFIRM) {
     const v = p[f];
-    if (v === null || v === undefined || v === "") missing.push(f);
+    // Extraction often lands the field as free text (a French/German label the
+    // enum doesn't cover); computeCompleteness already counts it, so confirming
+    // must too — otherwise a fully read transcript still 422s forever.
+    const alt = f === "fieldOfStudy" ? p.fieldFreeText : null;
+    if ((v === null || v === undefined || v === "") && !alt) missing.push(f);
   }
   if (!p.confirmedAt && !p.fullNameLatin && !p.fullNameArabic) missing.push("fullNameLatin");
   return missing;

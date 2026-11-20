@@ -143,7 +143,7 @@ export function ReviewPanel({ documentId, pageCount, values, confidence, warning
           </div>
 
           {warnings.length > 0 && (
-            <ul className="flex flex-col gap-1 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--surface-raised)] p-3 text-xs text-[var(--text-muted)]">
+            <ul className="flex flex-col gap-1 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--surface)] p-3 text-xs text-[var(--text-muted)]">
               {warnings.map((w) => (
                 <li key={w}>{w}</li>
               ))}
@@ -151,7 +151,7 @@ export function ReviewPanel({ documentId, pageCount, values, confidence, warning
           )}
 
           {manual && (
-            <p className="rounded-[var(--radius)] border border-[var(--border)] bg-[var(--surface-raised)] px-4 py-3 text-sm text-[var(--text-muted)]">
+            <p className="rounded-[var(--radius)] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-muted)]">
               {t("docs.noValues")}. {t("docs.aiOffNote")}
             </p>
           )}

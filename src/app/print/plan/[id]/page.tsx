@@ -46,7 +46,7 @@ export default async function PrintPlanPage({ params }: { params: Promise<{ id: 
         <main className="mx-auto max-w-3xl px-6 py-10 print:px-0 print:py-0">
           <header className="mb-6 border-b border-black pb-4">
             <p className="text-xs uppercase tracking-wide">SAFAR</p>
-            <h1 className="text-2xl font-bold">{text(data.name, locale)}</h1>
+            <h1 className="font-serif text-2xl font-medium tracking-normal">{text(data.name, locale)}</h1>
             <p className="mt-1 text-sm">
               {t("scholarship.deadline")}: {deadline ? formatDate(locale, deadline) : t("common.unknown")}
               {" · "}
@@ -61,7 +61,7 @@ export default async function PrintPlanPage({ params }: { params: Promise<{ id: 
           </header>
 
           <section className="mb-8">
-            <h2 className="mb-3 text-lg font-semibold">{t("app.tasks")}</h2>
+            <h2 className="mb-3 text-lg font-bold">{t("app.tasks")}</h2>
             <ol className="flex flex-col gap-2">
               {tasks.map((task) => (
                 <li key={task.id} className="flex items-start gap-3 border-b border-gray-200 pb-2 text-sm">
@@ -82,7 +82,7 @@ export default async function PrintPlanPage({ params }: { params: Promise<{ id: 
           </section>
 
           <section>
-            <h2 className="mb-3 text-lg font-semibold">{t("scholarship.documents")}</h2>
+            <h2 className="mb-3 text-lg font-bold">{t("scholarship.documents")}</h2>
             <ul className="flex flex-col gap-2">
               {checklist.map((c) => (
                 <li key={c.id} className="flex items-start gap-3 border-b border-gray-200 pb-2 text-sm">

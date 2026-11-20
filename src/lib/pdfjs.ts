@@ -70,6 +70,11 @@ export async function rasterizePdfPage(
   data: Buffer,
   pageNo: number,
   maxEdge = 2000,
+  /**
+   * Upscale small pages for OCR: pages render at 72dpi, and text below
+   * ~150dpi comes out as noise. `fit` still downscales oversized pages.
+   */
+  up = false,
 ): Promise<{ jpeg: Buffer; width: number; height: number } | null> {
   const loadingTask = open(data);
   try {
@@ -77,7 +82,12 @@ export async function rasterizePdfPage(
     if (pageNo < 1 || pageNo > doc.numPages) return null;
     const page = await doc.getPage(pageNo);
     const base = page.getViewport({ scale: 1 });
-    const scale = Math.max(Math.min(1, maxEdge / Math.max(base.width, base.height)), 0.5);
+    const fit = maxEdge / Math.max(base.width, base.height);
+    const scale = up
+      ? fit < 1
+        ? fit
+        : Math.min(Math.max(fit, 2.6), 4)
+      : Math.max(Math.min(1, fit), 0.5);
     const viewport = page.getViewport({ scale });
 
     const { createCanvas } = await import("@napi-rs/canvas");

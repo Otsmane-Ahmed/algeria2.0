@@ -11,6 +11,7 @@ import { LOCALE_COOKIE, LOCALE_HEADER } from "@/lib/cookies";
 import { cookies, headers } from "next/headers";
 import { StatusStepper } from "@/components/domain";
 import { ReviewPanel } from "@/components/review-panel";
+import { flattenExtraction, flattenConfidence } from "@/lib/core/extraction/flatten";
 
 export const dynamic = "force-dynamic";
 
@@ -60,7 +61,7 @@ export default async function DocumentReviewPage({
           <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
           {t("nav.documents")}
         </Link>
-        <h1 className="text-xl font-semibold">{t("docs.reviewTitle")}</h1>
+        <h1 className="font-serif text-2xl font-medium tracking-normal">{t("docs.reviewTitle")}</h1>
         <div className="ms-auto">
           <StatusStepper status={doc.status} />
         </div>
@@ -69,8 +70,8 @@ export default async function DocumentReviewPage({
       <ReviewPanel
         documentId={doc.id}
         pageCount={doc.pageCount ?? Math.max(1, pages.length)}
-        values={(extraction?.raw as Record<string, unknown>) ?? {}}
-        confidence={extraction?.fieldConfidence ?? {}}
+        values={flattenExtraction((extraction?.raw as Record<string, unknown>) ?? {})}
+        confidence={flattenConfidence(extraction?.fieldConfidence ?? {})}
         warnings={extraction?.warnings ?? []}
         ocrText={ocr
           .filter((p) => p.ocrText)

@@ -59,7 +59,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ code
           {t("procedures.title")}
         </Link>
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="text-2xl font-semibold">{text(p.title, locale)}</h1>
+          <h1 className="font-serif text-3xl font-medium tracking-normal sm:text-4xl">{text(p.title, locale)}</h1>
           {p.needsVerification && <UnverifiedBadge />}
         </div>
         {p.summary && <p className="mt-1 text-sm text-[var(--text-muted)]">{text(p.summary, locale)}</p>}
@@ -87,7 +87,7 @@ export default async function ProcedurePage({ params }: { params: Promise<{ code
                 {i + 1}
               </span>
               <div className="min-w-0 flex-1">
-                <h2 className="font-semibold">{text(s.title, locale)}</h2>
+                <h2 className="font-serif text-lg font-medium tracking-normal">{text(s.title, locale)}</h2>
                 <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-[var(--text-muted)]">
                   {text(s.body, locale)}
                 </p>

@@ -6,12 +6,37 @@ import { Check, FileUp, Globe, LoaderCircle, Target } from "lucide-react";
 import { useI18n } from "@/components/i18n-provider";
 import { Button, Card, Field, Input, cx } from "@/components/ui";
 import { EmptyState } from "@/components/domain";
+import { flattenExtraction } from "@/lib/core/extraction/flatten";
 import type { Locale } from "@/lib/i18n";
-
-type ApiErr = { code?: string; detail?: string; message?: string; errors?: { path: string; message: string }[] };
 
 const LEVELS = ["bac", "licence", "master", "doctorate", "other"] as const;
 const COUNTRIES = ["FR", "DE", "CA", "TR", "IT", "NL", "BE", "CH", "UK", "US", "AE"] as const;
+
+/**
+ * Poll the document until ingestion leaves `uploaded`/`processing`, then hand
+ * back the read values (null when nothing could be read — the document parks
+ * at needs_review and the student fills in manually). Ingestion runs
+ * in-process, so first use can take a while (AI call, OCR for scans).
+ */
+async function waitForExtraction(documentId: string): Promise<Record<string, unknown> | null> {
+  // Generous: scans OCR through up to 4 orientations per page, then the text
+  // model runs — a multi-page sideways scan can take a couple of minutes.
+  const deadline = Date.now() + 150_000;
+  for (;;) {
+    const res = await fetch(`/api/documents/${documentId}/extraction`).catch(() => null);
+    const body = res?.ok
+      ? ((await res.json().catch(() => ({}))) as {
+          extraction?: { raw?: Record<string, unknown> } | null;
+          document_status?: string;
+        })
+      : null;
+    const status = body?.document_status;
+    if (!status) return null; // gone or unreachable: let confirm report the gaps
+    if (status !== "uploaded" && status !== "processing") return body?.extraction?.raw ?? null;
+    if (Date.now() > deadline) return null;
+    await new Promise((r) => setTimeout(r, 2500));
+  }
+}
 
 /**
  * Three-step onboarding (spec F0/F2): language + consent, goals, transcript
@@ -32,15 +57,24 @@ export function OnboardingWizard() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [missing, setMissing] = useState<string[]>([]);
+  const [docId, setDocId] = useState<string | null>(null);
+  const [hint, setHint] = useState<string | null>(null);
 
   const toggleCountry = (code: string) =>
     setCountries((prev) => (prev.includes(code) ? prev.filter((c) => c !== code) : [...prev, code]));
+
+  /** Human label for a missing-field path ("gpa20" or "profile.gpa20"). */
+  const labelFor = (path: string) => {
+    const leaf = path.split(".").pop() ?? path;
+    const label = t(`profile.${leaf}`);
+    return label === `profile.${leaf}` ? leaf : label;
+  };
 
   async function call(path: string, init?: RequestInit): Promise<{ ok: boolean; body: Record<string, unknown> }> {
     const res = await fetch(path, init);
     const body = (await res.json().catch(() => ({}))) as Record<string, unknown>;
     if (!res.ok) {
-      const err = body as unknown as ApiErr;
+      const err = body as { code?: string; detail?: string; message?: string };
       throw new Error(err.detail || err.message || err.code || "error");
     }
     return { ok: true, body };
@@ -70,32 +104,68 @@ export function OnboardingWizard() {
   async function finish() {
     setBusy(true);
     setError(null);
+    setMissing([]);
     try {
-      if (file) {
+      let id = docId;
+      if (file && !id) {
         const form = new FormData();
         form.append("file", file);
         form.append("kind", "transcript");
-        await call("/api/documents", { method: "POST", body: form });
+        const res = await fetch("/api/documents", { method: "POST", body: form });
+        const body = (await res.json().catch(() => ({}))) as {
+          document_id?: string;
+          detail?: string;
+          code?: string;
+        };
+        // 409 = this exact file is already uploaded (retry): recover its id so
+        // the extraction still lands in the profile instead of stalling at 422.
+        if (!res.ok && res.status !== 409) throw new Error(body.detail || body.code || "upload failed");
+        if (res.status === 409) {
+          const list = (await fetch("/api/documents?kind=transcript").then((r) => r.json().catch(() => null)).catch(() => null)) as
+            | { items?: { id: string; filename: string | null }[] }
+            | null;
+          id = list?.items?.find((d) => d.filename === file.name)?.id ?? null;
+        } else {
+          id = body.document_id ?? null;
+        }
+        setDocId(id);
       }
-      await call("/api/profile/confirm", { method: "POST" });
+
+      // Accept the read values into the profile before confirming it — the
+      // wizard uploads on the student's behalf, so it does what the review
+      // panel does; the extraction stays reviewable under Documents.
+      if (id) {
+        setHint(t("docs.status.extracted"));
+        const values = await waitForExtraction(id);
+        setHint(null);
+        if (values) {
+          await fetch(`/api/documents/${id}/extraction/confirm`, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            // The API speaks the flat field names; raw is nested (spec §9.1).
+            body: JSON.stringify({ values: flattenExtraction(values), write_profile: true }),
+          }).catch(() => undefined);
+        }
+      }
+
+      const res = await fetch("/api/profile/confirm", { method: "POST" });
+      const body = (await res.json().catch(() => ({}))) as {
+        errors?: { path: string; message: string }[];
+        detail?: string;
+        code?: string;
+      };
+      if (!res.ok) {
+        // Missing fields are expected when nothing could be read: name them.
+        const paths = (body.errors ?? []).map((x) => x.path);
+        if (paths.length) setMissing(paths);
+        else setError(body.detail || body.code || String(res.status));
+        setBusy(false);
+        return;
+      }
       router.push("/dashboard");
       router.refresh();
     } catch (e) {
-      // Missing profile fields are expected here: show them and offer the form.
-      const message = e instanceof Error ? e.message : String(e);
-      if (/missing|required/i.test(message) || message.includes("profile")) {
-        try {
-          const res = await fetch("/api/profile/confirm", { method: "POST" });
-          const body = (await res.json().catch(() => ({}))) as {
-            errors?: { path: string; message: string }[];
-          };
-          setMissing((body.errors ?? []).map((x) => x.path));
-        } catch {
-          setMissing(["*"]);
-        }
-      } else {
-        setError(message);
-      }
+      setError(e instanceof Error ? e.message : String(e));
       setBusy(false);
     }
   }
@@ -105,7 +175,7 @@ export function OnboardingWizard() {
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6">
       <header>
-        <h1 className="text-2xl font-semibold">{t("onboarding.title")}</h1>
+        <h1 className="font-serif text-2xl font-medium tracking-normal">{t("onboarding.title")}</h1>
         <ol className="mt-4 flex items-center gap-2">
           {steps.map((label, i) => {
             const n = i + 1;
@@ -141,7 +211,7 @@ export function OnboardingWizard() {
             {t("common.language")}
           </div>
           <LanguageChoices />
-          <div className="flex gap-3 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--surface-raised)] p-4">
+          <div className="flex gap-3 rounded-[var(--radius)] border border-[var(--border)] bg-[var(--surface)] p-4">
             <input
               id="consent"
               type="checkbox"
@@ -256,10 +326,16 @@ export function OnboardingWizard() {
             <span className="text-xs text-[var(--text-muted)]">{t("onboarding.uploadHint")}</span>
           </button>
 
+          {hint && (
+            <p className="flex items-center gap-2 text-sm text-[var(--text-muted)]" role="status">
+              <LoaderCircle className="h-4 w-4 animate-spin" aria-hidden="true" />
+              {hint}
+            </p>
+          )}
+
           {missing.length > 0 && (
             <EmptyState
-              title={t("profile.missing")}
-              body={missing.join(", ")}
+              title={t("profile.missing", { fields: missing.map(labelFor).join(", ") })}
               action={
                 <Button variant="secondary" size="sm" onClick={() => router.push("/profile")}>
                   {t("onboarding.manualPath")}

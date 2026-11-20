@@ -129,7 +129,7 @@ export default async function ApplicationPage({
             <ArrowLeft className="h-4 w-4 rtl:rotate-180" aria-hidden="true" />
             {t("nav.applications")}
           </Link>
-          <h1 className="text-2xl font-semibold">{text(data.name, locale)}</h1>
+          <h1 className="font-serif text-3xl font-medium tracking-normal sm:text-4xl">{text(data.name, locale)}</h1>
           <div className="mt-2 flex flex-wrap items-center gap-2">
             <Badge tone="neutral">{t(`app.status.${app.status}`)}</Badge>
             <Badge tone={FEASIBILITY_TONE[app.feasibility as keyof typeof FEASIBILITY_TONE] ?? "neutral"}>

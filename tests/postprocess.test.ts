@@ -211,6 +211,26 @@ describe("missingForConfirm", () => {
       }),
     ).toEqual([]);
   });
+
+  it("fieldFreeText stands in for fieldOfStudy (extraction writes the label, not the enum)", () => {
+    // Extraction lands French/German labels the enum can't hold; confirming
+    // used to 422 forever on fieldOfStudy even though the field was read.
+    expect(
+      missingForConfirm({
+        gpa20: 14,
+        currentLevel: "licence",
+        fieldFreeText: "Informatique",
+        targetLevel: "master",
+        fullNameLatin: "X Y",
+      }),
+    ).toEqual([]);
+    expect(missingForConfirm({ fieldFreeText: "Informatique" })).toEqual([
+      "gpa20",
+      "currentLevel",
+      "targetLevel",
+      "fullNameLatin",
+    ]);
+  });
 });
 
 describe("grade conversions", () => {

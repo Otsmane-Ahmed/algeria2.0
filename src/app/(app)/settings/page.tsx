@@ -26,7 +26,7 @@ export default async function SettingsPage() {
   return (
     <div className="flex flex-col gap-6">
       <header>
-        <h1 className="text-2xl font-semibold">{t("settings.title")}</h1>
+        <h1 className="font-serif text-3xl font-medium tracking-normal sm:text-4xl">{t("settings.title")}</h1>
       </header>
 
       <SettingsPanel email={user.email} />

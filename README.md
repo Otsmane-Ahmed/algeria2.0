@@ -1,4 +1,4 @@
-# Safar
+# Nava
 
 Turn a photo of an Algerian transcript into a dated plan to study abroad: upload, extract, match, plan, write, check, export.
 
@@ -30,7 +30,7 @@ Every one of these is expected green:
 | `npx vitest run` | 8 files, **185 tests** |
 | `npx tsx scripts/validate-data.ts` | `ok: 39 data/config files valid.` |
 | `npx tsx scripts/seed.ts` | idempotent, prints `seed complete.` |
-| `npm run probe` | exit 0 (prints `SKIPPED` without a key) |
+| `npm run probe` | exit 0 (key is scoped to one text model; vision/embeddings report `unsupported`, non-fatal) |
 | `npm run build` | exit 0 |
 | `npm run smoke` | **69/69 checks passed** |
 
@@ -41,10 +41,9 @@ Every one of these is expected green:
 - **35 route handlers**, **15 pages**, **43 library modules**, **19 components**.
 - **25 tables** (`src/lib/db/schema.ts`), UUIDv7 ids, `timestamptz` everywhere.
 - **185 unit tests** over the pure core: rule DSL and tri-state evaluation, scoring, grade conversion, date/timeline maths, checklist state machine, postprocess, i18n, ids.
-- **351 message keys × 3 locales** (`fr`, `en`, `ar`), key sets asserted identical by test.
+- **358 message keys × 3 locales** (`fr`, `en`, `ar`), key sets asserted identical by test.
 - **20 scholarships** (17 published, 3 `draft`), **12 Algerian procedures**, 41 taxonomy entries, 5 grade scales, 19 countries.
 - **AI client layer** (`src/lib/ai/*`): capability probe, timeout, retry, schema validation, request logging. No `AIGRID_API_KEY` means every AI surface renders an explicit "AI unavailable" state and nothing else changes.
-
 ## How the demo flow maps to spec features
 
 | Spec | Where it lives |
@@ -69,7 +68,7 @@ Each one is a deliberate trade, not an omission. Reason given for every line.
 **Structure**
 
 1. **One app at the repo root, no pnpm monorepo.** `apps/web` and `packages/*` collapsed into a single Next.js app: `packages/core` → `src/lib/core`, `packages/ai` → `src/lib/ai`, `packages/db` → `src/lib/db`. One `npm install`, one `next build`, no workspace plumbing for a hackathon deliverable.
-2. **Hand-rolled i18n** instead of `next-intl`. Locale is a cookie (`safar_locale`) plus a request header (`x-safar-locale`) set by middleware; `getMessages()` returns a flat key map. 351 keys, one test asserting the three files stay in lockstep.
+2. **Hand-rolled i18n** instead of `next-intl`. Locale is a cookie (`safar_locale`) plus a request header (`x-safar-locale`) set by middleware; `getMessages()` returns a flat key map. 358 keys, one test asserting the three files stay in lockstep.
 3. **`/{locale}` is a rewrite, not a parallel route tree.** `src/middleware.ts` rewrites `/ar/dashboard` → `/dashboard` and pins the cookie, so there is one tree to keep correct instead of two. Landing page lives at `/` and at `/{locale}`.
 4. **Plain Tailwind primitives** (`src/components/ui.tsx`) instead of shadcn/ui. Every colour pair used for text meets WCAG AA on `--surface`, and no state is carried by colour alone (icon + text always).
 
@@ -108,15 +107,19 @@ Each one is a deliberate trade, not an omission. Reason given for every line.
 
 ## AI degradation
 
-No key is configured, and the build does not need one:
+A key **is** configured: `.env` carries `AIGRID_API_KEY`, scoped to one text model (`Qwen/Qwen3.8-27B`). It is text-only, and the code assumes nothing about it:
 
-- `npm run probe` prints `SKIPPED` and exits 0.
-- `/api/health` reports `aigrid: {ok: false, detail: "no AIGRID_API_KEY (degraded mode)"}`.
-- Document ingestion runs the deterministic path and lands in `needs_review` with the text layer extracted, waiting for a human.
-- Draft generation answers with an "AI unavailable" state (`states.aiOff`).
-- The checker runs Layer 1 rules only — which is the layer that produces the findings anyway; Layer 2 LLM review is the part that is skipped.
+- `npm run probe` runs the model for real, prints `ok: true`, and exits 0. The vision endpoint and embeddings are reported `unsupported` (key scope), which is classified non-fatal.
+- `/api/health` reports `aigrid: {ok: true}` when the env var is present, `{ok: false, detail: "no AIGRID_API_KEY (degraded mode)"}` when it is not.
+- Document ingestion tries vision first. A scanned page or a vision-scoped rejection falls back to the PDF text layer and lands in `needs_review` with `needs_review` status, waiting for a human — never `failed`.
+- A PDF with no text layer and no vision access also lands in `needs_review`: the text extraction is empty, the human fills the fields in the review screen.
+- Draft generation and checker Layer 2 answer with the real model when the key is there, and with the "AI unavailable" state (`states.aiOff`) when it is not. The checker's Layer 1 rules run either way.
 
-Drop a key into `.env` and the same code paths light up; nothing else changes.
+Remove the key and every path degrades to the states above; add it back and the same paths light up. Nothing else changes.
+
+## Design
+
+The UI is built to the **Nava design system** (`Nava/Design system.pdf`): navy `#15233f`, primary blue `#1167f2`, pale panel `#e1e9f2`, gold `#f4c126`, lime `#bced48`; Inter for Latin, IBM Plex Sans Arabic for Arabic; 10/12/24px radii. Tokens live in `src/app/globals.css` as semantic CSS variables (light + dark), so every surface reads from the same palette.
 
 ## Known limits
 
@@ -129,4 +132,4 @@ Drop a key into `.env` and the same code paths light up; nothing else changes.
 
 ## Data disclaimer
 
-> Scholarship and procedure data in Safar is curated by humans from official sources and may change without notice. Fields marked "Not verified" have not yet been confirmed against an official page. Always confirm on the provider's official website before acting.
+> Scholarship and procedure data in Nava is curated by humans from official sources and may change without notice. Fields marked "Not verified" have not yet been confirmed against an official page. Always confirm on the provider's official website before acting.

@@ -51,6 +51,19 @@
       },
       "updatedAt": 1795168989506
     },
+    "inline:demo-sign-in-lands-on-the-dashboard-eea4a300": {
+      "binding": {
+        "contains": "/dashboard",
+        "kind": "route"
+      },
+      "declaredAt": 1795190111391,
+      "id": "inline:demo-sign-in-lands-on-the-dashboard-eea4a300",
+      "state": "bound",
+      "statement": "demo sign-in lands on the dashboard",
+      "status": "proposed",
+      "subject": "unsorted",
+      "updatedAt": 1795190111398
+    },
     "inline:demo-signin-2ebeafe0": {
       "binding": {
         "kind": "route",
@@ -97,6 +110,30 @@
         ]
       },
       "updatedAt": 1795168983270
+    },
+    "inline:open-the-documents-page-to-upload-a-transcript-ce246be4": {
+      "binding": {
+        "contains": "/documents",
+        "kind": "route"
+      },
+      "declaredAt": 1795190196760,
+      "id": "inline:open-the-documents-page-to-upload-a-transcript-ce246be4",
+      "provenBy": {
+        "at": 1795190199517,
+        "grade": "presence",
+        "verdictId": "reticle_act_and_wait:1795190199517"
+      },
+      "state": "proved",
+      "statement": "open the documents page to upload a transcript",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/components/app-shell.tsx"
+        ],
+        "route": "/documents"
+      },
+      "updatedAt": 1795190199524
     },
     "inline:procedures-browse-598a3328": {
       "binding": {
@@ -145,6 +182,196 @@
         "route": "/settings"
       },
       "updatedAt": 1795169615416
+    },
+    "inline:signing-in-through-the-redesigned-login-lands-th-c2d890ad": {
+      "binding": {
+        "kind": "route",
+        "pathname": "/dashboard"
+      },
+      "declaredAt": 1795182299462,
+      "id": "inline:signing-in-through-the-redesigned-login-lands-th-c2d890ad",
+      "provenBy": {
+        "at": 1795182306514,
+        "grade": "presence",
+        "verdictId": "reticle_act_and_wait:1795182306514"
+      },
+      "state": "proved",
+      "statement": "signing in through the redesigned login lands the user on the dashboard with the Nava shell",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/components/ui.tsx"
+        ],
+        "route": "/dashboard"
+      },
+      "updatedAt": 1795182306532
+    },
+    "inline:the-dashboard-renders-the-nava-navy-sidebar-shel-0f0d3bce": {
+      "binding": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "route",
+            "pathname": "/dashboard"
+          },
+          {
+            "contains": "YOUR NEXT CHAPTER",
+            "kind": "text"
+          },
+          {
+            "contains": "A little progress, every day.",
+            "kind": "text"
+          },
+          {
+            "contains": "© Nava 2026",
+            "kind": "text"
+          },
+          {
+            "absent": true,
+            "kind": "console",
+            "level": "error"
+          }
+        ]
+      },
+      "declaredAt": 1795182314523,
+      "id": "inline:the-dashboard-renders-the-nava-navy-sidebar-shel-0f0d3bce",
+      "provenBy": {
+        "at": 1795182324065,
+        "grade": "presence",
+        "verdictId": "reticle_assert:1795182324065"
+      },
+      "state": "proved",
+      "statement": "the dashboard renders the Nava navy sidebar shell: section label, promo card, copyright, with no console errors",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "files": [
+          "src/components/ui.tsx"
+        ],
+        "route": "/dashboard"
+      },
+      "updatedAt": 1795182324076
+    },
+    "inline:the-demo-sign-in-works-after-the-redesign-landin-d43397cc": {
+      "binding": {
+        "kind": "route",
+        "pathname": "dashboard"
+      },
+      "declaredAt": 1795182435661,
+      "id": "inline:the-demo-sign-in-works-after-the-redesign-landin-d43397cc",
+      "state": "bound",
+      "statement": "the demo sign-in works after the redesign, landing on the dashboard",
+      "status": "proposed",
+      "subject": "unsorted",
+      "updatedAt": 1795182435672
+    },
+    "inline:the-fr-prefix-pins-the-session-locale-to-french-9859d904": {
+      "binding": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "route",
+            "pathname": "/dashboard"
+          },
+          {
+            "kind": "element",
+            "query": {
+              "text": "Candidatures"
+            }
+          }
+        ]
+      },
+      "declaredAt": 1795182356080,
+      "id": "inline:the-fr-prefix-pins-the-session-locale-to-french-9859d904",
+      "state": "bound",
+      "statement": "the /fr prefix pins the session locale to French so recorded French flows replay against the right nav labels",
+      "status": "proposed",
+      "subject": "unsorted",
+      "updatedAt": 1795182356092
+    },
+    "inline:the-landing-page-is-renamed-to-nava-and-rendered-ff32b55b": {
+      "binding": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "route",
+            "pathname": "/"
+          },
+          {
+            "kind": "element",
+            "query": {
+              "text": "Nava"
+            }
+          },
+          {
+            "contains": "MADE FOR ALGERIAN AMBITION",
+            "kind": "text"
+          }
+        ]
+      },
+      "declaredAt": 1795182277933,
+      "id": "inline:the-landing-page-is-renamed-to-nava-and-rendered-ff32b55b",
+      "provenBy": {
+        "at": 1795182277968,
+        "grade": "presence",
+        "verdictId": "reticle_assert:1795182277968"
+      },
+      "state": "proved",
+      "statement": "the landing page is renamed to Nava and rendered in the Makers2 design: uppercase eyebrow, Nava brand, lime CTA",
+      "status": "proved",
+      "subject": "unsorted",
+      "updatedAt": 1795182277973
+    },
+    "inline:the-login-page-shows-the-nava-two-column-redesig-bbdcf997": {
+      "binding": {
+        "kind": "allOf",
+        "predicates": [
+          {
+            "kind": "route",
+            "pathname": "/login"
+          },
+          {
+            "contains": "Your future doesn't need a password.",
+            "kind": "text"
+          },
+          {
+            "kind": "element",
+            "query": {
+              "text": "Nava"
+            }
+          }
+        ]
+      },
+      "declaredAt": 1795182290565,
+      "id": "inline:the-login-page-shows-the-nava-two-column-redesig-bbdcf997",
+      "provenBy": {
+        "at": 1795182290613,
+        "grade": "presence",
+        "verdictId": "reticle_assert:1795182290613"
+      },
+      "state": "proved",
+      "statement": "the login page shows the Nava two-column redesign: brand header, hero headline, sign-in panel",
+      "status": "proved",
+      "subject": "unsorted",
+      "surface": {
+        "route": "/login"
+      },
+      "updatedAt": 1795182290624
+    },
+    "inline:uploading-a-real-scanned-transcript-reaches-the-96afb5d9": {
+      "binding": {
+        "kind": "net",
+        "method": "POST",
+        "urlContains": "/api/documents"
+      },
+      "declaredAt": 1795190535266,
+      "id": "inline:uploading-a-real-scanned-transcript-reaches-the-96afb5d9",
+      "state": "bound",
+      "statement": "uploading a real scanned transcript reaches the documents API",
+      "status": "proposed",
+      "subject": "unsorted",
+      "updatedAt": 1795190535281
     }
   },
   "subject": "unsorted",

@@ -54,7 +54,7 @@ export default async function DashboardPage() {
     <div className="flex flex-col gap-6">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold">
+          <h1 className="font-serif text-3xl font-medium tracking-normal sm:text-4xl">
             {t("dash.welcome", { name: user.name ?? user.email })}
           </h1>
           <p className="text-sm text-[var(--text-muted)]">{t("dash.title")}</p>

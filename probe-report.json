@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-20T11:23:58.527Z",
+  "checked_at": "2026-11-20T15:38:38.780Z",
   "models": {
     "ids": [
       "Qwen/Qwen3.8-27B"
@@ -13,11 +13,11 @@
   },
   "plain_chat": {
     "ok": true,
-    "sample": "pong"
+    "sample": "Pong! How can I help you today?"
   },
   "stream": {
     "ok": true,
-    "chunks": 12,
+    "chunks": 8,
     "received": 31
   },
   "json_object": {
@@ -36,31 +36,34 @@
   },
   "vision": {
     "ok": false,
+    "unsupported": true,
     "error": "400 litellm.BadRequestError: Hosted_vllmException - {\"error\":{\"message\":\"At most 0 image(s) may be provided in one prompt. (parameter=image)\",\"type\":\"BadRequestError\",\"param\":\"image\",\"code\":400}}. Received Model Group=Qwen/Qwen3.8-27B\nAvailable Model Group Fallbacks=None",
-    "latency_ms": 273
+    "latency_ms": 519
   },
   "multilingual": {
     "ok": true,
-    "sample": "Safi, je peux le faire",
+    "sample": "Safi, je peux le faire.",
     "utf8_ok": true
   },
   "max_tokens": {
     "ok": true,
-    "chars": 2503,
+    "chars": 2548,
     "finish": "stop"
   },
   "concurrency": {
     "ok": 4,
     "concurrency_ok": 4,
     "rate_limit_429": false,
-    "latency_ms": 577
+    "latency_ms": 483
   },
   "embeddings": {
     "ok": false,
+    "unsupported": true,
     "error": "403 key not allowed to access model. This key can only access models=['Qwen/Qwen3.8-27B']. Tried to access text-embedding-3-small",
-    "latency_ms": 324
+    "latency_ms": 526
   },
-  "failures": [
+  "failures": [],
+  "unsupported": [
     "vision",
     "embeddings"
   ]

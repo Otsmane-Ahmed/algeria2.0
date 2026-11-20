@@ -45,7 +45,7 @@ export default async function ApplicationsPage() {
     <div className="flex flex-col gap-6">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold">{t("nav.applications")}</h1>
+          <h1 className="font-serif text-3xl font-medium tracking-normal sm:text-4xl">{t("nav.applications")}</h1>
           <p className="text-sm text-[var(--text-muted)]">{t("app.title")}</p>
         </div>
         <LinkButton href="/matches" variant="secondary" size="sm">

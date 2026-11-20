@@ -34,7 +34,7 @@ export default async function ProceduresPage() {
   return (
     <div className="flex flex-col gap-6">
       <header>
-        <h1 className="text-2xl font-semibold">{t("procedures.title")}</h1>
+        <h1 className="font-serif text-3xl font-medium tracking-normal sm:text-4xl">{t("procedures.title")}</h1>
         <p className="mt-1 text-sm text-[var(--text-muted)]">{t("procedures.subtitle")}</p>
       </header>
 

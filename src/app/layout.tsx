@@ -10,18 +10,18 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Safar — From your transcript to a plan to study abroad",
-    template: "%s · Safar",
+    default: "Nava — From your transcript to a plan to study abroad",
+    template: "%s · Nava",
   },
   description:
-    "Safar reads your Algerian transcript, matches you against curated scholarships, and turns the result into a dated plan with a document checklist.",
+    "Nava reads your Algerian transcript, matches you against curated scholarships, and turns the result into a dated plan with a document checklist.",
   robots: { index: false }, // demo build: app is noindex, landing is reachable
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0F766E",
+  themeColor: "#f2f8f7",
 };
 
 /**

@@ -1,4 +1,8 @@
 {
   "framework": "next",
-  "projectId": "safar-1f8da843"
+  "projectId": "safar-1f8da843",
+  "uploadRoots": [
+    "/tmp/opencode",
+    "/home/ahmed/hackathon2"
+  ]
 }

@@ -8,25 +8,39 @@ export function cx(...parts: (string | false | null | undefined)[]): string {
   return parts.filter(Boolean).join(" ");
 }
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
+type ButtonVariant =
+  | "primary"
+  | "navy"
+  | "secondary"
+  | "ghost"
+  | "outline"
+  | "danger"
+  | "highlight";
 type ButtonSize = "sm" | "md" | "lg";
 
+/* Pill geometry is the signature: every button is fully rounded, weight 500,
+   flat fill, no shadow. At most one teal primary per viewport. */
 const BTN_BASE =
-  "inline-flex items-center justify-center gap-2 rounded-[var(--radius)] font-medium " +
-  "disabled:opacity-50 disabled:pointer-events-none select-none whitespace-nowrap";
+  "inline-flex items-center justify-center gap-2 rounded-full font-medium " +
+  "disabled:opacity-50 disabled:pointer-events-none select-none whitespace-nowrap " +
+  "transition-colors";
 
 const BTN_VARIANT: Record<ButtonVariant, string> = {
-  primary: "bg-[var(--brand)] text-white hover:bg-[var(--brand-strong)]",
+  primary: "bg-[var(--brand)] text-white hover:bg-[var(--brand-hover)]",
+  navy: "bg-[var(--navy)] text-white hover:bg-[#12294c]",
   secondary:
-    "bg-[var(--surface)] text-[var(--text)] border border-[var(--border-strong)] hover:bg-[var(--surface-raised)]",
-  ghost: "bg-transparent text-[var(--text-muted)] hover:bg-[var(--surface-raised)] hover:text-[var(--text)]",
+    "bg-[var(--surface)] text-[var(--text)] border border-[var(--border-strong)] hover:bg-[var(--surface-sunken)]",
+  ghost: "bg-transparent text-[var(--text-muted)] hover:bg-[var(--brand-soft)] hover:text-[var(--text)]",
+  outline:
+    "bg-transparent text-[var(--brand-strong)] border border-[var(--brand-strong)] hover:bg-[var(--brand-soft)]",
   danger: "bg-[var(--danger)] text-white hover:opacity-90",
+  highlight: "bg-[var(--lime)] text-[var(--navy)] hover:brightness-95",
 };
 
 const BTN_SIZE: Record<ButtonSize, string> = {
-  sm: "h-9 px-3 text-sm",
-  md: "h-11 px-4 text-sm",
-  lg: "h-12 px-6 text-base",
+  sm: "h-9 px-4 text-sm",
+  md: "h-11 px-6 text-sm",
+  lg: "h-12 px-7 text-[15px]",
 };
 
 export function Button({
@@ -74,7 +88,10 @@ export function Card({
     <Tag
       role={role}
       className={cx(
-        "bg-[var(--surface)] border border-[var(--border)] rounded-[var(--radius-lg)]",
+        // Card mint surface with a hairline border: flat color layering, never
+        // shadows (reference rule). Inner content (inputs, tables, sub-cards)
+        // reads as white on top of it.
+        "bg-[var(--surface-raised)] border border-[var(--border)] rounded-[var(--radius)]",
         className,
       )}
     >
@@ -160,12 +177,12 @@ export function Badge({
   className?: string;
 }) {
   const tones = {
-    neutral: "bg-[var(--surface-sunken)] text-[var(--text-muted)] border-[var(--border)]",
-    brand: "bg-[var(--brand-soft)] text-[var(--brand-strong)] border-transparent",
+    neutral: "bg-[var(--surface)] text-[var(--text-muted)] border-[var(--border-strong)]",
+    brand: "bg-[var(--brand)] text-white border-transparent",
     success: "bg-[var(--success-soft)] text-[var(--success)] border-transparent",
     warning: "bg-[var(--warning-soft)] text-[var(--warning)] border-transparent",
     danger: "bg-[var(--danger-soft)] text-[var(--danger)] border-transparent",
-    accent: "bg-[var(--accent-soft)] text-[var(--warning)] border-transparent",
+    accent: "bg-[var(--brand-soft)] text-[var(--brand-strong)] border-[var(--border-strong)]",
   } as const;
   return (
     <span

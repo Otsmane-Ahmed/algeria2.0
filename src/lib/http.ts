@@ -60,7 +60,7 @@ export function errorResponse(req: Request, e: unknown): NextResponse {
   if (e instanceof ApiError) {
     return NextResponse.json(
       {
-        type: `https://safar.app/errors/${e.code}`,
+        type: `https://nava.app/errors/${e.code}`,
         title: TITLES[e.code] ?? e.code,
         status: e.status,
         code: e.code,
@@ -75,7 +75,7 @@ export function errorResponse(req: Request, e: unknown): NextResponse {
   console.error(`[api] unhandled error ${id}:`, e);
   return NextResponse.json(
     {
-      type: "https://safar.app/errors/internal",
+      type: "https://nava.app/errors/internal",
       title: "Internal error",
       status: 500,
       code: "internal",

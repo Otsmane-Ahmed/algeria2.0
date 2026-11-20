@@ -6,6 +6,7 @@ import { cookies, headers } from "next/headers";
 import { Card, Badge } from "@/components/ui";
 import { EmptyState, StatusStepper, UnverifiedBadge } from "@/components/domain";
 import { DocUpload, DocRowActions } from "@/components/doc-actions";
+import { getCapabilities, aiReady } from "@/lib/ai/capabilities";
 import { FileText } from "lucide-react";
 
 export const dynamic = "force-dynamic";
@@ -40,8 +41,10 @@ export default async function DocumentsPage() {
     <div className="flex flex-col gap-6">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold">{t("docs.title")}</h1>
-          <p className="text-sm text-[var(--text-muted)]">{t("docs.aiOffNote")}</p>
+          <h1 className="font-serif text-3xl font-medium tracking-normal sm:text-4xl">{t("docs.title")}</h1>
+          {!aiReady(await getCapabilities()) && (
+            <p className="text-sm text-[var(--text-muted)]">{t("docs.aiOffNote")}</p>
+          )}
         </div>
         <UnverifiedBadge compact />
       </header>
@@ -72,7 +75,7 @@ export default async function DocumentsPage() {
                 </div>
                 <p className="mt-1 text-xs text-[var(--text-muted)]">
                   {t(`docs.kind.${d.kind}`)} · {formatDate(locale, d.createdAt?.toISOString().slice(0, 10) ?? null)}
-                  {d.pageCount ? ` · ${t("docs.pages")}: ${d.pageCount}` : ""}
+                  {d.pageCount ? ` · ${t("docs.pages").replace("{n}", String(d.pageCount))}` : ""}
                 </p>
                 <div className="mt-2">
                   <StatusStepper status={d.status} />

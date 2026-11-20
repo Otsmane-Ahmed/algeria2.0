@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Start the user-space PostgreSQL cluster used by Safar (no root needed).
+# Start the user-space PostgreSQL cluster used by Nava (no root needed).
 set -euo pipefail
 PGBIN=/usr/lib/postgresql/18/bin
 PGDIR="$HOME/pgdata_safar"

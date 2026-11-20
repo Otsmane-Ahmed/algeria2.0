@@ -226,14 +226,16 @@ export function EmptyState({
   icon?: ReactNode;
 }) {
   return (
-    <Card className="flex flex-col items-center gap-3 px-6 py-12 text-center">
+    // White sub-card: reads as a distinct layer whether it sits on the page
+    // (white) or nested inside a pale Card.
+    <div className="flex flex-col items-center gap-3 rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)] px-6 py-12 text-center">
       <div className="text-[var(--text-faint)]" aria-hidden="true">
         {icon ?? <CircleHelp className="h-8 w-8" />}
       </div>
       <p className="font-medium">{title}</p>
       {body && <p className="max-w-md text-sm text-[var(--text-muted)]">{body}</p>}
       {action}
-    </Card>
+    </div>
   );
 }
 
@@ -248,8 +250,8 @@ export function ErrorState({
 }) {
   const { t } = useI18n();
   return (
-    <Card
-      className="flex flex-col items-center gap-3 px-6 py-10 text-center"
+    <div
+      className="flex flex-col items-center gap-3 rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--surface)] px-6 py-10 text-center"
       role="alert"
     >
       <TriangleAlert className="h-8 w-8 text-[var(--danger)]" aria-hidden="true" />
@@ -266,7 +268,7 @@ export function ErrorState({
           {t("states.requestId")}: <bdi>{requestId}</bdi>
         </p>
       )}
-    </Card>
+    </div>
   );
 }
 

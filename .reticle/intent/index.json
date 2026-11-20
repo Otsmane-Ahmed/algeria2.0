@@ -19,6 +19,12 @@
       "subject": "unsorted"
     },
     {
+      "id": "inline:demo-sign-in-lands-on-the-dashboard-eea4a300",
+      "statement": "demo sign-in lands on the dashboard",
+      "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
       "id": "inline:demo-signin-2ebeafe0",
       "statement": "demo-signin",
       "status": "proved",
@@ -31,6 +37,12 @@
       "subject": "unsorted"
     },
     {
+      "id": "inline:open-the-documents-page-to-upload-a-transcript-ce246be4",
+      "statement": "open the documents page to upload a transcript",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
       "id": "inline:procedures-browse-598a3328",
       "statement": "procedures-browse",
       "status": "agreed",
@@ -40,6 +52,48 @@
       "id": "inline:settings-controls-f76869fa",
       "statement": "settings-controls",
       "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:signing-in-through-the-redesigned-login-lands-th-c2d890ad",
+      "statement": "signing in through the redesigned login lands the user on the dashboard…",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:the-dashboard-renders-the-nava-navy-sidebar-shel-0f0d3bce",
+      "statement": "the dashboard renders the Nava navy sidebar shell: section label, promo…",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:the-demo-sign-in-works-after-the-redesign-landin-d43397cc",
+      "statement": "the demo sign-in works after the redesign, landing on the dashboard",
+      "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:the-fr-prefix-pins-the-session-locale-to-french-9859d904",
+      "statement": "the /fr prefix pins the session locale to French so recorded French flo…",
+      "status": "proposed",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:the-landing-page-is-renamed-to-nava-and-rendered-ff32b55b",
+      "statement": "the landing page is renamed to Nava and rendered in the Makers2 design:…",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:the-login-page-shows-the-nava-two-column-redesig-bbdcf997",
+      "statement": "the login page shows the Nava two-column redesign: brand header, hero h…",
+      "status": "proved",
+      "subject": "unsorted"
+    },
+    {
+      "id": "inline:uploading-a-real-scanned-transcript-reaches-the-96afb5d9",
+      "statement": "uploading a real scanned transcript reaches the documents API",
+      "status": "proposed",
       "subject": "unsorted"
     }
   ],

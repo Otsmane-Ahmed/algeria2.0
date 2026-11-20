@@ -344,7 +344,7 @@ function Editor({ draftId, wordLimit }: { draftId: string; wordLimit: number | n
 
       <div className="flex flex-col gap-4">
         <Card className="p-4">
-          <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold">
+          <h3 className="mb-2 flex items-center gap-2 text-sm font-bold">
             <Sparkles className="h-4 w-4 text-[var(--text-faint)]" aria-hidden="true" />
             {t("writing.outline")}
           </h3>
@@ -377,7 +377,7 @@ function Editor({ draftId, wordLimit }: { draftId: string; wordLimit: number | n
         </Card>
 
         <Card className="p-4">
-          <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold">
+          <h3 className="mb-2 flex items-center gap-2 text-sm font-bold">
             <History className="h-4 w-4 text-[var(--text-faint)]" aria-hidden="true" />
             {t("writing.versions")}
           </h3>
