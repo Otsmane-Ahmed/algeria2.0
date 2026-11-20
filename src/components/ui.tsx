@@ -142,7 +142,9 @@ const INPUT_BASE =
   "focus:border-[var(--brand)] focus:outline-none focus-visible:outline-2 focus-visible:outline-[var(--brand)]";
 
 export function Input({ className, ...props }: InputHTMLAttributes<HTMLInputElement>) {
-  return <input className={cx(INPUT_BASE, className)} {...props} />;
+  // suppressHydrationWarning: browser extensions (e.g. temp-mail) inject attributes
+  // into inputs before React hydrates; that mismatch is not the app's bug.
+  return <input className={cx(INPUT_BASE, className)} suppressHydrationWarning {...props} />;
 }
 
 export function Textarea({ className, ...props }: TextareaHTMLAttributes<HTMLTextAreaElement>) {

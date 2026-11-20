@@ -1,7 +1,8 @@
 node_modules/
 .next/
-.env
+.pgdata/
 *.tsbuildinfo
 next-env.d.ts
 /data/storage/
 coverage/
+nohup.out
