@@ -1,0 +1,3 @@
+Nava reads an Algerian transcript — or a bac result, through a chatbot — and turns it into a dated plan: 20+ human-curated scholarships, 12 Algerian procedures, a document checklist, and a source link on every fact.
+
+Curated, not generated.

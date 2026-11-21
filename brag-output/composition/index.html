@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1920, height=1080" />
+<title>Nava — Brag</title>
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="audio-mini.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  @font-face {
+    font-family: "Source Serif 4";
+    src: url("assets/fonts/SourceSerif4-normal-400-700.woff2") format("woff2");
+    font-weight: 400 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Inter";
+    src: url("assets/fonts/Inter.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "IBM Plex Mono";
+    src: url("assets/fonts/IBMPlexMono-500.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+  }
+  body {
+    margin: 0;
+    background: #f2f8f7;
+    font-family: "Inter", system-ui, sans-serif;
+    color: #283338;
+  }
+  #root {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #f2f8f7;
+  }
+  .clip { position: absolute; inset: 0; }
+  .sc { position: absolute; inset: 0; opacity: 0; }
+
+  /* ---------- persistent background (untimed) ---------- */
+  .bg { position: absolute; inset: 0; }
+  .glow { position: absolute; border-radius: 50%; will-change: transform, opacity; }
+  #glowA {
+    width: 1400px; height: 1400px; top: -520px; right: -420px;
+    background: radial-gradient(circle, rgba(101,184,162,0.20) 0%, rgba(101,184,162,0) 62%);
+  }
+  #glowB {
+    width: 1200px; height: 1200px; bottom: -480px; left: -380px;
+    background: radial-gradient(circle, rgba(28,93,95,0.12) 0%, rgba(28,93,95,0) 60%);
+  }
+  .ring {
+    position: absolute; border-radius: 50%;
+    border: 2px solid rgba(28,93,95,0.10);
+  }
+  #ringA { width: 860px; height: 860px; top: 90px; right: 120px; }
+  #ringB { width: 480px; height: 480px; bottom: 60px; left: 140px; border-color: rgba(214,174,193,0.5); }
+
+  /* ---------- shared ---------- */
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: 500;
+    font-size: 28px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #1c5d5f;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    opacity: 0;
+  }
+  .eyebrow .dot { width: 11px; height: 11px; border-radius: 50%; background: #1c5d5f; }
+  .h-serif { font-family: "Source Serif 4", Georgia, serif; }
+  .wordmark { display: flex; align-items: center; gap: 12px; opacity: 0; }
+  .wordmark .wm-name { font-family: "Source Serif 4", Georgia, serif; font-weight: 700; font-size: 32px; color: #16325a; }
+
+  /* ---------- cards ---------- */
+  .card {
+    position: absolute;
+    background: #ffffff;
+    border: 2px solid #c9dcdd;
+    border-radius: 18px;
+    opacity: 0;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 28px;
+    letter-spacing: 0.02em;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .chip svg { flex: 0 0 auto; }
+  .chip-warn { background: #f2e8e2; color: #a4571f; }
+  .chip-ok { background: #e2f0e8; color: #1a6b4a; }
+  .mono-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 28px;
+    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #4c5f63;
+  }
+
+  /* ---------- scene 1 ---------- */
+  #s1 .headline { position: absolute; left: 110px; top: 340px; width: 1500px; }
+  #s1 .h-line {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 94px;
+    line-height: 1.14;
+    font-weight: 600;
+    color: #16325a;
+    opacity: 0;
+    margin: 0;
+  }
+  #s1 .h-line.tl { color: #1c5d5f; }
+  #s1 .sc { opacity: 1; }
+  #eb1 { opacity: 1; }
+  #wm1 { opacity: 1; }
+
+  /* ---------- scene 2 ---------- */
+  #s2 .headline {
+    position: absolute; left: 110px; top: 180px; width: 1200px;
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 76px; line-height: 1.16; font-weight: 600; color: #16325a; opacity: 0; margin: 0;
+  }
+  #s2 .stack { position: absolute; left: 100px; top: 430px; width: 1720px; height: 560px; }
+  #s2 .stack .card { width: 640px; padding: 30px 34px 28px; }
+  #s2 .c1 { left: 40px;  top: 30px;  }
+  #s2 .c2 { left: 560px; top: 140px; }
+  #s2 .c3 { left: 1080px; top: 20px; }
+  #s2 .card .mono-label { margin-bottom: 14px; }
+  #s2 .card h3 {
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 36px; line-height: 1.25; color: #16325a; margin: 0 0 20px; font-weight: 600;
+  }
+
+  /* ---------- scene 3 ---------- */
+  #s3 .steps { position: absolute; left: 110px; top: 230px; width: 480px; }
+  #s3 .step {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 26px; opacity: 0;
+  }
+  #s3 .step .num {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: #1c5d5f; color: #f2f8f7;
+    font-family: "Source Serif 4", Georgia, serif; font-size: 28px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #s3 .step .s-label { font-family: "Source Serif 4", Georgia, serif; font-size: 40px; font-weight: 600; color: #16325a; }
+  #s3 .frame {
+    position: absolute; left: 640px; top: 140px; width: 1170px; height: 800px;
+    background: #ffffff; border: 2px solid #c9dcdd; border-radius: 26px;
+    opacity: 0; overflow: hidden;
+  }
+  #s3 .frame .bar {
+    position: absolute; top: 0; left: 0; right: 0; height: 64px;
+    background: #e4f0f1; border-bottom: 2px solid #c9dcdd;
+    display: flex; align-items: center; padding: 0 28px; gap: 12px;
+  }
+  #s3 .frame .bar .b-dot { width: 13px; height: 13px; border-radius: 50%; background: #c9dcdd; }
+  #s3 .frame .bar .b-title {
+    margin-left: 14px; font-family: "IBM Plex Mono", monospace; font-size: 18px;
+    letter-spacing: 0.12em; color: #1c5d5f; text-transform: uppercase;
+  }
+  #s3 .layer { position: absolute; inset: 64px 0 0 0; opacity: 0; }
+  /* upload layer */
+  #s3 #lA .doc {
+    position: absolute; left: 380px; top: 90px; width: 400px; height: 300px;
+    background: #f2f8f7; border: 2px solid #c9dcdd; border-radius: 14px;
+    padding: 26px; opacity: 0;
+  }
+  #s3 #lA .doc .doc-title { font-family: "IBM Plex Mono", monospace; font-size: 20px; color: #1c5d5f; margin-bottom: 20px; } // texture: filename chrome
+  #s3 #lA .doc .dl { height: 10px; border-radius: 6px; background: #c9dcdd; margin-bottom: 16px; }
+  #s3 #lA .doc .dl.short { width: 65%; }
+  #s3 #lA .ocr { position: absolute; left: 290px; top: 470px; width: 580px; }
+  #s3 #lA .ocr .ocr-label { font-family: "IBM Plex Mono", monospace; font-size: 28px; color: #4c5f63; margin-bottom: 14px; display: flex; justify-content: space-between; }
+  #s3 #lA .ocr .track { height: 14px; border-radius: 8px; background: #e4f0f1; border: 2px solid #c9dcdd; overflow: hidden; }
+  #s3 #lA .ocr .fill { height: 100%; width: 100%; border-radius: 8px; background: #1c5d5f; transform: scaleX(0); transform-origin: left center; will-change: transform; }
+  /* match layer */
+  #s3 #lB .mrow {
+    position: absolute; left: 60px; width: 1050px; height: 150px;
+    background: #f2f8f7; border: 2px solid #c9dcdd; border-radius: 16px;
+    padding: 26px 30px; opacity: 0;
+  }
+  #s3 #lB .mrow .m-name { font-family: "Source Serif 4", Georgia, serif; font-size: 34px; font-weight: 600; color: #16325a; }
+  #s3 #lB .mrow .m-org { font-family: "IBM Plex Mono", monospace; font-size: 28px; color: #4c5f63; margin-top: 10px; letter-spacing: 0.02em; }
+  #s3 #lB .vchip {
+    position: absolute; right: 30px; top: 44px; opacity: 0; will-change: transform;
+  }
+  /* plan layer */
+  #s3 #lC .prow {
+    position: absolute; left: 90px; width: 700px; height: 128px;
+    display: flex; align-items: center; gap: 22px;
+    background: #f2f8f7; border: 2px solid #c9dcdd; border-radius: 16px;
+    padding: 0 28px; opacity: 0;
+  }
+  #s3 #lC .prow .p-date {
+    font-family: "IBM Plex Mono", monospace; font-size: 28px; color: #1c5d5f;
+    letter-spacing: 0.04em; width: 130px;
+  }
+  #s3 #lC .prow .p-task { font-size: 28px; font-weight: 600; color: #16325a; flex: 1; }
+  #s3 #lC .prow .box {
+    width: 40px; height: 40px; border-radius: 10px; border: 2.5px solid #c9dcdd;
+    background: #ffffff; display: flex; align-items: center; justify-content: center;
+  }
+  #s3 #lC .prow .box svg { opacity: 0; }
+  #s3 #lC .cta {
+    position: absolute; left: 90px; bottom: 60px; height: 74px;
+    background: #1c5d5f; color: #f2f8f7; border-radius: 999px;
+    font-size: 28px; font-weight: 600; display: flex; align-items: center; padding: 0 42px;
+  }
+
+  /* ---------- scene 4 ---------- */
+  #s4 .quote { position: absolute; left: 110px; top: 250px; width: 1040px; }
+  #s4 .q-line { font-family: "Source Serif 4", Georgia, serif; font-size: 66px; line-height: 1.3; font-weight: 600; color: #16325a; opacity: 0; margin: 0; }
+  #s4 .q-sub { font-family: "Source Serif 4", Georgia, serif; font-size: 34px; line-height: 1.4; color: #4c5f63; opacity: 0; margin: 36px 0 0; width: 960px; }
+  #s4 .src {
+    position: absolute; left: 1210px; top: 290px; width: 600px; padding: 36px 38px;
+  }
+  #s4 .src .s-row {
+    display: flex; align-items: center; gap: 16px; margin-top: 26px;
+    font-family: "IBM Plex Mono", monospace; font-size: 28px; color: #1c5d5f;
+  }
+  #s4 .src .s-row .lk { text-decoration: none; border-bottom: 2px solid #1c5d5f; }
+
+  /* ---------- scene 5 ---------- */
+  #s5 .stats { position: absolute; left: 100px; top: 250px; width: 1720px; height: 330px; }
+  #s5 .stat { position: absolute; top: 0; width: 540px; height: 300px; padding: 38px 40px; }
+  #s5 .stat .big {
+    font-family: "Source Serif 4", Georgia, serif; font-size: 124px; font-weight: 700;
+    color: #1c5d5f; line-height: 1;
+  }
+  #s5 .stat .s-lab { margin-top: 20px; white-space: nowrap; }
+  #s5 .st1 { left: 0; }
+  #s5 .st2 { left: 590px; }
+  #s5 .st3 { left: 1180px; }
+  #s5 .modes { position: absolute; left: 100px; top: 640px; width: 1720px; height: 330px; }
+  #s5 .mode { position: absolute; top: 0; width: 840px; height: 310px; padding: 40px 44px; }
+  #s5 .mode h3 {
+    font-family: "Source Serif 4", Georgia, serif; font-size: 42px; font-weight: 600;
+    color: #16325a; margin: 0 0 18px;
+  }
+  #s5 .mode p { font-size: 28px; line-height: 1.45; color: #283338; margin: 0; }
+  #s5 .md1 { left: 0; }
+  #s5 .md2 { left: 880px; }
+
+  /* ---------- scene 6 ---------- */
+  #s6 .logoWrap { position: absolute; left: 0; right: 0; top: 300px; display: flex; flex-direction: column; align-items: center; }
+  #s6 #cap { opacity: 0; will-change: transform; }
+  #s6 .logo-name {
+    font-family: "Source Serif 4", Georgia, serif; font-size: 132px; font-weight: 700;
+    color: #16325a; line-height: 1; margin-top: 34px; opacity: 0;
+  }
+  #s6 .tagline {
+    font-family: "Source Serif 4", Georgia, serif; font-size: 42px; font-weight: 400;
+    color: #1c5d5f; margin-top: 44px; opacity: 0;
+  }
+  #s6 #logoGlow {
+    position: absolute; left: 50%; top: 470px; width: 1300px; height: 1300px;
+    margin-left: -650px; margin-top: -650px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(101,184,162,0.28) 0%, rgba(101,184,162,0) 60%);
+    opacity: 0;
+  }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="nava-brag" data-start="0" data-width="1920" data-height="1080" data-duration="52">
+
+  <!-- persistent background -->
+  <div class="bg" aria-hidden="true">
+    <div id="glowA" class="glow"></div>
+    <div id="glowB" class="glow"></div>
+    <div id="ringA" class="ring"></div>
+    <div id="ringB" class="ring"></div>
+  </div>
+
+  <!-- ============ SCENE 1 — Hook (0 – 5.4) ============ -->
+  <section id="s1" class="clip" data-start="0" data-duration="5.4">
+    <div class="sc">
+      <div class="eyebrow" id="eb1" style="position:absolute; left:110px; top:200px;">
+        <span class="dot"></span>Curated, not generated
+      </div>
+      <div class="headline">
+        <h1 class="h-line" id="h1a">Your transcript already contains a plan.</h1>
+        <h1 class="h-line tl" id="h1b">We read it and build the steps.</h1>
+      </div>
+      <div class="wordmark" id="wm1" style="position:absolute; left:110px; bottom:70px;">
+        <svg width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><use href="#capGlyph"></use></svg>
+        <span class="wm-name">Nava</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 2 — The problem (5.4 – 12) ============ -->
+  <section id="s2" class="clip" data-start="5.4" data-duration="6.6">
+    <div class="sc">
+      <div class="eyebrow" id="eb2" style="position:absolute; left:110px; top:110px;">
+        <span class="dot"></span>The real problem
+      </div>
+      <h1 class="headline" id="h2">The path abroad is paperwork.</h1>
+      <div class="stack">
+        <div class="card c1">
+          <div class="mono-label">Procedure</div>
+          <h3>Campus France · one file window</h3>
+          <span class="chip chip-warn">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#a4571f" d="M12 2 1 21h22L12 2zm0 6 7.5 13h-15L12 8zm-1 4v4h2v-4h-2zm0 5v2h2v-2h-2z"/></svg>
+            Annual only
+          </span>
+        </div>
+        <div class="card c2">
+          <div class="mono-label">Translation</div>
+          <h3>Sworn translation of diplomas</h3>
+          <span class="chip chip-warn">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#a4571f" d="M12 2 1 21h22L12 2zm0 6 7.5 13h-15L12 8zm-1 4v4h2v-4h-2zm0 5v2h2v-2h-2z"/></svg>
+            Certified copies
+          </span>
+        </div>
+        <div class="card c3">
+          <div class="mono-label">Deadline</div>
+          <h3>Fixed national dates</h3>
+          <span class="chip chip-warn">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#a4571f" d="M12 2 1 21h22L12 2zm0 6 7.5 13h-15L12 8zm-1 4v4h2v-4h-2zm0 5v2h2v-2h-2z"/></svg>
+            No extensions
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 3 — The product, working (12 – 27) ============ -->
+  <section id="s3" class="clip" data-start="12" data-duration="15">
+    <div class="sc">
+      <div class="eyebrow" id="eb3" style="position:absolute; left:110px; top:130px;">
+        <span class="dot"></span>How it works
+      </div>
+      <div class="steps">
+        <div class="step" id="step1"><div class="num">1</div><div class="s-label">Upload</div></div>
+        <div class="step" id="step2"><div class="num">2</div><div class="s-label">Match</div></div>
+        <div class="step" id="step3"><div class="num">3</div><div class="s-label">Plan</div></div>
+      </div>
+      <div class="frame" id="frame">
+        <div class="bar">
+          <div class="b-dot"></div><div class="b-dot"></div><div class="b-dot"></div>
+          <div class="b-title" data-layout-ignore>Nava · plan builder</div>
+        </div>
+        <div class="layer" id="lA">
+          <div class="doc" id="doc">
+            <div class="doc-title" data-layout-ignore>transcript.pdf</div>
+            <div class="dl"></div><div class="dl"></div><div class="dl short"></div><div class="dl"></div><div class="dl short"></div>
+          </div>
+          <div class="ocr" id="ocr">
+            <div class="ocr-label"><span>Reading marks</span><span id="ocrPct">0%</span></div>
+            <div class="track"><div class="fill" id="ocrFill"></div></div>
+          </div>
+        </div>
+        <div class="layer" id="lB">
+          <div class="mrow" id="mrow1" style="top:60px;">
+            <div class="m-name">Erasmus+ Credit Mobility</div>
+            <div class="m-org">European Commission</div>
+            <div class="vchip chip chip-ok" id="vchip1">
+              <svg width="22" height="22" viewBox="0 0 24 24"><path fill="#1a6b4a" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              Eligible
+            </div>
+          </div>
+          <div class="mrow" id="mrow2" style="top:240px;">
+            <div class="m-name">DAAD Research Grants</div>
+            <div class="m-org">German Academic Exchange Service</div>
+            <div class="vchip chip chip-ok" id="vchip2">
+              <svg width="22" height="22" viewBox="0 0 24 24"><path fill="#1a6b4a" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+              Likely
+            </div>
+          </div>
+          <div class="mrow" id="mrow3" style="top:420px;">
+            <div class="m-name">Türkiye Bursları</div>
+            <div class="m-org">Republic of Türkiye</div>
+            <div class="vchip chip chip-warn" id="vchip3">
+              <svg width="22" height="22" viewBox="0 0 24 24"><path fill="#a4571f" d="M12 2 1 21h22L12 2zm0 6 7.5 13h-15L12 8zm-1 4v4h2v-4h-2zm0 5v2h2v-2h-2z"/></svg>
+              Stretch
+            </div>
+          </div>
+        </div>
+        <div class="layer" id="lC">
+          <div class="prow" id="prow1" style="top:60px;">
+            <div class="p-date">WEEK 1</div><div class="p-task">Request transcripts</div>
+            <div class="box"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#1a6b4a" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></div>
+          </div>
+          <div class="prow" id="prow2" style="top:220px;">
+            <div class="p-date">WEEK 3</div><div class="p-task">Book sworn translation</div>
+            <div class="box"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#1a6b4a" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></div>
+          </div>
+          <div class="prow" id="prow3" style="top:380px;">
+            <div class="p-date">WEEK 5</div><div class="p-task">File the application</div>
+            <div class="box"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#1a6b4a" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></div>
+          </div>
+          <div class="cta" id="cta">Download plan (PDF)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 4 — Trust contract (27 – 35.6) ============ -->
+  <section id="s4" class="clip" data-start="27" data-duration="8.6">
+    <div class="sc">
+      <div class="eyebrow" id="eb4" style="position:absolute; left:110px; top:150px;">
+        <span class="dot"></span>Why trust it
+      </div>
+      <div class="quote">
+        <h1 class="q-line" id="q1">We never invent a deadline,</h1>
+        <h1 class="q-line" id="q2">a fee or a test minimum.</h1>
+        <p class="q-sub" id="q3">Unverified facts are marked and treated as unknown.</p>
+      </div>
+      <div class="card src" id="src">
+        <div class="mono-label">Official source</div>
+        <div class="s-row">
+          <svg width="22" height="22" viewBox="0 0 24 24"><path fill="#1c5d5f" d="M12 1a5 5 0 0 0-5 5v3H5v13h14V9h-2V6a5 5 0 0 0-5-5zm-3 5a3 3 0 1 1 6 0v3H9V6z"/></svg>
+          <span class="lk">scholarships.gov.dz</span>
+        </div>
+        <div class="s-row">
+          <span class="chip chip-ok">
+            <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#1a6b4a" d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+            Verified · Jan 2025
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 5 — Breadth (35.6 – 45.4) ============ -->
+  <section id="s5" class="clip" data-start="35.6" data-duration="9.8">
+    <div class="sc">
+      <div class="eyebrow" id="eb5" style="position:absolute; left:110px; top:130px;">
+        <span class="dot"></span>Made for Algerian ambition
+      </div>
+      <div class="stats">
+        <div class="card stat st1">
+          <div class="big">20+</div>
+          <div class="mono-label s-lab">Curated scholarships</div>
+        </div>
+        <div class="card stat st2">
+          <div class="big">12</div>
+          <div class="mono-label s-lab">Algerian procedures</div>
+        </div>
+        <div class="card stat st3">
+          <div class="big">3</div>
+          <div class="mono-label s-lab">Languages · full parity</div>
+          <div class="mono-label" style="margin-top:8px; color:#1c5d5f;">EN · FR · AR</div>
+        </div>
+      </div>
+      <div class="modes">
+        <div class="card mode md1">
+          <h3>"I just got my bac"</h3>
+          <p>Tell us about your bac — we find the faculty that fits.</p>
+        </div>
+        <div class="card mode md2">
+          <h3>"I'm studying at an Algerian university"</h3>
+          <p>Scholarships abroad — deadlines, paperwork and letters.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCENE 6 — Outro (45.4 – 52) ============ -->
+  <section id="s6" class="clip" data-start="45.4" data-duration="6.6">
+    <div class="sc">
+      <div id="logoGlow"></div>
+      <div class="logoWrap">
+        <svg id="cap" width="120" height="120" viewBox="0 0 64 64" aria-hidden="true"><use href="#capGlyph"></use></svg>
+        <div class="logo-name" id="logoName">Nava</div>
+        <div class="tagline" id="tagline">From a photo of your transcript to a real plan to study abroad.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- shared cap glyph -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <g id="capGlyph">
+        <polygon points="32,8 61,22 32,36 3,22" fill="#1c5d5f"/>
+        <path d="M17 27.5 v10.5 c0 3.6 6.7 6.5 15 6.5 s15 -2.9 15 -6.5 V27.5 L32 36 Z" fill="#0e4749"/>
+        <circle cx="56" cy="26" r="2.6" fill="#d6aec1"/>
+        <line x1="56" y1="26" x2="56" y2="44" stroke="#d6aec1" stroke-width="2"/>
+      </g>
+    </defs>
+  </svg>
+
+  <!-- ============ audio ============ -->
+  <audio id="bg-music" src="assets/music/happy-beats-business-moves-vol-12-by-ende-dot-app.mp3"
+    data-start="0" data-duration="52" data-track-index="10"
+    data-automation='{"version":1,"lanes":[{"target":"volume","points":[{"t":0,"v":0.05},{"t":1,"v":0.30},{"t":45,"v":0.30},{"t":50,"v":0.10},{"t":51.6,"v":0.05},{"t":51.9,"v":0}]}]}'></audio>
+
+  <audio id="sfx-h1" src="assets/sfx/impact/impactSoft_medium_001.ogg" data-start="1.05" data-track-index="11" data-volume="0.5"></audio>
+  <audio id="sfx-h2" src="assets/sfx/interface/drop_002.ogg" data-start="2.15" data-track-index="12" data-volume="0.45"></audio>
+  <audio id="sfx-c1" src="assets/sfx/casino/card-slide-1.ogg" data-start="6.56" data-track-index="13" data-volume="0.5"></audio>
+  <audio id="sfx-c2" src="assets/sfx/interface/drop_001.ogg" data-start="7.64" data-track-index="14" data-volume="0.45"></audio>
+  <audio id="sfx-c3" src="assets/sfx/casino/card-place-2.ogg" data-start="8.74" data-track-index="15" data-volume="0.55"></audio>
+  <audio id="sfx-doc" src="assets/sfx/interface/drop_002.ogg" data-start="13.11" data-track-index="16" data-volume="0.55"></audio>
+  <audio id="sfx-m2" src="assets/sfx/casino/card-place-2.ogg" data-start="17.47" data-track-index="17" data-volume="0.5"></audio>
+  <audio id="sfx-v1" src="assets/sfx/casino/card-slide-1.ogg" data-start="18.56" data-track-index="18" data-volume="0.45"></audio>
+  <audio id="sfx-v2" src="assets/sfx/casino/card-place-2.ogg" data-start="19.66" data-track-index="19" data-volume="0.5"></audio>
+  <audio id="sfx-v3" src="assets/sfx/casino/chip-lay-1.ogg" data-start="20.75" data-track-index="20" data-volume="0.5"></audio>
+  <audio id="sfx-plan" src="assets/sfx/interface/bong_001.ogg" data-start="22.37" data-track-index="21" data-volume="0.35"></audio>
+  <audio id="sfx-t1" src="assets/sfx/ui/click1.ogg" data-start="24.56" data-track-index="22" data-volume="0.4"></audio>
+  <audio id="sfx-t2" src="assets/sfx/ui/click1.ogg" data-start="25.11" data-track-index="23" data-volume="0.4"></audio>
+  <audio id="sfx-t3" src="assets/sfx/ui/click1.ogg" data-start="25.65" data-track-index="24" data-volume="0.45"></audio>
+  <audio id="sfx-src" src="assets/sfx/interface/drop_001.ogg" data-start="31.11" data-track-index="25" data-volume="0.5"></audio>
+  <audio id="sfx-st1" src="assets/sfx/casino/chip-lay-1.ogg" data-start="36.01" data-track-index="26" data-volume="0.5"></audio>
+  <audio id="sfx-st2" src="assets/sfx/casino/chip-lay-1.ogg" data-start="37.10" data-track-index="27" data-volume="0.45"></audio>
+  <audio id="sfx-st3" src="assets/sfx/casino/chip-lay-1.ogg" data-start="38.20" data-track-index="28" data-volume="0.5"></audio>
+  <audio id="sfx-md1" src="assets/sfx/interface/drop_002.ogg" data-start="40.38" data-track-index="29" data-volume="0.45"></audio>
+  <audio id="sfx-md2" src="assets/sfx/interface/drop_001.ogg" data-start="41.47" data-track-index="30" data-volume="0.45"></audio>
+  <audio id="sfx-logo" src="assets/sfx/impact/impactBell_heavy_000.ogg" data-start="45.84" data-track-index="31" data-volume="0.55"></audio>
+</div>
+
+<script>
+(function () {
+  var tl = gsap.timeline({ paused: true });
+
+  /* ---------- ambient background: slow drift tweens + audio-reactive sets ---------- */
+  tl.fromTo("#ringA", { x: 0, y: 0 }, { x: -40, y: 24, duration: 12, ease: "sine.inOut", yoyo: true, repeat: 7 }, 0);
+  tl.fromTo("#ringB", { x: 0, y: 0 }, { x: 34, y: -26, duration: 9, ease: "sine.inOut", yoyo: true, repeat: 10 }, 0);
+  // audio-reactive: glows breathe with pre-extracted RMS/bass, sampled per frame
+  for (var f = 0; f < AUDIO_DATA.frames.length; f++) {
+    tl.call(
+      (function (frame) {
+        return function () {
+          gsap.set("#glowA", { scale: 1 + frame[1] * 0.14, opacity: 0.55 + frame[0] * 0.4 });
+          gsap.set("#glowB", { scale: 1 + frame[0] * 0.1, opacity: 0.5 + frame[1] * 0.45 });
+          gsap.set("#logoGlow", { scale: 1 + frame[0] * 0.12 });
+        };
+      })(AUDIO_DATA.frames[f]),
+      [],
+      f / AUDIO_DATA.fps
+    );
+  }
+
+  /* ---------- scene in/out helpers ---------- */
+  function sceneIn(id, t) {
+    tl.fromTo(id + " .sc", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, t);
+  }
+  function sceneOut(id, t) {
+    tl.to(id + " .sc", { opacity: 0, duration: 0.45, ease: "power2.in" }, t);
+  }
+
+  /* ============ SCENE 1 — hook ============ */
+  // eyebrow + wordmark are on screen from frame 0 (thumbnail carries the title);
+  // #s1 .sc is CSS-visible so frame 0 is never empty
+  // headline line 1 — lands on the 1.09s beat; settled hold to scene end
+  tl.fromTo("#h1a", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 1.09); // beat: 1.09s
+  tl.fromTo("#h1b", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 2.19); // beat: 2.19s
+  sceneOut("#s1", 4.95);
+
+  /* ============ SCENE 2 — problem ============ */
+  sceneIn("#s2", 5.5);
+  tl.fromTo("#eb2", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 5.6);
+  tl.fromTo("#h2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 6.0);
+  // cards alternate sides, one by one (every-other-beat spacing ≈1.08s)
+  tl.fromTo("#s2 .c1", { opacity: 0, x: -200, rotation: -4 }, { opacity: 1, x: 0, rotation: -2, duration: 0.6, ease: "power3.out" }, 6.56); // beat: 6.56s
+  tl.fromTo("#s2 .c2", { opacity: 0, x: 200, rotation: 4 }, { opacity: 1, x: 0, rotation: 2, duration: 0.6, ease: "power3.out" }, 7.64); // beat: 7.64s
+  tl.fromTo("#s2 .c3", { opacity: 0, x: -200, rotation: 3 }, { opacity: 1, x: 0, rotation: -1.5, duration: 0.6, ease: "power3.out" }, 8.74); // beat: 8.74s (strong cue nearby)
+  sceneOut("#s2", 11.5);
+
+  /* ============ SCENE 3 — product ============ */
+  sceneIn("#s3", 12.05);
+  tl.fromTo("#eb3", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 12.15);
+  tl.fromTo("#frame", { opacity: 0, y: 36, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, 12.02); // beat: 12.02s
+
+  // Beat A — upload
+  tl.fromTo("#step1", { opacity: 0, x: -34 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 12.55); // beat: 12.55s
+  tl.fromTo("#lA", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 12.9);
+  tl.fromTo("#doc", { opacity: 0, y: -70, rotation: -4 }, { opacity: 1, y: 0, rotation: 0, duration: 0.65, ease: "power3.out" }, 13.11); // beat: 13.11s (strong cue nearby)
+  tl.fromTo("#ocr", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 13.64); // beat: 13.64s
+  var ocrCount = { v: 0 };
+  var ocrEl = document.getElementById("ocrPct");
+  tl.fromTo("#ocrFill", { scaleX: 0 }, { scaleX: 1, duration: 2.9, ease: "none" }, 13.8);
+  tl.to(ocrCount, {
+    v: 100, duration: 2.9, ease: "none",
+    onUpdate: function () { ocrEl.textContent = Math.round(ocrCount.v) + "%"; }
+  }, 13.8);
+
+  // Beat B — match
+  tl.fromTo("#step2", { opacity: 0, x: -34 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 17.47); // beat-locked: 17.47s (strong cue)
+  tl.to("#lA", { opacity: 0, duration: 0.4 }, 17.5);
+  tl.fromTo("#lB", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 17.5);
+  tl.fromTo("#mrow1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 18.02); // beat: 18.02s
+  tl.fromTo("#vchip1", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 18.56); // beat: 18.56s
+  tl.fromTo("#mrow2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 19.10); // beat: 19.10s
+  tl.fromTo("#vchip2", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 19.66); // beat: 19.66s
+  tl.fromTo("#mrow3", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 20.19); // beat: 20.19s
+  tl.fromTo("#vchip3", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 20.75); // beat: 20.75s
+
+  // Beat C — plan (checklist revealed quickly, then holds while it ticks over)
+  tl.fromTo("#step3", { opacity: 0, x: -34 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 22.37); // beat: 22.37s (strong cue nearby)
+  tl.to("#lB", { opacity: 0, duration: 0.4 }, 22.4);
+  tl.fromTo("#lC", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 22.4);
+  tl.fromTo("#prow1", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 22.93); // beat: 22.93s
+  tl.fromTo("#prow2", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 23.46); // beat: 23.46s
+  tl.fromTo("#prow3", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 24.02); // beat: 24.02s
+  // checklist ticks (state pops on an already-held set — every beat is fine)
+  tl.fromTo("#prow1 .box svg", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 24.56); // beat: 24.56s
+  tl.fromTo("#prow2 .box svg", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 25.11); // beat: 25.11s
+  tl.fromTo("#prow3 .box svg", { opacity: 0, scale: 0.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, 25.65); // beat: 25.65s
+  tl.to("#prow1", { backgroundColor: "#e2f0e8", duration: 0.4 }, 24.56);
+  tl.to("#prow2", { backgroundColor: "#e2f0e8", duration: 0.4 }, 25.11);
+  tl.to("#prow3", { backgroundColor: "#e2f0e8", duration: 0.4 }, 25.65);
+  sceneOut("#s3", 26.55);
+
+  /* ============ SCENE 4 — trust ============ */
+  sceneIn("#s4", 27.05);
+  tl.fromTo("#eb4", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 27.2);
+  tl.fromTo("#q1", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, 27.84); // beat: 27.84s (strong cue nearby)
+  tl.fromTo("#q2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, 28.39); // beat: 28.39s
+  tl.fromTo("#q3", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 28.93); // beat: 28.93s
+  tl.fromTo("#src", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 31.11); // beat: 31.11s
+  sceneOut("#s4", 35.1);
+
+  /* ============ SCENE 5 — breadth ============ */
+  sceneIn("#s5", 35.65);
+  tl.fromTo("#eb5", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 35.75);
+  tl.fromTo("#s5 .st1", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 36.01); // beat-locked: 36.01s (strong cue)
+  tl.fromTo("#s5 .st2", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 37.10); // beat: 37.10s
+  tl.fromTo("#s5 .st3", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 38.20); // beat: 38.20s (strong cue nearby)
+  tl.fromTo("#s5 .md1", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, 40.38); // beat: 40.38s
+  tl.fromTo("#s5 .md2", { opacity: 0, y: 70 }, { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, 41.47); // beat: 41.47s
+  sceneOut("#s5", 44.9);
+
+  /* ============ SCENE 6 — outro ============ */
+  sceneIn("#s6", 45.45);
+  tl.fromTo("#logoGlow", { opacity: 0 }, { opacity: 0.8, duration: 1.4, ease: "sine.out" }, 45.45);
+  tl.fromTo("#cap", { opacity: 0, scale: 0.82 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.6)" }, 45.84); // beat-locked: 45.84s (strong cue)
+  tl.fromTo("#logoName", { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 46.37); // beat: 46.37s
+  tl.fromTo("#tagline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 47.48); // beat: 47.48s
+  // hold last frame to 52s
+
+  window.__timelines["nava-brag"] = tl;
+})();
+</script>
+</body>
+</html>

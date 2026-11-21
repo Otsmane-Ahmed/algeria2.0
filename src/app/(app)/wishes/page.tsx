@@ -12,9 +12,15 @@ import { WishesPanel, type WishRow } from "@/components/wishes-panel";
 export const dynamic = "force-dynamic";
 
 /** Fiche de vœux (§7.2) — Mode A. */
-export default async function WishesPage() {
+export default async function WishesPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   const user = (await getSessionUser())!;
   if ((user.mode as string) !== "bac") redirect("/dashboard");
+  const sp = await searchParams;
+  const suggested = sp.suggested === "1";
 
   const h = await headers();
   const fromHeader = h.get(LOCALE_HEADER);
@@ -79,7 +85,7 @@ export default async function WishesPage() {
         <h1 className="font-serif text-3xl font-medium tracking-normal sm:text-4xl">{t("wishes.title")}</h1>
         <p className="mt-1 text-sm text-[var(--text-muted)]">{t("wishes.subtitle")}</p>
       </header>
-      <WishesPanel initial={rows} catalog={catalog} />
+      <WishesPanel initial={rows} catalog={catalog} suggested={suggested} />
     </div>
   );
 }

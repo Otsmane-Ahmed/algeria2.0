@@ -608,5 +608,7 @@
   "dashA.startChat": "ابدأ دردشة التوجيه",
   "dashA.continueChat": "أكمل دردشتك",
   "dashA.rankWishes": "رتّب رغباتك",
-  "dashA.seeMatches": "شاهد خياراتك"
+  "dashA.seeMatches": "شاهد خياراتك",
+  "wishes.suggestStart": "اقترح قائمة أولية",
+  "wishes.suggestedNote": "قائمة مقترحة بناءً على إجاباتك في المحادثة — أعد الترتيب أو احذف بحرية، ولا يُرسل شيء تلقائيًا."
 }

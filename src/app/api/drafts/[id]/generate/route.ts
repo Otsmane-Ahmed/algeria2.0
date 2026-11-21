@@ -10,7 +10,7 @@ import { getCapabilities, aiReady } from "@/lib/ai/capabilities";
 import { getAI } from "@/lib/ai/client";
 import { MODELS } from "@/lib/ai/models";
 import { callJSON } from "@/lib/ai/callJSON";
-import { Outline, outline as outlinePrompt, draft as draftPrompt } from "@/lib/ai/prompts/write.v1";
+import { Outline, normalizeOutline, outline as outlinePrompt, draft as draftPrompt } from "@/lib/ai/prompts/write.v1";
 import { getProfile, profileData, scholarshipData } from "@/lib/app-data";
 import { AiUnavailable } from "@/lib/ai/errors";
 
@@ -101,7 +101,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
           tone: "formal committee register",
           factPackJson,
           scholarshipJson,
-          outlineJson: JSON.stringify(outline),
+          outlineJson: JSON.stringify(normalizeOutline(outline)),
         });
         const completion = await getAI().chat.completions.create({
           model: MODELS.writer,

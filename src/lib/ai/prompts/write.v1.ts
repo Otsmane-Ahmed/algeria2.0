@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const PROMPT_VERSION = "write.v1";
 
-export const Outline = z.object({
+const OutlineShape = z.object({
   sections: z
     .array(
       z.object({
@@ -16,9 +16,21 @@ export const Outline = z.object({
     )
     .min(1)
     .max(7),
-  total_target_words: z.number().int().positive(),
+  // Small local models frequently omit this field even after the repair pass,
+  // killing the whole outline call; it is derivable, so accept it missing and
+  // compute it in normalizeOutline from the per-section targets.
+  total_target_words: z.number().int().positive().optional(),
 });
-export type Outline = z.infer<typeof Outline>;
+export const Outline = OutlineShape;
+export type Outline = z.infer<typeof OutlineShape>;
+
+export function normalizeOutline(o: Outline): Required<Outline> {
+  return {
+    ...o,
+    total_target_words:
+      o.total_target_words ?? o.sections.reduce((s, x) => s + x.target_words, 0),
+  };
+}
 
 export const VerifyResult = z.object({
   unsupported_claims: z.array(z.object({ sentence: z.string(), reason: z.string() })),

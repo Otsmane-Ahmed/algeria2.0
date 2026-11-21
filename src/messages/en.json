@@ -608,5 +608,7 @@
   "dashA.startChat": "Start your orientation chat",
   "dashA.continueChat": "Continue your chat",
   "dashA.rankWishes": "Rank your wishes",
-  "dashA.seeMatches": "See your matches"
+  "dashA.seeMatches": "See your matches",
+  "wishes.suggestStart": "Suggest a starting list",
+  "wishes.suggestedNote": "Suggested from your chat answers — reorder or remove freely, nothing is submitted automatically."
 }

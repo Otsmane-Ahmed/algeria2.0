@@ -1,0 +1,12 @@
+import pg from "pg";
+const c = new pg.Client({connectionString:"postgres://safar@127.0.0.1:5433/safar"});
+await c.connect();
+const u = await c.query("select id from users where email='demo@safar.dz'");
+const uid = u.rows[0].id;
+const p = await c.query("select * from profiles where user_id=$1",[uid]);
+const row = p.rows[0];
+const {id,user_id,created_at,updated_at,constraints, target_fields,target_countries,languages,experiences,skills, ...rest} = row;
+console.log(JSON.stringify(rest,null,1));
+const d = await c.query("select id,kind,status,extraction_confirmed from documents where user_id=$1 order by created_at limit 20",[uid]);
+console.log(d.rows.map(r=>`${r.kind}:${r.status}`).join(", "));
+await c.end();

@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Nava — Pitch</title>
+<style>
+  @font-face { font-family: "Source Serif 4"; src: url("SourceSerif4-normal-400-700.woff2") format("woff2"); font-weight: 400 700; }
+  @font-face { font-family: "Inter"; src: url("Inter.ttf") format("truetype"); font-weight: 100 900; }
+  @font-face { font-family: "IBM Plex Mono"; src: url("IBMPlexMono-500.woff2") format("woff2"); font-weight: 500; }
+
+  @page { size: 13.333in 7.5in; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #f2f8f7; }
+  body { font-family: "Inter", sans-serif; color: #283338; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .slide {
+    position: relative;
+    width: 1280px; height: 720px;
+    padding: 56px 76px 66px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    page-break-after: always;
+    break-after: page;
+    background: #f2f8f7;
+  }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+
+  /* ambient decor */
+  .glow { position: absolute; border-radius: 50%; pointer-events: none; }
+  .g1 { width: 900px; height: 900px; top: -420px; right: -320px;
+        background: radial-gradient(circle, rgba(101,184,162,0.18) 0%, rgba(101,184,162,0) 62%); }
+  .g2 { width: 760px; height: 760px; bottom: -360px; left: -260px;
+        background: radial-gradient(circle, rgba(28,93,95,0.10) 0%, rgba(28,93,95,0) 60%); }
+  .ring { position: absolute; border-radius: 50%; border: 2px solid rgba(28,93,95,0.09); }
+  .r1 { width: 520px; height: 520px; top: 120px; right: 60px; }
+  .r2 { width: 300px; height: 300px; bottom: 40px; left: 70px; border-color: rgba(214,174,193,0.45); }
+
+  /* chrome */
+  .eyebrow {
+    font-family: "IBM Plex Mono", monospace; font-size: 13px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: #1c5d5f; display: flex; align-items: center; gap: 9px;
+    position: relative;
+  }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: #1c5d5f; }
+  .foot {
+    position: absolute; left: 76px; right: 76px; bottom: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #6f8387;
+  }
+  .foot .brand { display: flex; align-items: center; gap: 7px; color: #16325a; font-weight: 500; }
+
+  h1.title { font-family: "Source Serif 4", serif; font-size: 58px; line-height: 1.1; color: #16325a; font-weight: 700; letter-spacing: -0.01em; }
+  h1.title .tl { color: #1c5d5f; }
+  h2.head { font-family: "Source Serif 4", serif; font-size: 44px; line-height: 1.14; color: #16325a; font-weight: 600; max-width: 1000px; }
+  .lede { font-size: 19px; line-height: 1.55; color: #4c5f63; max-width: 800px; }
+  .lede b { color: #16325a; font-weight: 600; }
+
+  /* cards */
+  .card { background: #fff; border: 2px solid #c9dcdd; border-radius: 16px; padding: 26px 28px; }
+  .grid { display: grid; gap: 18px; }
+  .g3 { grid-template-columns: repeat(3, 1fr); }
+  .g2 { grid-template-columns: repeat(2, 1fr); }
+  .card h3 { font-family: "Source Serif 4", serif; font-size: 22px; color: #16325a; font-weight: 600; margin-bottom: 9px; }
+  .card p { font-size: 14.5px; line-height: 1.5; color: #4c5f63; }
+  .card .k { font-family: "IBM Plex Mono", monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #1c5d5f; margin-bottom: 12px; }
+
+  .big { font-family: "Source Serif 4", serif; font-size: 40px; line-height: 1.22; color: #16325a; font-weight: 600; max-width: 1020px; }
+  .big b { color: #1c5d5f; font-weight: 700; }
+
+  /* demo slide */
+  .shot { background: #fff; border: 2px dashed #9db9ba; border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+  .shot .num { width: 30px; height: 30px; border-radius: 50%; background: #1c5d5f; color: #f2f8f7;
+               font-family: "Source Serif 4", serif; font-weight: 700; font-size: 15px;
+               display: flex; align-items: center; justify-content: center; }
+  .shot h4 { font-family: "Source Serif 4", serif; font-size: 18px; color: #16325a; font-weight: 600; }
+  .shot p { font-size: 12.5px; line-height: 1.45; color: #4c5f63; }
+
+  ul.plain { list-style: none; margin-top: 16px; }
+  ul.plain li { display: flex; gap: 11px; font-size: 15.5px; line-height: 1.5; color: #283338; margin-bottom: 12px; }
+  ul.plain li .tick { color: #1a6b4a; flex: 0 0 auto; }
+  ul.plain li .cross { color: #b3382e; flex: 0 0 auto; }
+
+  .cover { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+  .cover .mark { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; }
+  .cover .mark span { font-family: "Source Serif 4", serif; font-size: 30px; font-weight: 700; color: #16325a; }
+  .cover .rule { width: 84px; height: 4px; background: #1c5d5f; border-radius: 2px; margin: 26px 0; }
+</style>
+</head>
+<body>
+
+<!-- ============ 1 · TITLE & HOOK ============ -->
+<section class="slide">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="ring r1"></div>
+  <div class="cover">
+    <div class="mark">
+      <svg width="42" height="42" viewBox="0 0 64 64" aria-hidden="true">
+        <polygon points="32,8 61,22 32,36 3,22" fill="#1c5d5f"/>
+        <path d="M17 27.5 v10.5 c0 3.6 6.7 6.5 15 6.5 s15 -2.9 15 -6.5 V27.5 L32 36 Z" fill="#0e4749"/>
+        <circle cx="56" cy="26" r="2.6" fill="#d6aec1"/>
+        <line x1="56" y1="26" x2="56" y2="44" stroke="#d6aec1" stroke-width="2"/>
+      </svg>
+      <span>Nava</span>
+    </div>
+    <h1 class="title">An 18-year-old just chose<br />her future from a<br /><span class="tl">WhatsApp forward.</span></h1>
+    <div class="rule"></div>
+    <p class="lede" style="max-width: 760px;">We built <b>Nava</b>: it turns a photo of an Algerian transcript, or five chat questions about the bac, into a dated, sourced university plan. In minutes.</p>
+  </div>
+  <div class="foot"><span>Nava · Algerian ambition, mapped</span><span>1 / 7</span></div>
+</section>
+
+<!-- ============ 2 · PROBLEM & STAKES ============ -->
+<section class="slide">
+  <div class="glow g1"></div>
+  <div class="eyebrow"><span class="dot"></span>The problem</div>
+  <h2 class="head" style="margin-top: 18px;">The information exists. It is just <span style="color:#1c5d5f;">locked away</span> from the student.</h2>
+
+  <div class="grid g3" style="margin-top: 32px;">
+    <div class="card">
+      <div class="k">One window a year</div>
+      <h3>Miss the date, lose the year</h3>
+      <p>Scholarship and Campus France windows open once. Nobody tells an ordinary student when. The deadline simply passes.</p>
+    </div>
+    <div class="card">
+      <div class="k">The paperwork maze</div>
+      <h3>Every paper, its own office</h3>
+      <p>Certified copies, sworn translations, legalisation chains, each with its own fee and delay, and no single list anywhere.</p>
+    </div>
+    <div class="card">
+      <div class="k">Decisions by rumour</div>
+      <h3>Nobody knows the real cut-off</h3>
+      <p>Students pick a faculty or a program on folklore. The number that decides their future is never written down where they can see it.</p>
+    </div>
+  </div>
+
+  <div class="foot"><span>Nava · Algerian ambition, mapped</span><span>2 / 7</span></div>
+</section>
+
+<!-- ============ 3 · THE SOLUTION ============ -->
+<section class="slide">
+  <div class="glow g2"></div>
+  <div class="eyebrow"><span class="dot"></span>The solution</div>
+
+  <p class="big" style="margin-top: 40px;">We built <b>Nava</b>, which helps Algerian students go from a transcript photo, or a short chat about the bac, to a <b>dated, sourced plan</b> in under ten minutes.</p>
+
+  <div class="grid g2" style="margin-top: 48px;">
+    <div class="card" style="padding: 18px 22px;">
+      <div class="k">What lands in their hands</div>
+      <h3>A plan with dates on it</h3>
+      <p>Ranked options with honest chances, the documents to prepare, the deadlines that matter, exportable as a PDF checklist.</p>
+    </div>
+    <div class="card" style="padding: 18px 22px;">
+      <div class="k">Two doors, one product</div>
+      <h3>Algeria first, then abroad</h3>
+      <p>A bac graduate is oriented inside Algeria first. A university student gets the scholarship-and-visa track. Same profile, both directions.</p>
+    </div>
+  </div>
+
+  <div class="foot"><span>Nava · Algerian ambition, mapped</span><span>3 / 7</span></div>
+</section>
+
+<!-- ============ 4 · LIVE DEMO ============ -->
+<section class="slide">
+  <div class="glow g1"></div>
+  <div class="eyebrow"><span class="dot"></span>Live demo: one flow, start to finish</div>
+  <h2 class="head" style="margin-top: 18px;">One photo. One plan. Watch the whole thing.</h2>
+
+  <div class="grid g3" style="margin-top: 28px;">
+    <div class="shot">
+      <div class="num">1</div>
+      <h4>Photo in, profile out</h4>
+      <p>Photograph the transcript. Nava reads it and asks the student to confirm what it saw. Nothing is accepted unseen.</p>
+    </div>
+    <div class="shot">
+      <div class="num">2</div>
+      <h4>Ranked, honest options</h4>
+      <p>Options with a verdict beside each: <b style="color:#1a6b4a;">Eligible</b>, likely, or <b style="color:#a4571f;">Unknown</b> when a fact is not verified. Never a guess dressed as a promise.</p>
+    </div>
+    <div class="shot">
+      <div class="num">3</div>
+      <h4>Plan with dates</h4>
+      <p>Tasks back-planned from the deadline, a document checklist, and the export a family can print and act on.</p>
+    </div>
+  </div>
+
+  <div class="foot"><span>Nava · Algerian ambition, mapped</span><span>4 / 7</span></div>
+</section>
+
+<!-- ============ 5 · HOW IT STAYS HONEST ============ -->
+<section class="slide">
+  <div class="glow g2"></div>
+  <div class="eyebrow"><span class="dot"></span>Why you can trust the answer</div>
+  <h2 class="head" style="margin-top: 18px;">The plan is only worth what its facts are worth.</h2>
+
+  <div class="grid g2" style="margin-top: 30px;">
+    <div class="card">
+      <div class="k">The rule</div>
+      <h3>Found online, verified, never generated</h3>
+      <p style="font-family:'Source Serif 4',serif; font-size: 19px; color:#16325a; line-height:1.45; margin-top: 10px;">"Every fact in Nava links to its official source and verification date."</p>
+      <p style="margin-top: 12px;">Opportunities are pulled live from official pages and kept current. If a fact is not verified, it shows as <b>Unknown</b>. The product refuses to fill a gap with a guess.</p>
+    </div>
+    <div class="card">
+      <div class="k">The guarantee</div>
+      <h3>What Nava will not do</h3>
+      <ul class="plain" style="margin-top: 10px;">
+        <li><span class="cross">✕</span><span>Invent a deadline, a fee or a test minimum.</span></li>
+        <li><span class="cross">✕</span><span>Promise admission or estimate chances.</span></li>
+        <li><span class="cross">✕</span><span>Keep a student's documents, deleted on request, private by design.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot"><span>Nava · Algerian ambition, mapped</span><span>5 / 7</span></div>
+</section>
+
+<!-- ============ 6 · WHY WE WIN ============ -->
+<section class="slide">
+  <div class="glow g1"></div>
+  <div class="eyebrow"><span class="dot"></span>Competition &amp; advantage</div>
+  <h2 class="head" style="margin-top: 18px;">Everyone else sells a shortcut. We sell <span style="color:#1c5d5f;">trust</span>.</h2>
+
+  <div class="grid g3" style="margin-top: 30px;">
+    <div class="card">
+      <div class="k">Today's alternatives</div>
+      <h3>They each fail differently</h3>
+      <p>A chatbot invents deadlines. WhatsApp groups carry folklore. Agencies serve only the families who can pay.</p>
+    </div>
+    <div class="card">
+      <div class="k">Our edge</div>
+      <h3>A verified pipeline, not a prompt</h3>
+      <p>Nava keeps watching the official web and turns it into dated plans. Copying the interface takes a month; copying the verified pipeline takes a year of slow, boring, relentless work.</p>
+    </div>
+    <div class="card">
+      <div class="k">Why students stay</div>
+      <h3>Free where it matters</h3>
+      <p>Planning and matching stay free, because trust is the product. Later, revenue sits where money is already moving: application support and schools.</p>
+    </div>
+  </div>
+
+  <div class="foot"><span>Nava · Algerian ambition, mapped</span><span>6 / 7</span></div>
+</section>
+
+<!-- ============ 7 · NEXT STEPS & ASK ============ -->
+<section class="slide">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="ring r2"></div>
+  <div class="cover">
+    <div class="eyebrow" style="margin-bottom: 20px;"><span class="dot"></span>Next steps &amp; the ask</div>
+    <h1 class="title" style="font-size: 50px;">Give every Algerian student<br />the plan a well-connected<br /><span class="tl">one already has.</span></h1>
+    <div class="rule"></div>
+    <div class="grid g3" style="max-width: 1080px;">
+      <div>
+        <p class="eyebrow" style="font-size: 11px; margin-bottom: 8px;"><span class="dot"></span>First adopters</p>
+        <p style="font-size: 14.5px; line-height: 1.5; color:#4c5f63;">The July bac cohort, through two pilot lycées signed in the first months.</p>
+      </div>
+      <div>
+        <p class="eyebrow" style="font-size: 11px; margin-bottom: 8px;"><span class="dot"></span>Next 90 days</p>
+        <p style="font-size: 14.5px; line-height: 1.5; color:#4c5f63;">Widen the live scan of official sources, launch with the bac cohort, prove it in two schools.</p>
+      </div>
+      <div>
+        <p class="eyebrow" style="font-size: 11px; margin-bottom: 8px;"><span class="dot"></span>The prize unlocks</p>
+        <p style="font-size: 14.5px; line-height: 1.5; color:#4c5f63;">The AI Grid Premium Pack keeps our pipeline running at national scale for 3 to 12 months. 100% team IP, first 10 pilot students onboarded within 30 days.</p>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:14px; margin-top: 26px;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
+          <polygon points="32,8 61,22 32,36 3,22" fill="#1c5d5f"/>
+          <path d="M17 27.5 v10.5 c0 3.6 6.7 6.5 15 6.5 s15 -2.9 15 -6.5 V27.5 L32 36 Z" fill="#0e4749"/>
+        </svg>
+        <span style="font-family:'Source Serif 4',serif; font-size: 24px; font-weight:700; color:#16325a;">Nava</span>
+      </div>
+      <span style="font-family:'IBM Plex Mono',monospace; font-size: 12px; letter-spacing:0.12em; text-transform:uppercase; color:#4c5f63;">From your transcript to a plan</span>
+    </div>
+  </div>
+  <div class="foot"><span>Nava · Algerian ambition, mapped</span><span>7 / 7</span></div>
+</section>
+
+</body>
+</html>

@@ -21,14 +21,38 @@ export type WishRow = {
   match: OrientationMatch;
 };
 
-export function WishesPanel({ initial, catalog }: { initial: WishRow[]; catalog: { id: string; name: string; institution: string }[] }) {
+export function WishesPanel({ initial, catalog, suggested = false }: { initial: WishRow[]; catalog: { id: string; name: string; institution: string }[]; suggested?: boolean }) {
   const { t } = useI18n();
   const router = useRouter();
   const [rows, setRows] = useState<WishRow[]>(initial);
+  // Re-sync when the server sends fresh data (router.refresh() re-renders this
+  // client component with a new `initial`, but useState keeps the old array).
+  // Without this, adding a wish saves it server-side yet never shows in the
+  // list until a hard reload. Sync-during-render avoids an effect flicker.
+  const [lastInitial, setLastInitial] = useState<WishRow[]>(initial);
+  if (initial !== lastInitial) {
+    setLastInitial(initial);
+    setRows(initial);
+  }
   const [busy, setBusy] = useState(false);
   const [search, setSearch] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [pendingOrder, setPendingOrder] = useState<WishRow[] | null>(null);
+  const [justSuggested, setJustSuggested] = useState(suggested);
+
+  /** Seed the fiche with the top compatible formations (§7.2 "suggest some"). */
+  async function suggestForMe() {
+    setBusy(true);
+    try {
+      const res = await fetch("/api/wishes/suggest", { method: "POST" });
+      if (res.ok) {
+        setJustSuggested(true);
+        router.refresh();
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
 
   const warnings = useMemo(
     () => wishWarnings(rows.map((r) => r.match.verdict), rows.map((r) => r.formationId)),
@@ -94,6 +118,11 @@ export function WishesPanel({ initial, catalog }: { initial: WishRow[]; catalog:
 
   return (
     <div className="flex flex-col gap-5">
+      {justSuggested && (
+        <div className="rounded-[var(--radius)] border border-[var(--brand-soft,#dcefe9)] bg-[var(--surface-sunken)] px-4 py-3 text-sm" role="status">
+          {t("wishes.suggestedNote")}
+        </div>
+      )}
       {warnings.length > 0 && (
         <div className="rounded-[var(--radius)] border border-[var(--warn,#b45309)]/40 bg-[var(--surface-sunken)] px-4 py-3 text-sm" role="alert">
           {warnings.includes("too_many_risky") && <p>{t("wishes.warn.tooManyRisky")}</p>}
@@ -180,7 +209,15 @@ export function WishesPanel({ initial, catalog }: { initial: WishRow[]; catalog:
         {rows.length === 0 ? (
           <div className="px-5 py-10 text-center">
             <p className="text-sm text-[var(--text-muted)]">{t("wishes.empty")}</p>
-            <Button className="mt-3" size="sm" onClick={() => setShowSearch(true)}>{t("wishes.startFromMatches")}</Button>
+            <div className="mt-3 flex justify-center gap-2">
+              <Button size="sm" onClick={suggestForMe} disabled={busy}>
+                <Shuffle className="h-4 w-4" aria-hidden="true" />
+                {t("wishes.suggestStart")}
+              </Button>
+              <Button size="sm" variant="outline" onClick={() => setShowSearch(true)} disabled={busy}>
+                {t("wishes.startFromMatches")}
+              </Button>
+            </div>
           </div>
         ) : (
           <ol>

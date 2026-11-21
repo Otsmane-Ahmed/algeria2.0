@@ -231,7 +231,16 @@ export function BacChat({ initialProfile, initialConfirmed }: { initialProfile: 
     const body = await post("confirm", {});
     if (!body) return;
     setConfirmed(true);
-    router.push("/wishes");
+    // "Not yet, suggest some" (§7.2): seed the fiche with the top compatible
+    // formations before landing on it. Best-effort — a failed suggestion
+    // still lands on the (possibly empty) fiche, never blocks the flow.
+    try {
+      const res = await fetch("/api/wishes/suggest", { method: "POST" });
+      const suggested = res.ok && (await res.json()).seeded > 0;
+      router.push(suggested ? "/wishes?suggested=1" : "/wishes");
+    } catch {
+      router.push("/wishes");
+    }
     router.refresh();
   }
 

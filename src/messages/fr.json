@@ -608,5 +608,7 @@
   "dashA.startChat": "Commencer ton chat d'orientation",
   "dashA.continueChat": "Reprendre ton chat",
   "dashA.rankWishes": "Classer tes vœux",
-  "dashA.seeMatches": "Voir tes options"
+  "dashA.seeMatches": "Voir tes options",
+  "wishes.suggestStart": "Proposer une liste de départ",
+  "wishes.suggestedNote": "Liste proposée à partir de tes réponses au chat — réordonne ou retire librement, rien n'est soumis automatiquement."
 }

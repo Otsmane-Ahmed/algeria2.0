@@ -126,6 +126,70 @@ export function evaluateFormation(
   return { formation, verdict, score, factors, blockers, missing };
 }
 
+/**
+ * Suggest a starting fiche de vœux (§7.2 "Not yet, suggest some"): rank the
+ * whole formation catalog with the same deterministic engine Matches uses,
+ * boost the ones related to the interests the chatbot extracted, honor the
+ * public-only budget constraint, and return the top `limit` ids. Pure — the
+ * route persists them; nothing here invents a cut-off or an admission chance.
+ */
+const VERDICT_RANK: Record<OrientationVerdict, number> = {
+  eligible: 0,
+  likely: 1,
+  unknown: 2,
+  stretch: 3,
+  ineligible: 4,
+};
+
+const stripAccents = (s: string) =>
+  s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+export function suggestWishOrder(
+  formations: FormationRow[],
+  profile: BacProfileData | null,
+  limit = 5,
+): string[] {
+  const interests = (profile?.interests ?? [])
+    .map(stripAccents)
+    .filter((x) => x.length >= 3);
+  const publicOnly =
+    profile?.constraints.institutionType === "public" ||
+    profile?.constraints.budget === "free_only";
+
+  const candidates = formations
+    .map((f, i) => {
+      const match = evaluateFormation(f, profile);
+      const verdictRank = VERDICT_RANK[match.verdict];
+      // Interest relevance: AI-extracted tags matched against domain tags and
+      // names. Ordering signal only — it never changes a verdict.
+      const hay = stripAccents(
+        `${f.domainTags.join(" ")} ${f.nameFr} ${f.nameEn ?? ""} ${f.institution}`,
+      );
+      let relevance = 0;
+      for (const tag of interests) {
+        if (hay.includes(tag)) relevance += 2;
+        else if (tag.split(/\s+/).some((w) => w.length >= 4 && hay.includes(w))) relevance += 1;
+      }
+      if (match.factors.some((x) => x.key === "distance" && x.status === "ok")) relevance += 0.5;
+      return { id: f.id, verdictRank, score: match.score, relevance, i };
+    })
+    .filter(
+      (c) =>
+        // Ineligible (stream not accepted) is never suggested.
+        c.verdictRank < VERDICT_RANK.ineligible &&
+        (!publicOnly || !formations[c.i]!.tuition.startsWith("private")),
+    );
+
+  candidates.sort(
+    (a, b) =>
+      a.verdictRank - b.verdictRank ||
+      b.relevance - a.relevance ||
+      b.score - a.score ||
+      a.i - b.i,
+  );
+  return candidates.slice(0, limit).map((c) => c.id);
+}
+
 const WILAYA_CODES: Record<string, number> = {
   adrar: 1, chlef: 2, laghouat: 3, oum_el_bouaghi: 4, batna: 5, bejaia: 6, biskra: 7,
   bechar: 8, blida: 9, bouira: 10, tamanrasset: 11, tebessa: 12, tlemcen: 13, tiaret: 14,
